@@ -7,11 +7,9 @@
 
 #define _REENTRANT
 
-#include "common.h"
+// #include "common.h"
 
 #include "rtg.h"
-
-#include <pthread.h>
 
 /* Yes.  Globals. */
 stats_t stats =
@@ -71,7 +69,7 @@ int main(int argc, char *argv[]) {
 	}
 
     if (set.verbose >= LOW)
-	printf("RTG version %s starting.\n", VERSION);
+	printf("RTG version %s starting.\n", RTG_VERSION);
 
     /* Initialize signal handler */
     sigemptyset(&signal_set);
@@ -211,6 +209,7 @@ int main(int argc, char *argv[]) {
     } /* while */
 
     /* Disconnect from the MySQL Database, exit. */
+
     if (!(set.dboff))
 	rtg_dbdisconnect(&mysql);
     exit(0);
@@ -258,7 +257,7 @@ void *sig_handler(void *arg)
 
 void usage(char *prog)
 {
-    printf("rtgpoll - RTG v%s\n", VERSION);
+    printf("rtgpoll - RTG v%s\n", RTG_VERSION);
     printf("Usage: %s [-dmz] [-vvv] [-c <file>] -t <file>\n", prog);
     printf("\nOptions:\n");
     printf("  -c <file>   Specify configuration file\n");

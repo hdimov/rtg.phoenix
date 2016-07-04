@@ -5,10 +5,7 @@
    Description: RTG Routines
 ****************************************************************************/
 
-#include "common.h"
 #include "rtg.h"
-
-#include <pthread.h>
 
 extern FILE *dfp;
 
@@ -80,7 +77,7 @@ int write_rtg_config(char *file, config_t * set)
         fprintf(dfp, "\nCould not open '%s' for writing\n", file);
         return (-1);
     } else {
-        fprintf(fp, "#\n# RTG v%s Master Config\n#\n", VERSION);
+        fprintf(fp, "#\n# RTG v%s Master Config\n#\n", RTG_VERSION);
         fprintf(fp, "Interval\t%d\n", set->interval);
         fprintf(fp, "HighSkewSlop\t%f\n", set->highskewslop);
         fprintf(fp, "LowSkewSlop\t%f\n", set->lowskewslop);

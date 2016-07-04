@@ -5,7 +5,7 @@
    Description: RTG SNMP Routines
 ****************************************************************************/
 
-#include "common.h"
+// #include "common.h"
 #include "rtg.h"
 
 #ifdef OLD_UCD_SNMP

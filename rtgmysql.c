@@ -5,7 +5,7 @@
    Purpose:     RTG MySQL routines
 ****************************************************************************/
 
-#include "common.h"
+// #include "common.h"
 #include "rtg.h"
 
 extern FILE *dfp;

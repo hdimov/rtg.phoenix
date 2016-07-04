@@ -46,7 +46,7 @@
   There are a bunch of subtleties beyond this that we try to comment.
 */
 
-#include "common.h"
+// #include "common.h"
 #include "rtg.h"
 #include "rtgplot.h"
 #include "cgi.h"

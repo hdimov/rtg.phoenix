@@ -8,8 +8,32 @@
 #ifndef _RTG_H_
 #define _RTG_H_ 1
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <sys/types.h>
+#include <unistd.h>
+
+#include <stdint.h>
+
+
+#include <netinet/in.h>
+
+#include <sys/time.h>
+#include <time.h>
 
 #include <pthread.h>
+
+#include <signal.h>
+
+#include <mysql.h>
+
+// 1z0
+
+#define RTG_HOME "/tmp"
+#define RTG_VERSION "v0.0.1p"
+
 
 /* Defines */ 
 #ifndef FALSE

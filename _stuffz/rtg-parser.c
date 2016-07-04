@@ -6,9 +6,8 @@
 
 #include <mysql.h>
 
-#include "common.h"
-#include "rtg.h"
-#include "rtgplot.h" 
+#include "../rtg.h"
+#include "../rtgplot.h"
 
 #define MAX_TABLE_NAME 128
 #define MAX_GROUP_NAME 128

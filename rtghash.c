@@ -5,7 +5,7 @@
    Description: RTG target hash table routines
 ****************************************************************************/
 
-#include "common.h"
+// #include "common.h"
 #include "rtg.h"
 
 /* Initialize hash table */
