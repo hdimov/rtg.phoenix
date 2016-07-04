@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,25 +17,25 @@
 #define MAX_TABLES 32
 
 typedef struct table_struct {
-  
-  char name[MAX_TABLE_NAME];
-  
-  unsigned int ids[MAX_TABLE_IDS];
-  unsigned int ids_count;
-  
-  data_t* data[MAX_TABLE_IDS];
-  rate_t rate[MAX_TABLE_IDS];
-  
+
+	char name[MAX_TABLE_NAME];
+
+	unsigned int ids[MAX_TABLE_IDS];
+	unsigned int ids_count;
+
+	data_t *data[MAX_TABLE_IDS];
+	rate_t rate[MAX_TABLE_IDS];
+
 } table_t;
 
 typedef struct group_struct {
-  
-  char name[MAX_GROUP_NAME];
-  
-  table_t tables[MAX_TABLES];
-  //char counter_names[MAX_TABLES][MAX_COUNTER_NAME];
-  
-  unsigned int tables_count;
+
+	char name[MAX_GROUP_NAME];
+
+	table_t tables[MAX_TABLES];
+	//char counter_names[MAX_TABLES][MAX_COUNTER_NAME];
+
+	unsigned int tables_count;
 
 } group_t;
 
@@ -45,7 +43,7 @@ group_t groups[MAX_GROUPS];
 unsigned int groups_count;
 
 int parse_group_data(char *str) {
-  
+
 	char *semi_col = NULL;
 	char *p = str;
 	
@@ -60,8 +58,8 @@ int parse_group_data(char *str) {
 		strncpy(chunk, p, semi_col - p);
 		
 		if (strstr(chunk, "gn:") == chunk) { // we got a group name;
-		
-			group_id ++;
+
+			group_id++;
 			
 			if (group_id > 0) groups[group_id - 1].tables_count = table_id;
 			
@@ -70,9 +68,9 @@ int parse_group_data(char *str) {
 			memset(&groups[group_id], 0, sizeof(group_t));
 			group = &groups[group_id];
 			
-			strcpy(group -> name, chunk + 3);
+			strcpy(group->name, chunk + 3);
 			//printf("gn:%s\n", chunk + 3);
-		
+
 /*
 		} else if (strstr(chunk, "cn:") == chunk) { // we got a group name;
 		
@@ -85,7 +83,7 @@ int parse_group_data(char *str) {
 		} else { // got a table name  + ids;
 
 			unsigned int id_id = 0;
-		
+
 			char *colon = strchr(chunk, ':');
 			
 			char *tname = (char *) calloc(colon - chunk, sizeof(char));
@@ -96,23 +94,23 @@ int parse_group_data(char *str) {
 			//printf("tn:%s\n", tname);
 			
 			char *comma = strchr(colon, ',');
-			char *id = (char*) calloc(16, sizeof(char));
+			char *id = (char *) calloc(16, sizeof(char));
 			
 			if (comma == NULL) { // only one id;
-			
+
 				strcpy(id, colon + 1);
-				(group -> tables[table_id]).ids[id_id] = atoi(id);
+				(group->tables[table_id]).ids[id_id] = atoi(id);
 				id_id++;
 				//printf("\tid:%s\n", id);
 				
 			} else {
-			  
+
 				do {
-				  
+
 					memset(id, 0, 16);
 					strncpy(id, colon + 1, comma - (colon + 1));
 					
-					(group -> tables[table_id]).ids[id_id] = atoi(id);
+					(group->tables[table_id]).ids[id_id] = atoi(id);
 					id_id++;
 					
 					// printf("\tid:%s\n", id);
@@ -123,20 +121,20 @@ int parse_group_data(char *str) {
 				memset(id, 0, 16);
 				strcpy(id, colon + 1);
 
-				(group -> tables[table_id]).ids[id_id] = atoi(id);
+				(group->tables[table_id]).ids[id_id] = atoi(id);
 				id_id++;
 				
 				//printf("\tid:%s\n", id);
 				
 			}
 			
-			(group -> tables[table_id]).ids_count = id_id;
+			(group->tables[table_id]).ids_count = id_id;
 			
-			table_id ++;
+			table_id++;
 			
 			free(tname);
 			free(id);
-		
+
 		}
 
 		p = semi_col + 1;
@@ -191,7 +189,7 @@ int parse_group_data(char *str) {
 }
 */
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
 	//char line[] = "gn:input;t1:1;t2:2,23;gn:gogo;t2:2;t3:122,23;gn:pesho;t3:122,23;";
 	//char line[] = "gn:some_name;cn:abc;t1:2;t2:122,23;cn:gogo;t2:2;t3:122,23;cn:pesho;t3:122,23;+cn:abc;t1:2;t2:122,23;cn:gogo;t2:2;t3:122,23;";
@@ -203,13 +201,13 @@ int main(int argc, char* argv[]) {
 	groups_count = 0;
 	parse_group_data(line);
 	
-	int i,j,k;
+	int i, j, k;
 	
 	for (i = 0; i < groups_count; i++) {
 		printf("group: %s\n", groups[i].name);
-		for(j = 0; j < groups[i].tables_count; j++) {
+		for (j = 0; j < groups[i].tables_count; j++) {
 			printf("\ttable: %s\n", groups[i].tables[j].name);
-			for(k = 0; k < groups[i].tables[j].ids_count; k++) {
+			for (k = 0; k < groups[i].tables[j].ids_count; k++) {
 				printf("\t\tid: %d\n", groups[i].tables[j].ids[k]);
 			}
 		}

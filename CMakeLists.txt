@@ -7,8 +7,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 include_directories(/opt/local/include/mariadb-10.1/mysql)
 include_directories(/opt/local/include/net-snmp)
 
-link_directories( /opt/local/lib/mariadb-10.1/mysql/ )
-link_directories( /opt/local/lib )
+link_directories(/opt/local/lib/mariadb-10.1/mysql/)
+link_directories(/opt/local/lib)
 
 set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c rtgsnmp.c rtgpoll.c)
 add_executable(ppoller ${SOURCE_FILES})

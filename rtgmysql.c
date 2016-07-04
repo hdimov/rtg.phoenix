@@ -1,43 +1,53 @@
 /****************************************************************************
-   Program:     $Id: rtgmysql.c,v 1.10 2003/05/21 20:20:38 rbeverly Exp $
-   Author:      $Author: rbeverly $
-   Date:        $Date: 2003/05/21 20:20:38 $
-   Purpose:     RTG MySQL routines
+   Program:     rtgmysql.c, v0.0.1.phoenix
+   Author(s):   rbeverly, ico.dimov
+   Purpose:     RTG.phoenix MySQL/MariaDB routines
 ****************************************************************************/
 
 // #include "common.h"
 #include "rtg.h"
 
-extern FILE *dfp;
+extern FILE *_fp_debug;
 
-int db_insert(char *query, MYSQL * mysql)
-{
-    if (set.verbose >= HIGH)
-	printf("SQL: %s\n", query);
-    if (mysql_query(mysql, query)) {
-	if (set.verbose >= LOW)
-	    fprintf(stderr, "** MySQL Error: %s\n", mysql_error(mysql));
-	return (FALSE);
-    } else
+int _db_insert(char *_query, MYSQL *_mysql) {
+	if (set.verbose >= HIGH)
+		printf("SQL: %s\n", _query);
+
+	if (mysql_query(_mysql, _query)) {
+
+		if (set.verbose >= LOW)
+			fprintf(stderr, "[  err] MySQL/MariaDB error: %s\n", mysql_error(_mysql));
+
+		return (FALSE);
+
+	}
+
 	return (TRUE);
+
 }
 
 
-int rtg_dbconnect(char *database, MYSQL * mysql)
-{
-    if (set.verbose >= LOW)
-	fprintf(dfp, "Connecting to MySQL database '%s' on '%s'...", database, set.dbhost);
-    mysql_init(mysql);
-    if (!mysql_real_connect
-     (mysql, set.dbhost, set.dbuser, set.dbpass, database, 0, NULL, 0)) {
-	fprintf(dfp, "** Failed: %s\n", mysql_error(mysql));
-	return (-1);
-    } else
+int _db_connect(char *_database, MYSQL *_mysql) {
+
+	if (set.verbose >= LOW)
+		fprintf(_fp_debug, "[ info] connecting to MySQL/MariaDB _database '%s' on '%s'...", _database, set.dbhost);
+
+	mysql_init(_mysql);
+
+	if (
+			!mysql_real_connect(_mysql, set.dbhost, set.dbuser, set.dbpass, _database, 0, NULL, 0)
+			) {
+		fprintf(_fp_debug, "[  err] failed to connect: %s\n", mysql_error(_mysql));
+		return (-1);
+	}
+
 	return (0);
+
 }
 
 
-void rtg_dbdisconnect(MYSQL * mysql)
-{
-    mysql_close(mysql);
+void _db_disconnect(MYSQL *_mysql) {
+
+	mysql_close(_mysql);
+
 }

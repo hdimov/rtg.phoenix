@@ -14,12 +14,15 @@
 /* Yes.  Globals. */
 stats_t stats =
 		{PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0, 0.0};
+
 char *target_file = NULL;
 target_t *current = NULL;
 MYSQL mysql;
+
 int entries = 0;
+
 /* dfp is a debug file pointer.  Points to stderr unless debug=level is set */
-FILE *dfp = NULL;
+FILE *_fp_debug = NULL;
 
 
 /* Main rtgpoll */
@@ -35,11 +38,11 @@ int main(int argc, char *argv[]) {
 
 	char *conf_file = NULL;
 
-	char errstr[BUFSIZE];
+	char errstr[_BUFF_SIZE];
 
 	int ch, i;
 
-	dfp = stderr;
+	_fp_debug = stderr;
 
 	/* Check argument count */
 	if (argc < 3)
@@ -87,7 +90,7 @@ int main(int argc, char *argv[]) {
 	sigaddset(&signal_set, SIGQUIT);
 
 	if (!set.multiple)
-		checkPID(PIDFILE);
+		checkPID(PID_FILE);
 
 	if (pthread_sigmask(SIG_BLOCK, &signal_set, NULL) != 0)
 		printf("pthread_sigmask error\n");
@@ -99,18 +102,18 @@ int main(int argc, char *argv[]) {
 			exit(-1);
 		}
 	} else {
-		conf_file = malloc(BUFSIZE);
+		conf_file = malloc(_BUFF_SIZE);
 		if (!conf_file) {
 			printf("Fatal malloc error!\n");
 			exit(-1);
 		}
 		for (i = 0; i < CONFIG_PATHS; i++) {
-			snprintf(conf_file, BUFSIZE, "%s%s", config_paths[i], DEFAULT_CONF_FILE);
+			snprintf(conf_file, _BUFF_SIZE, "%s%s", config_paths[i], DEFAULT_CONF_FILE);
 			if (read_rtg_config(conf_file, &set) >= 0) {
 				break;
 			}
 			if (i == CONFIG_PATHS - 1) {
-				snprintf(conf_file, BUFSIZE, "%s%s", config_paths[0], DEFAULT_CONF_FILE);
+				snprintf(conf_file, _BUFF_SIZE, "%s%s", config_paths[0], DEFAULT_CONF_FILE);
 				if ((write_rtg_config(conf_file, &set)) < 0) {
 					fprintf(stderr, "Couldn't write config file.\n");
 					exit(-1);
@@ -139,7 +142,7 @@ int main(int argc, char *argv[]) {
 
 	/* Attempt to connect to the MySQL Database */
 	if (!(set.dboff)) {
-		if (rtg_dbconnect(set.dbdb, &mysql) < 0) {
+		if (_db_connect(set.dbdb, &mysql) < 0) {
 			fprintf(stderr, "** Database error - check configuration.\n");
 			exit(-1);
 		}
@@ -218,7 +221,7 @@ int main(int argc, char *argv[]) {
 	/* Disconnect from the MySQL Database, exit. */
 
 	if (!(set.dboff))
-		rtg_dbdisconnect(&mysql);
+		_db_disconnect(&mysql);
 	exit(0);
 }
 
@@ -254,8 +257,8 @@ void *sig_handler(void *arg) {
 			case SIGQUIT:
 				if (set.verbose >= LOW)
 					printf("Quiting: received signal %d.\n", sig_number);
-				rtg_dbdisconnect(&mysql);
-				unlink(PIDFILE);
+				_db_disconnect(&mysql);
+				unlink(PID_FILE);
 				exit(1);
 				break;
 		}
