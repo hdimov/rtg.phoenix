@@ -96,14 +96,16 @@ int write_rtg_config(char *file, config_t * set)
 
 
 /* Populate Master Configuration Defaults */
-void config_defaults(config_t * set)
+void config_defaults(config_t* set)
 {
    set->interval = DEFAULT_INTERVAL;
    set->highskewslop = DEFAULT_HIGHSKEWSLOP;
    set->lowskewslop = DEFAULT_LOWSKEWSLOP;
    set->out_of_range = DEFAULT_OUT_OF_RANGE;
+
    set->snmp_ver = DEFAULT_SNMP_VER;
    set->snmp_port = DEFAULT_SNMP_PORT;
+
    set->threads = DEFAULT_THREADS;
    strncpy(set->dbhost, DEFAULT_DB_HOST, sizeof(set->dbhost));
    strncpy(set->dbdb, DEFAULT_DB_DB, sizeof(set->dbhost));
@@ -115,7 +117,9 @@ void config_defaults(config_t * set)
    strncpy(config_paths[0], CONFIG_PATH_1, sizeof(config_paths[0]));
    snprintf(config_paths[1], sizeof(config_paths[1]), "%s/etc/", RTG_HOME);
    strncpy(config_paths[2], CONFIG_PATH_2, sizeof(config_paths[1]));
+
    return;
+
 }
 
 

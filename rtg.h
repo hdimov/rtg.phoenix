@@ -32,7 +32,7 @@
 // 1z0
 
 #define RTG_HOME "/tmp"
-#define RTG_VERSION "v0.0.1p"
+#define RTG_VERSION "0.0.1.phoenix"
 
 
 /* Defines */ 
@@ -44,30 +44,40 @@
 #endif
 
 /* Constants */
+
 #define MAX_THREADS 10
+
 #define BUFSIZE 512
+
 #define BITSINBYTE 8
+
 #define THIRTYTWO 4294967295ul
 #define SIXTYFOUR 18446744073709551615ul
 
 /* Define CONFIG_PATHS places to search for the rtg.conf file.  Note
    that RTG_HOME, as determined during autoconf is one path */
+
 #define CONFIG_PATHS 3
 #define CONFIG_PATH_1 ""
 #define CONFIG_PATH_2 "/etc/"
 
 /* Defaults */
 #define DEFAULT_CONF_FILE "rtg.conf"
+
 #define DEFAULT_THREADS 5
 #define DEFAULT_INTERVAL 300
 #define DEFAULT_HIGHSKEWSLOP 3
 #define DEFAULT_LOWSKEWSLOP .5
+
+// ?!
 #define DEFAULT_OUT_OF_RANGE 93750000000ull
+
 #define DEFAULT_DB_HOST "localhost"
 #define DEFAULT_DB_DB "rtg"
 #define DEFAULT_DB_USER "snmp"
 #define DEFAULT_DB_PASS "rtgdefault"
-#define DEFAULT_SNMP_VER 1
+
+#define DEFAULT_SNMP_VER 2 // which stands for snmp v2c
 #define DEFAULT_SNMP_PORT 161
 
 /* PID File */
@@ -126,11 +136,11 @@ typedef struct target_struct {
     char community[64];
     char table[64];
     unsigned int iid;
-#ifdef HAVE_STRTOLL
+// #ifdef HAVE_STRTOLL
     long long maxspeed;
-#else
-    long maxspeed;
-#endif
+//#else
+//    long maxspeed;
+//#endif
     enum targetState init;
     unsigned long long last_value;
     struct target_struct *next;
