@@ -8,17 +8,15 @@
 // #include "common.h"
 #include "rtg.h"
 
-#ifdef OLD_UCD_SNMP
- #include "asn1.h"
- #include "snmp_api.h"
- #include "snmp_impl.h"
- #include "snmp_client.h"
- #include "mib.h"
- #include "snmp.h"
-#else
- #include "net-snmp-config.h"
- #include "net-snmp-includes.h"
-#endif
+// #include "asn1.h"
+// #include "snmp_api.h"
+// #include "snmp_impl.h"
+// #include "snmp_client.h"
+// #include "mib.h"
+// #include "snmp.h"
+
+#include "net-snmp-config.h"
+#include "net-snmp-includes.h"
 
 extern target_t *current;
 extern stats_t stats;

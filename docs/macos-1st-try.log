@@ -1,0 +1,47 @@
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake --build /Users/lisp/Library/Caches/CLion2016.1/cmake/generated/rtg_phoenix-e96dfef1/e96dfef1/Debug --target ppoller -- -j 8
+[ 83%] Building C object CMakeFiles/ppoller.dir/rtgmysql.c.o
+[ 83%] Building C object CMakeFiles/ppoller.dir/rtghash.c.o
+[ 83%] Building C object CMakeFiles/ppoller.dir/rtgpoll.c.o
+[ 83%] Building C object CMakeFiles/ppoller.dir/rtgsnmp.c.o
+[ 83%] Building C object CMakeFiles/ppoller.dir/rtgutil.c.o
+/Users/lisp/ClionProjects/rtg.phoenix/rtghash.c:19:4: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                        HASHSIZE * sizeof(target_t *));
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/lisp/ClionProjects/rtg.phoenix/rtg.h:77:18: note: expanded from macro 'HASHSIZE'
+#define HASHSIZE 5000
+                 ^
+/Users/lisp/ClionProjects/rtg.phoenix/rtgpoll.c:131:5: warning: implicit declaration of function 'init_snmp' is invalid in C99 [-Wimplicit-function-declaration]
+    init_snmp("RTG");
+    ^
+/Users/lisp/ClionProjects/rtg.phoenix/rtghash.c:135:14: warning: format specifies type 'unsigned int' but the argument has type 'unsigned long' [-Wformat]
+           targets, targets * sizeof(target_t));
+                    ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/lisp/ClionProjects/rtg.phoenix/rtghash.c:281:36: warning: format specifies type 'long long' but the argument has type 'long' [-Wformat]
+                                       new->host, new->objoid, new->maxspeed);
+                                                               ^~~~~~~~~~~~~
+/Users/lisp/ClionProjects/rtg.phoenix/rtghash.c:292:13: warning: format specifies type 'int' but the argument has type 'unsigned long' [-Wformat]
+                        entries, entries * sizeof(target_t));
+                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/lisp/ClionProjects/rtg.phoenix/rtgsnmp.c:74:24: warning: assigning to 'u_char *' (aka 'unsigned char *') from 'char [64]' converts between pointers to integer types with different sign [-Wpointer-sign]
+            session.community = current->community;
+                              ^ ~~~~~~~~~~~~~~~~~~
+/Users/lisp/ClionProjects/rtg.phoenix/rtgsnmp.c:75:37: warning: passing 'u_char *' (aka 'unsigned char *') to parameter of type 'const char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+            session.community_len = strlen(session.community);
+                                           ^~~~~~~~~~~~~~~~~
+/usr/include/string.h:82:28: note: passing argument to parameter here
+size_t   strlen(const char *);
+                            ^
+/Users/lisp/ClionProjects/rtg.phoenix/rtgsnmp.c:186:29: warning: comparison of unsigned expression >= 0 is always true [-Wtautological-compare]
+            } else if ((last_value >= 0) && (init != NEW)) {
+                        ~~~~~~~~~~ ^  ~
+/Users/lisp/ClionProjects/rtg.phoenix/rtgsnmp.c:208:50: warning: comparison of unsigned expression < 0 is always false [-Wtautological-compare]
+            if (insert_val > set.out_of_range || result < 0) {
+                                                 ~~~~~~ ^ ~
+/Users/lisp/ClionProjects/rtg.phoenix/rtgsnmp.c:216:41: warning: format specifies type 'long long' but the argument has type 'long' [-Wformat]
+                                        entry->maxspeed,
+                                        ^~~~~~~~~~~~~~~
+4 warnings generated.
+5 warnings generated.
+1 warning generated.
+[100%] Linking C executable /Users/lisp/ClionProjects/rtg.phoenix/bin/Debug/ppoller
+[100%] Built target ppoller

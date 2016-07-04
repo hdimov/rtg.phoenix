@@ -1,9 +1,23 @@
 cmake_minimum_required(VERSION 3.5)
-project(rtg_phoenix)
+project(rtg.phoenix)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lpthread")
+## set(RUNTIME_OUTPUT_DIRECTORY "/Users/lisp/ClionProjects/rtg.phoenix/bin")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
-include_directories( /opt/local/include/mariadb-10.1/mysql )
+include_directories(/opt/local/include/mariadb-10.1/mysql)
+include_directories(/opt/local/include/net-snmp)
 
-set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c rtgpoll.c)
-add_executable(rtg_phoenix ${SOURCE_FILES})
+link_directories( /opt/local/lib/mariadb-10.1/mysql/ )
+link_directories( /opt/local/lib )
+
+set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c rtgsnmp.c rtgpoll.c)
+add_executable(ppoller ${SOURCE_FILES})
+
+target_link_libraries(ppoller pthread mysqlclient netsnmp)
+
+##
+## nd_package (pthread COMPONENTS system filesystem REQUIRED)
+## find_package(mysql COMPONENTS system filesystem REQUIRED)
+##
+## http://nticformation.com/solutions_problems.php?tuto=2942&subCategory=c+++cmake+include+clion+allegro&Category=C++
+##
