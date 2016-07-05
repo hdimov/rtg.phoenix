@@ -114,9 +114,11 @@ void config_defaults(config_t *set) {
 	set->dboff = FALSE;
 	set->withzeros = FALSE;
 	set->verbose = OFF;
+/*
 	strncpy(config_paths[0], CONFIG_PATH_1, sizeof(config_paths[0]));
 	snprintf(config_paths[1], sizeof(config_paths[1]), "%s/etc/", RTG_HOME);
 	strncpy(config_paths[2], CONFIG_PATH_2, sizeof(config_paths[1]));
+*/
 
 	return;
 
@@ -183,6 +185,7 @@ char *file_timestamp() {
 
 
 int checkPID(char *pidfile) {
+
 	FILE *pidptr = NULL;
 	pid_t rtgpoll_pid;
 

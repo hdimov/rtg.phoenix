@@ -43,9 +43,12 @@
 # define TRUE !FALSE
 #endif
 
+
+#define _DB_BACKEND_DISABLED 1
+
 /* global constants */
 
-#define _MAX_THREADS 10
+#define _MAX_THREADS 256
 
 #define _BUFF_SIZE 512
 
@@ -63,15 +66,18 @@
  * */
 
 // 1z0, temp re-definitions
-#define RTG_HOME "/tmp"
-#define RTG_VERSION "0.0.1.phoenix"
+#define RTG_HOME "/Users/lisp/ClionProjects/rtg.phoenix"
+#define RTG_VERSION "0.7.4.phoenix"
+
+#define RTG_NAME "rtg.phoenix"
+#define RTG_NAME_POLLER "rtg.phoenix.poller"
 
 #define CONFIG_PATHS 3
 #define CONFIG_PATH_1 ""
-#define CONFIG_PATH_2 "/etc/"
+#define CONFIG_PATH_2 "/Users/lisp/ClionProjects/rtg.phoenix"
 
 /* Defaults */
-#define DEFAULT_CONF_FILE "rtg.conf"
+#define DEFAULT_CONF_FILE "rtg.phoenix.conf"
 
 #define DEFAULT_THREADS 5
 #define DEFAULT_INTERVAL 300
@@ -177,6 +183,7 @@ typedef struct target_struct {
 
 	enum targetState init;
 	unsigned long long last_value;
+
 	struct target_struct *next;
 
 } target_t;
@@ -227,6 +234,7 @@ void usage(char *);
 
 /* Precasts: rtgpoll.c */
 void *poller(void *);
+void *poller2(void *);
 
 /* Precasts: rtgmysql.c */
 int _db_insert(char *, MYSQL *);
@@ -283,7 +291,9 @@ int hash_target_file(char *);
 config_t set;
 int lock;
 int waiting;
+/*
 char config_paths[CONFIG_PATHS][_BUFF_SIZE];
+*/
 
 hash_t hash;
 

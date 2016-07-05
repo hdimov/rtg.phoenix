@@ -1,0 +1,37 @@
+
+(o) notes from original list, concerning rtg poll-er;
+
+...
+
+2. Make rtgpoll fork and detach like a real grown-up daemon.
+
+3. Support syslog logging.
+
+...
+
+12. Need to add more graceful recovery from failed/restarted pollers.
+Currently a poller that is restarted will look like a drop in
+traffic for the period of time the poller was down.
+
+13. Develop Linux RPMs.
+
+(o) phoenix revision of tasks.
+
+(~) disable mysql/mariadb integration for now; consider more than one db backend at time and db backedn recovery;
+
+(~) [ info|error|debug] messages. also a good thing will be timestamp logging (when not logging to syslog);
+
+(-) enable syslog inegration;
+(-) fork/exec* and .pid managment; enable systemd integration;
+
+(-) while rtgpoll main loop is quite clear, things inside rtgsnmp (poller2) can become quite complicated, specially when
+    there are a lot timeout responses
+
+    consider typical small router with about 100 counters inside targets.conf
+    rtgpoll configured with 10 threads
+    router is not visible for the polling machine;
+    rtg poll interval is 30 seconds;
+    timeout arrives after ~6s
+    rtg will need about a minute to walk through all these counters;
+    so every 2nd poll will be lost, not only for those 100 counters, but for all counters inside targets conf at all;
+

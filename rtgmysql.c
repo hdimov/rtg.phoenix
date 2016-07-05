@@ -1,5 +1,5 @@
 /****************************************************************************
-   Program:     rtgmysql.c, v0.0.1.phoenix
+   Program:     rtgmysql.c, v0.0.1
    Author(s):   rbeverly, ico.dimov
    Purpose:     RTG.phoenix MySQL/MariaDB routines
 ****************************************************************************/

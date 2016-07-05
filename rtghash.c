@@ -68,6 +68,7 @@ void free_hash() {
 
 /* Hash the target */
 unsigned long make_key(const void *entry) {
+
 	const target_t *t = (const target_t *) entry;
 	const char *h = (const char *) t->host;
 	const char *o = (const char *) t->objoid;
@@ -77,10 +78,12 @@ unsigned long make_key(const void *entry) {
 
 	for (hashval = 0; *o != '\0'; o++)
 		hashval = (((unsigned int) *o) | 0x20) + 31 * hashval;
+
 	for (; *h != '\0'; h++)
 		hashval = (((unsigned int) *h) | 0x20) + 31 * hashval;
 
 	return (hashval % _HASH_SIZE);
+
 }
 
 
@@ -263,23 +266,29 @@ int hash_target_file(char *file) {
 	mark_targets(STALE);
 	/* Read each unique target into hash table */
 	while (!feof(fp)) {
+
 		fgets(buffer, _BUFF_SIZE, fp);
+
 		if (!feof(fp) && buffer[0] != '#' && buffer[0] != ' ' && buffer[0] != '\n') {
+
 			new = (target_t *) malloc(sizeof(target_t));
+
 			if (!new) {
 				printf("Fatal target malloc error!\n");
 				exit(-1);
 			}
+
 			sscanf(buffer, "%64s %128s %hu %64s %64s %d %30s",
 			       new->host, new->objoid, &(new->bits),
 			       new->community, new->table,
 			       &(new->iid), maxspeed);
+
 			if (alldigits(maxspeed)) {
-#ifdef HAVE_STRTOLL
+//#ifdef HAVE_STRTOLL
 				new->maxspeed = strtoll(maxspeed, NULL, 0);
-#else
-				new->maxspeed = strtol(maxspeed, NULL, 0);
-#endif
+//#else
+//				new->maxspeed = strtol(maxspeed, NULL, 0);
+//#endif
 			} else {
 				new->maxspeed = set.out_of_range;
 			}

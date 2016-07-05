@@ -1,0 +1,1212 @@
+RTG version 0.0.1.phoenix starting.
+
+Reading RTG target list [targets.conf].
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.7][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.7][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.7][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.7][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.9][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.9][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.9][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.9][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.8][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.8][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.8][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.8][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.23][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.23][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.23][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.23][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1215.1221][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1215.1221][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1225.1231][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1225.1231][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.11][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.11][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.11][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.11][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.27][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.27][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.27][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.27][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.28][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.28][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.28][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.28][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.1][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.1][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.1][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.1][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.2.2.1.14.1][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.21][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.21][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.21][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.21][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.15][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.15][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.15][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.15][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.20][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.20][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.20][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.20][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.3][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.3][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.3][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.3][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.2.2.1.14.3][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.14][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.14][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.14][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.14][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.17][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.17][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.17][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.17][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.26][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.26][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.26][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.26][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.25][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.25][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.25][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.25][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.13][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.13][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.13][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.13][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.16][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.16][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.16][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.16][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.22][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.22][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.22][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.22][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1187][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1187][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1187][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1187][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1193][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1193][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1193][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1193][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1205][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1205][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1205][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1205][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1211][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1211][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1211][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1211][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.24][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.24][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.24][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.24][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1235.1241][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1235.1241][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.6.1245.1251][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.4.1.9.9.166.1.17.1.1.13.1245.1251][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.19][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.19][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.19][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.19][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.2][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.2][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.2][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.2][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.2.2.1.14.2][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.38][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.38][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.38][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.38][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.40][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.40][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.40][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.40][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.41][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.41][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.41][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.41][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.6.48][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.10.48][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.7.48][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.48][93750000000]
+Host[OID][OutOfRange]:ar1.sof10.evolink.net[1.3.6.1.2.1.31.1.1.1.11.55][93750000000]
+Successfully hashed [132] new targets, (47520 bytes).
+Initializing threads (4).
+Initializing SNMP (v2, port 161).
+
+Starting threads.
+Thread [0] starting.
+Thread [1] starting.
+RTG Ready.
+Thread [2] starting.
+Thread [0] locking (wait on work)
+Thread [3] starting.
+Thread [1] locking (wait on work)
+Thread [2] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 132)
+Thread [3] locking (wait on work)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.7 (132 work units remain in queue)
+[07/05 14:14:14 Queue ready, broadcasting thread go condition.]
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 132)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.14 (132 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+Thread [2] done waiting, received go (work cnt: 132)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.25 (132 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 132)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.19 (132 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.7) Counter64: 703007218
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 131)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1215.1221 (131 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.14) Counter64: 7055573505
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 130)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1211 (130 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.25) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.19) Counter64: 9102127901
+Thread [3]: First Poll, Normalizing
+Thread [1] unlocking (done grabbing current)
+Thread [3] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 128)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1211 (128 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1215.1221) Counter64: 653824536
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 128)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1235.1241 (128 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1211) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 126)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.27 (126 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 126)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.38 (126 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1211) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1235.1241) Counter64: 12125495
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 124)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.2.2.1.14.1 (124 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.27) Counter64: 370680212105
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 124)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.23 (124 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 123)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.55 (123 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.38) Counter64: 41113263
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 122)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.11 (122 work units remain in queue)
+32-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.2.2.1.14.1) Counter32: 816364
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 121)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.20 (121 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.23) Counter64: 373583726
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 120)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.8 (120 work units remain in queue)
+Unknown result type: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.55) No Such Instance currently exists at this OID
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 119)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1187 (119 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.11) Counter64: 3404374
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 118)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.26 (118 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.20) Counter64: 408
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 117)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1187 (117 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.8) Counter64: 223591926
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 116)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.38 (116 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1187) Counter64: 1156336087828
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 115)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.14 (115 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.26) Counter64: 6163510986
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 114)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.23 (114 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1187) Counter64: 928878747
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 113)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.19 (113 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.38) Counter64: 4717895516
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 112)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.9 (112 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.14) Counter64: 36650274
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 111)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.11 (111 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.23) Counter64: 78600127683
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 110)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.3 (110 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.19) Counter64: 34529053
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 109)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.28 (109 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.9) Counter64: 49026046
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 108)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.22 (108 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.11) Counter64: 3778767373
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 107)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.1 (107 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.3) Counter64: 25465402777426
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 106)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.16 (106 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.28) Counter64: 104932634936
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 105)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.2.2.1.14.2 (105 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.22) Counter64: 26859892303
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 104)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.27 (104 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.1) Counter64: 26529806632382
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 103)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.48 (103 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.16) Counter64: 1844
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 102)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.15 (102 work units remain in queue)
+32-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.2.2.1.14.2) Counter32: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 101)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.2 (101 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.27) Counter64: 295832017
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 100)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.19 (100 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.48) Counter64: 148423852
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 99)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.24 (99 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.15) Counter64: 95646481
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 98)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.21 (98 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.2) Counter64: 19794206
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 97)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.9 (97 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.19) Counter64: 9677594636
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 96)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1187 (96 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.24) Counter64: 1153410656980
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 95)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1187 (95 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.21) Counter64: 760700992
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 94)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.20 (94 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.9) Counter64: 25894793971
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 93)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.41 (93 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1187) Counter64: 2563145
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 92)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.27 (92 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1187) Counter64: 1777
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 91)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.38 (91 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.20) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 90)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.8 (90 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.41) Counter64: 11914734332
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 89)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.15 (89 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.27) Counter64: 36822013154
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 88)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.7 (88 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.38) Counter64: 25992884
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 87)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.40 (87 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.8) Counter64: 1587842
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.15) Counter64: 105733553726
+Thread [0] unlocking (done grabbing current)
+Thread [2]: First Poll, Normalizing
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 86)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.23 (86 work units remain in queue)
+Thread [2] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.7) Counter64: 76570453542
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 84)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.2 (84 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.40) Counter64: 0
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 84)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.11 (84 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.23) Counter64: 262731114
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 82)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.20 (82 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.2) Counter64: 9411906696
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 82)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.16 (82 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.11) Counter64: 27447569
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 80)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.3 (80 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 80)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.48 (80 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.20) Counter64: 339448757
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.16) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 78)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.1 (78 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 78)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.25 (78 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.3) Counter64: 34555461163
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 77)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.40 (77 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.48) Counter64: 1688489
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 76)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.13 (76 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.1) Counter64: 36097832641
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 75)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.24 (75 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.25) Counter64: 474950867
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 74)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.16 (74 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.40) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 73)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.41 (73 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.13) Counter64: 23983193770265
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 72)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.27 (72 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.24) Counter64: 1099973758
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 71)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.48 (71 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.16) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 70)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.15 (70 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.41) Counter64: 41652424
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 69)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1225.1231 (69 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.27) Counter64: 183661558
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 68)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1205 (68 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.48) Counter64: 1524270167
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 67)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1205 (67 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.15) Counter64: 116643606
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 66)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1245.1251 (66 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1225.1231) Counter64: 404984129268
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 65)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.24 (65 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1205) Counter64: 34190212591
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 64)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.7 (64 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1205) Counter64: 484213706
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 63)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1193 (63 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1245.1251) Counter64: 1152674994374
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 62)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1193 (62 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.24) Counter64: 468727110875
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 61)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.20 (61 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.7) Counter64: 404977350
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 60)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.41 (60 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1181.1193) Counter64: 21147710072360
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 59)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.17 (59 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.3.1181.1193) Counter64: 25806098385
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 58)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.2.2.1.14.3 (58 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.20) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 57)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.28 (57 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.41) Counter64: 71612897466
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 56)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.40 (56 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.17) Counter64: 2511563657366
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+32-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.2.2.1.14.3) Counter32: 21730
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 54)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.13 (54 work units remain in queue)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 54)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.22 (54 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.28) Counter64: 199132291
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 53)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.19 (53 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.40) Counter64: 0
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 52)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.21 (52 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.13) Counter64: 29423918958
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 51)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1225.1231 (51 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.22) Counter64: 25983486070518
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 50)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.28 (50 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.19) Counter64: 19797050
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 49)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1205 (49 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.21) Counter64: 0
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 48)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1205 (48 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1225.1231) Counter64: 24945473587
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 47)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1245.1251 (47 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.28) Counter64: 60380792371
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 46)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.9 (46 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1199.1205) Counter64: 13821254
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 45)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.8 (45 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.10.1199.1205) Counter64: 9110
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 44)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.13 (44 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1245.1251) Counter64: 1657548742
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 43)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1193 (43 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.9) Counter64: 48936397
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 42)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1193 (42 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.8) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 41)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.24 (41 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.13) Counter64: 30694402519753
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 40)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.3 (40 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.13.1181.1193) Counter64: 0
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 39)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.21 (39 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.10.1181.1193) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 38)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.17 (38 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.24) Counter64: 851280012
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 37)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.38 (37 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.3) Counter64: 33004790253239
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.21) Counter64: 0
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.17) Counter64: 6468426910
+Thread [3] unlocking (update work_count)
+Thread [1]: First Poll, Normalizing
+Thread [3] locking (wait on work)
+Thread [0] unlocking (update work_count)
+Thread [1] locking (update work_count)
+Thread [0] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 35)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.2 (35 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 34)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.1 (34 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.38) Counter64: 46434940872
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 34)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.26 (34 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 33)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.14 (33 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.2) Counter64: 36870261
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 32)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.25 (32 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.1) Counter64: 36256950011444
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 31)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.22 (31 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.26) Counter64: 4928307773394
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.14) Counter64: 6599045414
+Thread [2]: First Poll, Normalizing
+Thread [0] unlocking (done grabbing current)
+Thread [2] locking (update work_count)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 29)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.17 (29 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.25) Counter64: 0
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] done waiting, received go (work cnt: 29)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.9 (29 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.22) Counter64: 26413496847
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 27)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.28 (27 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.17) Counter64: 5392348025933
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] done waiting, received go (work cnt: 27)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.7 (27 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.9) Counter64: 9914046992
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 25)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.16 (25 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.28) Counter64: 207317769
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] done waiting, received go (work cnt: 25)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.13 (25 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.7) Counter64: 851409083271
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 23)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.48 (23 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+Thread [0] done waiting, received go (work cnt: 23)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.25 (23 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.16) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 22)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.22 (22 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.13) Counter64: 31317518591
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 21)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.8 (21 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.48) Counter64: 1257425
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.25) Counter64: 0
+Thread [3]: First Poll, Normalizing
+Thread [0]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 20)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.3 (20 work units remain in queue)
+Thread [0] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.22) Counter64: 22370445124819
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 18)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.2 (18 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.8) Counter64: 0
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 18)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.21 (18 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.3) Counter64: 35989836805
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 16)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1215.1221 (16 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.2) Counter64: 9857829849
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 16)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.15 (16 work units remain in queue)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 15)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1211 (15 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.21) Counter64: 0
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 14)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1211 (14 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1215.1221) Counter64: 77879330792
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [1] unlocking (done grabbing current)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 13)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.26 (13 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.15) Counter64: 11598803424
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [2] unlocking (done grabbing current)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 12)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.4.1.9.9.166.1.17.1.1.6.1235.1241 (12 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1199.1211) Counter64: 25946608442157
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 11)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.41 (11 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.3.1199.1211) Counter64: 25913707316
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [1] done waiting, received go (work cnt: 10)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.11.14 (10 work units remain in queue)
+Thread [1] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.26) Counter64: 7560650040
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 9)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.1 (9 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.4.1.9.9.166.1.17.1.1.6.1235.1241) Counter64: 466504332391
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [3] done waiting, received go (work cnt: 8)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.23 (8 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.41) Counter64: 73065141
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.11.14) Counter64: 39680167
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+Thread [0] done waiting, received go (work cnt: 6)
+Thread [0] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.11 (6 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.1) Counter64: 39613556087
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [0] unlocking (done grabbing current)
+Thread [1] done waiting, received go (work cnt: 6)
+Thread [1] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.7.17 (6 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.23) Counter64: 405032417989
+Thread [3]: First Poll, Normalizing
+Thread [1] unlocking (done grabbing current)
+Thread [3] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+Thread [2] done waiting, received go (work cnt: 4)
+Thread [2] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.10.40 (4 work units remain in queue)
+Thread [2] unlocking (done grabbing current)
+Thread [3] done waiting, received go (work cnt: 4)
+Thread [3] processing ar1.sof10.evolink.net 1.3.6.1.2.1.31.1.1.1.6.26 (4 work units remain in queue)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.11) Counter64: 1415454851
+Thread [0]: First Poll, Normalizing
+Thread [0] locking (update work_count)
+Thread [3] unlocking (done grabbing current)
+Thread [0] unlocking (update work_count)
+Thread [0] locking (wait on work)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.7.17) Counter64: 8033327663
+Thread [1]: First Poll, Normalizing
+Thread [1] locking (update work_count)
+Thread [1] unlocking (update work_count)
+Thread [1] locking (wait on work)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.10.40) Counter64: 4517742872
+Thread [2]: First Poll, Normalizing
+Thread [2] locking (update work_count)
+Thread [2] unlocking (update work_count)
+Thread [2] locking (wait on work)
+64-bit result: (ar1.sof10.evolink.net@1.3.6.1.2.1.31.1.1.1.6.26) Counter64: 2492317211596
+Thread [3]: First Poll, Normalizing
+Thread [3] locking (update work_count)
+Queue processed. Broadcasting thread done condition.
+Thread [3] unlocking (update work_count)
+Thread [3] locking (wait on work)
+[07/05 14:14:14 Poll round 1 complete.]
+
+[Polls = 132] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 0] [PollTime = 0.051s]
+Next Poll: 10...9...8...Quiting: received signal 2.

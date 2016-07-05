@@ -1,3 +1,7 @@
+//
+// Created by Hristo Hristov on 7/5/16.
+//
+
 /****************************************************************************
    Program:     $Id: rtgpoll.c,v 1.22 2003/09/25 15:56:04 rbeverly Exp $
    Author:      $Author: rbeverly $
@@ -28,21 +32,42 @@ MYSQL mysql;
 /* dfp is a debug file pointer.  Points to stderr unless debug=level is set */
 FILE *_fp_debug = NULL;
 
-/* Main rtgpoll */
+/*
+ * main rtg.phoenix.poller - namely ppoller event loop;
+ */
+
 int main(int argc, char *argv[]) {
 
-	// http://man7.org/linux/man-pages/man3/syslog.3.html
-	// http://ludovicrousseau.blogspot.bg/2015/03/change-syslog-logging-level-on-yosemite.html
-	// LOG_DAEMON
+	/*
+	 * syslog() aware we will be;
+	 *
 
-	char *_ident = RTG_NAME;
-	int _logopt = LOG_PID; //  | LOG_CONS
-	int _facility = LOG_USER; // LOG_DAEMON |
+	// http://ludovicrousseau.blogspot.bg/2015/03/change-syslog-logging-level-on-yosemite.html
+	// http://man7.org/linux/man-pages/man3/syslog.3.html
+
+	 *
+	 * @macos
+	 *
+
+root@lisa ~ # ps aux | grep ppoller
+root             3874   0.0  0.0  2434840    700 s000  S+    5:34PM   0:00.01 grep ppoller
+lisp             3871   0.0  0.1  2508972   5060 s001  S+    5:34PM   0:00.12 ./bin/Debug/ppoller -vvvv -c rtg.phoenix.conf -t targets.conf
+root@lisa ~ # syslog -c 3871
+Process 3871 syslog settings: 0x00000000 OFF / 0x00 Off
+root@lisa ~ # syslog -c 3871 -i
+root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
+
+//	int mask = LOG_MASK (LOG_INFO | LOG_ERR);
+//	int result = setlogmask(mask);
+
+	 *
+	 */
+
+	char *_ident = RTG_NAME_POLLER;
+	int _logopt = LOG_PID; //| LOG_CONS
+	int _facility = LOG_USER; //| LOG_DAEMON;
 
 	openlog(_ident, _logopt, _facility);
-
-	int mask = LOG_MASK (LOG_INFO | LOG_ERR);
-	int result = setlogmask(mask);
 
 	crew_t crew;
 	pthread_t sig_thread;
@@ -152,6 +177,7 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Error updating target list.");
 		exit(-1);
 	}
+
 	if (set.verbose >= LOW)
 		printf("Initializing threads (%d).\n", set.threads);
 
@@ -164,7 +190,8 @@ int main(int argc, char *argv[]) {
 	if (set.verbose >= LOW)
 		printf("Initializing SNMP (v%d, port %d).\n", set.snmp_ver, set.snmp_port);
 
-	init_snmp(RTG_NAME);
+	// snmp lib;
+	init_snmp(RTG_NAME_POLLER);
 
 	/* Attempt to connect to the MySQL Database */
 	#ifndef _DB_BACKEND_DISABLED

@@ -6,7 +6,6 @@
 ****************************************************************************/
 
 // #include "common.h"
-#include "rtg.h"
 
 // #include "asn1.h"
 // #include "snmp_api.h"
@@ -14,6 +13,8 @@
 // #include "snmp_client.h"
 // #include "mib.h"
 // #include "snmp.h"
+
+#include "rtg.h"
 
 extern target_t *current;
 extern stats_t stats;
@@ -23,9 +24,10 @@ void *poller2(void *thread_args) {
 
 	worker_t *worker = (worker_t *) thread_args;
 
-	crew_t *crew = worker->crew;
+	crew_t *crew = worker -> crew;
 	target_t *entry = NULL;
-	void *sessp = NULL;
+
+	void *_sess_ptr = NULL;
 
 	// local snmp session struct;
 	struct snmp_session session;
@@ -49,14 +51,16 @@ void *poller2(void *thread_args) {
 	if (set.verbose >= HIGH)
 		printf("Thread [%d] starting.\n", worker->index);
 
+	#ifndef _DB_BACKEND_DISABLED
 	mysql_thread_init();
+	#endif
 
 //	if (MYSQL_VERSION_ID > 40000)
 //		mysql_thread_init();
 //	else
 //		my_thread_init();
 
-	// while (1) {
+	while (1) {
 
 	if (set.verbose >= DEVELOP)
 		printf("Thread [%d] locking (wait on work)\n", worker->index);
@@ -86,14 +90,15 @@ void *poller2(void *thread_args) {
 
 		session.peername = current->host;
 		session.remote_port = set.snmp_port;
-		session.community = current->community;
+		session.community = (u_char *) current->community;
 		session.community_len = strlen(session.community);
 
 		// create it;
-		sessp = snmp_sess_open(&session);
+		_sess_ptr = snmp_sess_open(&session);
 
 		anOID_len = MAX_OID_LEN;
 		pdu = snmp_pdu_create(SNMP_MSG_GET);
+
 		read_objid(current->objoid, anOID, &anOID_len);
 		entry = current;
 		last_value = current->last_value;
@@ -111,10 +116,11 @@ void *poller2(void *thread_args) {
 
 	PT_MUTEX_UNLOCK(&crew->mutex);
 
+	// http://www.net-snmp.org/wiki/index.php/TUT:Simple_Application
 	snmp_add_null_var(pdu, anOID, anOID_len);
 
-	if (sessp != NULL)
-		status = snmp_sess_synch_response(sessp, pdu, &response);
+	if (_sess_ptr != NULL)
+		status = snmp_sess_synch_response(_sess_ptr, pdu, &response);
 	else
 		status = STAT_DESCRIP_ERROR;
 
@@ -274,6 +280,7 @@ void *poller2(void *thread_args) {
 
 		}
 
+		#ifndef _DB_BACKEND_DISABLED
 		if (!(set.dboff)) {
 
 			if ((insert_val > 0) || (set.withzeros)) {
@@ -296,11 +303,12 @@ void *poller2(void *thread_args) {
 			}
 			/* insert_val > 0 or withzeros */
 		} /* !dboff */
+		#endif
 
 	} /* STAT_SUCCESS */
 
-	if (sessp != NULL) {
-		snmp_sess_close(sessp);
+	if (_sess_ptr != NULL) {
+		snmp_sess_close(_sess_ptr);
 		if (response != NULL) snmp_free_pdu(response);
 	}
 
@@ -324,7 +332,7 @@ void *poller2(void *thread_args) {
 
 	PT_MUTEX_UNLOCK(&crew->mutex);
 
-	// }                /* while(1) */
+	}                /* while(1) */
 
 }
 
