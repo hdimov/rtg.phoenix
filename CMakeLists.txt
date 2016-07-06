@@ -15,6 +15,11 @@ add_executable(ppoller ${SOURCE_FILES})
 
 target_link_libraries(ppoller pthread mysqlclient netsnmp)
 
+set(SOURCE_FILES_2 simple_snmp.c)
+add_executable(simple_snmp ${SOURCE_FILES_2})
+
+target_link_libraries(simple_snmp pthread netsnmp)
+
 ##
 ## nd_package (pthread COMPONENTS system filesystem REQUIRED)
 ## find_package(mysql COMPONENTS system filesystem REQUIRED)
