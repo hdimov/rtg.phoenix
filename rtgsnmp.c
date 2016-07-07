@@ -16,9 +16,112 @@
 
 #include "rtg.h"
 
+// global pointer to our OID hash;
 extern target_t *current;
+
 extern stats_t stats;
 extern MYSQL mysql;
+
+void *async_poller(void *thread_args) {
+
+	// phoenix async poller;
+	worker_t *worker = (worker_t *) thread_args;
+	crew_t *crew = worker -> crew;
+
+	// target_t *entry = NULL;
+
+	for( ; ; ) {
+
+		PT_MUTEX_LOCK(&crew->mutex);
+
+		while (current == NULL) {
+			PT_COND_WAIT(&crew->go, &crew->mutex);
+		}
+
+		if (current != NULL) {
+
+			printf("[ info] thread [%d] work_count index: %d\n", worker->index, crew -> _send_work_count);
+
+			// preparing snmp session;
+			// we got what we need from current entry
+			// moving to next entry for other wating threads;
+
+			printf(
+				"[ info] thread [%d] processing -> host: %s, oid: %s\n",
+				worker -> index,
+				current -> host,
+			    current -> objoid
+			);
+
+			// making a snmp session ...
+
+
+			current = getNext();
+		}
+
+		PT_MUTEX_UNLOCK(&crew->mutex);
+
+		// sending snmp session;
+
+		/* Collect response and process stats */
+		PT_MUTEX_LOCK(&stats.mutex);
+		// when we have a snmp result, updating a starts counters;
+		PT_MUTEX_UNLOCK(&stats.mutex);
+
+		// analyzing the result;
+		// and making it look like correct one (limits and correctness check);
+
+		// if out of range for example we have the following stats update;
+		// PT_MUTEX_LOCK(&stats.mutex);
+		// stats.out_of_range++;
+		// PT_MUTEX_UNLOCK(&stats.mutex);
+
+		// closing snmp session;
+
+		// decreasing work counter;
+
+		PT_MUTEX_LOCK(&crew->mutex);
+		crew->_send_work_count--;
+
+//		if (status == STAT_SUCCESS) entry->last_value = result;
+//		if (init == NEW) entry->init = LIVE;
+
+		// signal for our control thread;
+		if (crew->_send_work_count <= 0) {
+			// if (set.verbose >= HIGH) printf("Queue processed. Broadcasting thread done condition.\n");
+			PT_COND_BROAD(&crew->_send_done);
+		}
+//
+//		if (set.verbose >= DEVELOP)
+//			printf("Thread [%d] unlocking (update work_count)\n", worker->index);
+
+		PT_MUTEX_UNLOCK(&crew->mutex);
+
+	} // for (;;)
+
+}
+
+
+void *async_reader(void *thread_args) {
+
+	// phoenix async poller;
+	worker_t *worker = (worker_t *) thread_args;
+	crew_t *crew = worker -> crew;
+
+	// target_t *entry = NULL;
+
+	for( ; ; ) {
+
+		PT_MUTEX_LOCK(&crew->mutex);
+
+		while (crew -> _recv_work_count == 0) {
+			PT_COND_WAIT(&crew->go, &crew->mutex);
+		}
+
+		PT_MUTEX_UNLOCK(&crew->mutex);
+	}
+
+}
 
 void *poller2(void *thread_args) {
 
@@ -72,13 +175,13 @@ void *poller2(void *thread_args) {
 	}
 
 	if (set.verbose >= DEVELOP)
-		printf("Thread [%d] done waiting, received go (work cnt: %d)\n", worker->index, crew->work_count);
+		printf("Thread [%d] done waiting, received go (work cnt: %d)\n", worker->index, crew -> _send_work_count);
 
 	if (current != NULL) {
 
 		if (set.verbose >= HIGH)
 			printf("Thread [%d] processing %s %s (%d work units remain in queue)\n", worker->index, current->host,
-			       current->objoid, crew->work_count);
+			       current->objoid, crew->_send_work_count);
 
 		// initialize session struct;
 		snmp_sess_init(&session);
@@ -316,15 +419,15 @@ void *poller2(void *thread_args) {
 		printf("Thread [%d] locking (update work_count)\n", worker->index);
 
 	PT_MUTEX_LOCK(&crew->mutex);
-	crew->work_count--;
+	crew->_send_work_count--;
 	/* Only if we received a positive result back do we update the
 	   last_value object */
 
 	if (status == STAT_SUCCESS) entry->last_value = result;
 	if (init == NEW) entry->init = LIVE;
-	if (crew->work_count <= 0) {
+	if (crew->_send_work_count <= 0) {
 		if (set.verbose >= HIGH) printf("Queue processed. Broadcasting thread done condition.\n");
-		PT_COND_BROAD(&crew->done);
+		PT_COND_BROAD(&crew->_send_done);
 	}
 
 	if (set.verbose >= DEVELOP)
@@ -376,12 +479,12 @@ void *poller(void *thread_args) {
 			PT_COND_WAIT(&crew->go, &crew->mutex);
 		}
 		if (set.verbose >= DEVELOP)
-			printf("Thread [%d] done waiting, received go (work cnt: %d)\n", worker->index, crew->work_count);
+			printf("Thread [%d] done waiting, received go (work cnt: %d)\n", worker->index, crew->_send_work_count);
 
 		if (current != NULL) {
 			if (set.verbose >= HIGH)
 				printf("Thread [%d] processing %s %s (%d work units remain in queue)\n", worker->index, current->host,
-				       current->objoid, crew->work_count);
+				       current->objoid, crew->_send_work_count);
 			snmp_sess_init(&session);
 			if (set.snmp_ver == 2)
 				session.version = SNMP_VERSION_2c;
@@ -578,14 +681,14 @@ void *poller(void *thread_args) {
 		if (set.verbose >= DEVELOP)
 			printf("Thread [%d] locking (update work_count)\n", worker->index);
 		PT_MUTEX_LOCK(&crew->mutex);
-		crew->work_count--;
+		crew->_send_work_count--;
 		/* Only if we received a positive result back do we update the
 		   last_value object */
 		if (status == STAT_SUCCESS) entry->last_value = result;
 		if (init == NEW) entry->init = LIVE;
-		if (crew->work_count <= 0) {
+		if (crew->_send_work_count <= 0) {
 			if (set.verbose >= HIGH) printf("Queue processed. Broadcasting thread done condition.\n");
-			PT_COND_BROAD(&crew->done);
+			PT_COND_BROAD(&crew->_send_done);
 		}
 		if (set.verbose >= DEVELOP)
 			printf("Thread [%d] unlocking (update work_count)\n", worker->index);

@@ -48,7 +48,7 @@
 
 /* global constants */
 
-#define _MAX_THREADS 256
+#define _MAX_THREADS 32
 
 #define _BUFF_SIZE 512
 
@@ -121,9 +121,7 @@
 
 /* Verbosity levels LOW=info HIGH=info+SQL DEBUG=info+SQL+junk */
 enum debugLevel {
-
 	OFF, LOW, HIGH, DEBUG, DEVELOP
-
 };
 
 /* Target state */
@@ -190,13 +188,21 @@ typedef struct target_struct {
 
 typedef struct crew_struct {
 
-	int work_count;
+	int _send_work_count;
+	int _recv_work_count;
 
 	worker_t member[_MAX_THREADS];
 
 	pthread_mutex_t mutex;
 
-	pthread_cond_t done;
+	// sending done, a signal for our main control thread;
+	pthread_cond_t _send_done;
+
+	// receiving done, a signal for our main thread;
+	pthread_cond_t _recv_done;
+
+	// our receiving thread will also wait on go condition;
+	// a start stignal for all worker threads;
 	pthread_cond_t go;
 
 } crew_t;
@@ -235,6 +241,7 @@ void usage(char *);
 /* Precasts: rtgpoll.c */
 void *poller(void *);
 void *poller2(void *);
+void *async_poller(void *thread_args);
 
 /* Precasts: rtgmysql.c */
 int _db_insert(char *, MYSQL *);

@@ -29,6 +29,14 @@ struct host {
 			"e6-tc.cdn.bg",
 			"sh0wm3"
 		},
+		{
+			"e7-tc.cdn.bg",
+			"sh0wm3"
+		},
+		{
+			"e8-tc.cdn.bg",
+			"sh0wm3"
+		},
 		{ NULL, NULL }
 };
 
@@ -68,6 +76,7 @@ void initialize (void)
 		}
 		op++;
 	}
+
 }
 
 /*
@@ -173,8 +182,10 @@ int asynch_response(int operation, struct snmp_session *sp, int reqid,
 
 	if (operation == NETSNMP_CALLBACK_OP_RECEIVED_MESSAGE) {
 		if (print_result(STAT_SUCCESS, host->sess, pdu)) {
+
 			host->current_oid++;			/* send next GET (if any) */
-			if (host->current_oid->Name) {
+			// one OID per host for now; (highly uneffective)
+			/*if (host->current_oid->Name) {
 				req = snmp_pdu_create(SNMP_MSG_GET);
 				snmp_add_null_var(req, host->current_oid->Oid, host->current_oid->OidLen);
 				if (snmp_send(host->sess, req))
@@ -184,19 +195,26 @@ int asynch_response(int operation, struct snmp_session *sp, int reqid,
 					snmp_free_pdu(req);
 				}
 			}
+			*/
 		}
-	}
-	else
+	} else {
+
 		print_result(STAT_TIMEOUT, host->sess, pdu);
 
-	/* something went wrong (or end of variables)
+	}
+
+	/*
+	 * something went wrong (or end of variables)
 	 * this host not active any more
 	 */
+
 	active_hosts--;
+
 	return 1;
+
 }
 
-void asynchronous(void)
+void _async_send(void)
 {
 	struct session *hs;
 	struct host *hp;
@@ -227,7 +245,15 @@ void asynchronous(void)
 			snmp_perror("snmp_send");
 			snmp_free_pdu(req);
 		}
+
 	}
+
+}
+
+void _async_read(void) {
+
+	struct session *hs;
+	struct host *hp;
 
 	/* loop while any active hosts */
 
@@ -268,6 +294,7 @@ void asynchronous(void)
 	for (hp = hosts, hs = sessions; hp->name; hs++, hp++) {
 		if (hs->sess) snmp_close(hs->sess);
 	}
+
 }
 
 /*****************************************************************************/
@@ -280,7 +307,9 @@ int main (int argc, char **argv)
 	synchronous();
 
 	printf("---------- asynchronous -----------\n");
-	asynchronous();
+
+	_async_send();
+	_async_read();
 
 	return 0;
 }

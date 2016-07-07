@@ -190,8 +190,8 @@ int main(int argc, char *argv[]) {
 	for (i = 0; i < set.threads; i++) {
 		crew.member[i].index = i;
 		crew.member[i].crew = &crew;
-		if (pthread_create(&(crew.member[i].thread), NULL, poller2, (void *) &(crew.member[i])) != 0)
-			printf("pthread_create error\n");
+//		if (pthread_create(&(crew.member[i].thread), NULL, pa_poller, (void *) &(crew.member[i])) != 0)
+//			printf("pthread_create error\n");
 	}
 
 	// signal handler thread...
