@@ -20,6 +20,10 @@ add_executable(simple_snmp ${SOURCE_FILES_2})
 
 target_link_libraries(simple_snmp pthread netsnmp)
 
+set(SOURCE_FILES_3 simple_async_snmp.c)
+add_executable(simple_async_snmp ${SOURCE_FILES_3})
+
+target_link_libraries(simple_async_snmp pthread netsnmp)
 ##
 ## nd_package (pthread COMPONENTS system filesystem REQUIRED)
 ## find_package(mysql COMPONENTS system filesystem REQUIRED)
