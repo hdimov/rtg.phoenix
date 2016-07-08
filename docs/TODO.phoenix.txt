@@ -35,3 +35,20 @@ traffic for the period of time the poller was down.
     rtg will need about a minute to walk through all these counters;
     so every 2nd poll will be lost, not only for those 100 counters, but for all counters inside targets conf at all;
 
+
+(o) r1 - alloc snmp session and try to free them on async result - bad things happend (see the pic);
+
+(o) r2 - sync polling, with thousants of threads;
+
+wm:/home/lisp/work/perl/estat/conf# cat targets.cfg |egrep '^ar1.sof2' | wc
+   3865   27055  684106
+wm:/home/lisp/work/perl/estat/conf# bc
+bc 1.06.94
+Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'.
+4096-128
+3968
+2048+128
+2176
+
