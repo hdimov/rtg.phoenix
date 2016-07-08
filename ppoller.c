@@ -186,14 +186,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		printf("Initializing threads (%d).\n", set.threads);
 
 	pthread_mutex_init(&(crew.mutex), NULL);
-	pthread_cond_init(&(crew._send_done), NULL);
-	pthread_cond_init(&(crew._recv_done), NULL);
+	pthread_cond_init(&(crew._sending_done), NULL);
+	// pthread_cond_init(&(crew._recv_done), NULL);
 
 	pthread_cond_init(&(crew.go), NULL);
-	pthread_cond_init(&(crew._go_recv), NULL);
+	// pthread_cond_init(&(crew._go_recv), NULL);
 
-	crew._send_work_count = 0;
-	crew._recv_work_count = 0;
+	crew._sent_work_count = 0;
+	// crew._recv_work_count = 0;
 
 	/* Initialize the SNMP session */
 	if (set.verbose >= LOW)
@@ -226,13 +226,13 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	for (i = 0; i < set.threads; i++) {
 		crew.member[i].index = i;
 		crew.member[i].crew = &crew;
-		if (pthread_create(&(crew.member[i].thread), NULL, async_poller, (void *) &(crew.member[i])) != 0)
+		if (pthread_create(&(crew.member[i].thread), NULL, sync_poller, (void *) &(crew.member[i])) != 0)
 			printf("pthread_create error\n");
 	}
 
-	// signal handler thread...
-	if (pthread_create(&_reader_thread, NULL, async_reader, (void *) &crew) != 0)
-		printf("pthread_create error\n");
+//	// signal handler thread...
+//	if (pthread_create(&_reader_thread, NULL, async_reader, (void *) &crew) != 0)
+//		printf("pthread_create error\n");
 
 	// signal handler thread...
 	if (pthread_create(&sig_thread, NULL, sig_handler, (void *) &(signal_set)) != 0)
@@ -253,9 +253,10 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 		PT_MUTEX_LOCK(&(crew.mutex));
 		init_hash_walk();
-		current = getNext();
-		crew._send_work_count = entries;
-		crew._recv_work_count = 0;
+		current = NULL;
+		// getNext();
+		crew._sent_work_count = entries;
+		// crew._recv_work_count = 0;
 		_async_global_recv_work_count = 0;
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 
@@ -269,16 +270,16 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 		// waiting fro all work units;
 		PT_MUTEX_LOCK(&(crew.mutex));
-		while (crew._send_work_count > 0) {
-			PT_COND_WAIT(&(crew._send_done), &(crew.mutex));
+		while (crew._sent_work_count > 0) {
+			PT_COND_WAIT(&(crew._sending_done), &(crew.mutex));
 		}
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 
-		PT_MUTEX_LOCK(&(crew.mutex));
-		// while (crew._recv_work_count > 0) {
-		PT_COND_WAIT(&(crew._recv_done), &(crew.mutex));
-		// }
-		PT_MUTEX_UNLOCK(&(crew.mutex));
+//		PT_MUTEX_LOCK(&(crew.mutex));
+//		// while (crew._recv_work_count > 0) {
+//		PT_COND_WAIT(&(crew._recv_done), &(crew.mutex));
+//		// }
+//		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		gettimeofday(&now, NULL);
 		lock = FALSE;

@@ -48,7 +48,7 @@
 
 /* global constants */
 
-#define _MAX_THREADS 32
+#define _MAX_THREADS 2176
 
 #define _BUFF_SIZE 512
 
@@ -188,25 +188,25 @@ typedef struct target_struct {
 
 typedef struct crew_struct {
 
-	int _send_work_count;
-	int _recv_work_count;
+	int _sent_work_count;
+	// int _recv_work_count;
 
 	worker_t member[_MAX_THREADS];
 
 	pthread_mutex_t mutex;
 
 	// sending done, a signal for our main control thread;
-	pthread_cond_t _send_done;
+	pthread_cond_t _sending_done;
 
 	// receiving done, a signal for our main thread;
-	pthread_cond_t _recv_done;
+	// pthread_cond_t _recv_done;
 
 	// our receiving thread will also wait on go condition;
 	// a start stignal for all worker threads;
 	pthread_cond_t go;
 
 	// pthread_cond_t _go_send;
-	pthread_cond_t _go_recv;
+	// pthread_cond_t _go_recv;
 
 } crew_t;
 
@@ -244,8 +244,8 @@ void usage(char *);
 /* Precasts: rtgpoll.c */
 void *poller(void *);
 void *poller2(void *);
-void *async_poller(void *thread_args);
-void *async_reader(void *thread_args);
+void *sync_poller(void *thread_args);
+// void *async_reader(void *thread_args);
 
 /* Precasts: rtgmysql.c */
 int _db_insert(char *, MYSQL *);
