@@ -205,6 +205,9 @@ typedef struct crew_struct {
 	// a start stignal for all worker threads;
 	pthread_cond_t go;
 
+	// pthread_cond_t _go_send;
+	pthread_cond_t _go_recv;
+
 } crew_t;
 
 typedef struct poll_stats {
@@ -242,6 +245,7 @@ void usage(char *);
 void *poller(void *);
 void *poller2(void *);
 void *async_poller(void *thread_args);
+void *async_reader(void *thread_args);
 
 /* Precasts: rtgmysql.c */
 int _db_insert(char *, MYSQL *);

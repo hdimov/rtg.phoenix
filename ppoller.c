@@ -32,6 +32,8 @@ MYSQL mysql;
 /* dfp is a debug file pointer.  Points to stderr unless debug=level is set */
 FILE *_fp_debug = NULL;
 
+int _async_global_recv_work_count = 0;
+
 /*
  * main rtg.phoenix.poller - namely ppoller event loop;
  */
@@ -71,6 +73,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 	crew_t crew;
 	pthread_t sig_thread;
+	pthread_t _reader_thread;
+
 	sigset_t signal_set;
 
 	struct timeval now;
@@ -184,7 +188,9 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	pthread_mutex_init(&(crew.mutex), NULL);
 	pthread_cond_init(&(crew._send_done), NULL);
 	pthread_cond_init(&(crew._recv_done), NULL);
+
 	pthread_cond_init(&(crew.go), NULL);
+	pthread_cond_init(&(crew._go_recv), NULL);
 
 	crew._send_work_count = 0;
 	crew._recv_work_count = 0;
@@ -225,6 +231,10 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	}
 
 	// signal handler thread...
+	if (pthread_create(&_reader_thread, NULL, async_reader, (void *) &crew) != 0)
+		printf("pthread_create error\n");
+
+	// signal handler thread...
 	if (pthread_create(&sig_thread, NULL, sig_handler, (void *) &(signal_set)) != 0)
 		printf("pthread_create error\n");
 
@@ -245,6 +255,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		init_hash_walk();
 		current = getNext();
 		crew._send_work_count = entries;
+		crew._recv_work_count = 0;
+		_async_global_recv_work_count = 0;
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		if (set.verbose >= LOW)
@@ -263,11 +275,10 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		PT_MUTEX_LOCK(&(crew.mutex));
-		while (crew._recv_work_count > 0) {
-			PT_COND_WAIT(&(crew._recv_done), &(crew.mutex));
-		}
+		// while (crew._recv_work_count > 0) {
+		PT_COND_WAIT(&(crew._recv_done), &(crew.mutex));
+		// }
 		PT_MUTEX_UNLOCK(&(crew.mutex));
-
 
 		gettimeofday(&now, NULL);
 		lock = FALSE;

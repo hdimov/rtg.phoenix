@@ -22,12 +22,134 @@ extern target_t *current;
 extern stats_t stats;
 extern MYSQL mysql;
 
+extern int _async_global_recv_work_count;
+
+
+/*
+ *
+ * 'll help me to ... poll all hosts in parallel ;)
+ *
+ */
+struct session {
+
+	/* SNMP session data */
+	struct snmp_session *_sess;
+
+	/* How far in our poll are we */
+	const char *_oid_name;
+	oid _oid[MAX_OID_LEN];
+	int _oid_len;
+
+};
+
+
+/*
+ * simple printing of returned data
+ */
+int print_result (int status, struct snmp_session *sp, struct snmp_pdu *pdu)
+{
+	char buf[1024];
+	struct variable_list *vp;
+	int ix;
+	struct timeval now;
+	struct timezone tz;
+	struct tm *tm;
+
+	gettimeofday(&now, &tz);
+	tm = localtime(&now.tv_sec);
+	fprintf(stdout, "%.2d:%.2d:%.2d.%.6d ", tm->tm_hour, tm->tm_min, tm->tm_sec,
+	        now.tv_usec);
+	switch (status) {
+		case STAT_SUCCESS:
+			vp = pdu->variables;
+			if (pdu->errstat == SNMP_ERR_NOERROR) {
+				while (vp) {
+					snprint_variable(buf, sizeof(buf), vp->name, vp->name_length, vp);
+					fprintf(stdout, "%s: %s\n", sp->peername, buf);
+					vp = vp->next_variable;
+				}
+			}
+			else {
+				for (ix = 1; vp && ix != pdu->errindex; vp = vp->next_variable, ix++)
+					;
+				if (vp) snprint_objid(buf, sizeof(buf), vp->name, vp->name_length);
+				else strcpy(buf, "(none)");
+				fprintf(stdout, "%s: %s: %s\n",
+				        sp->peername, buf, snmp_errstring(pdu->errstat));
+			}
+			return 1;
+		case STAT_TIMEOUT:
+			fprintf(stdout, "%s: Timeout\n", sp->peername);
+			return 0;
+		case STAT_ERROR:
+			snmp_perror(sp->peername);
+			return 0;
+	}
+	return 0;
+}
+
+/*
+ * response handler
+ */
+
+int asynch_response(
+	int operation,
+	struct snmp_session *sp,
+	int reqid,
+	struct snmp_pdu *pdu,
+	void *magic)
+{
+
+	struct session *host = (struct session *)magic;
+	struct snmp_pdu *req;
+
+	printf("[ info] async_response() call...\n");
+
+	if (operation == NETSNMP_CALLBACK_OP_RECEIVED_MESSAGE) {
+
+		if (print_result(STAT_SUCCESS, host -> _sess, pdu)) {
+			// host->current_oid++;			/* send next GET (if any) */
+			// one OID per host for now; (highly uneffective)
+			/*if (host->current_oid->Name) {
+				req = snmp_pdu_create(SNMP_MSG_GET);
+				snmp_add_null_var(req, host->current_oid->Oid, host->current_oid->OidLen);
+				if (snmp_send(host->sess, req))
+					return 1;
+				else {
+					snmp_perror("snmp_send");
+					snmp_free_pdu(req);
+				}
+			}
+			*/
+		}
+
+	} else {
+
+		print_result(STAT_TIMEOUT, host->_sess, pdu);
+
+	}
+	_async_global_recv_work_count --;
+	// and probably got counter down;
+//	snmp_sess_close(host -> _sess);
+	printf("[ info] async_responce() host -> sess: %llu\n",  host -> _sess);
+	snmp_close(host -> _sess);
+
+	/*
+	 * something went wrong (or end of variables)
+	 * this host not active any more
+	 */
+
+//	active_hosts--;
+
+	return 1;
+
+}
+
 void *async_poller(void *thread_args) {
 
 	// phoenix async poller;
 	worker_t *worker = (worker_t *) thread_args;
 	crew_t *crew = worker -> crew;
-
 	// target_t *entry = NULL;
 
 	for( ; ; ) {
@@ -46,17 +168,91 @@ void *async_poller(void *thread_args) {
 			// we got what we need from current entry
 			// moving to next entry for other wating threads;
 
-			printf(
-				"[ info] thread [%d] processing -> host: %s, oid: %s\n",
-				worker -> index,
-				current -> host,
-			    current -> objoid
-			);
+//			printf(
+//				"[ info] thread [%d] processing -> host: %s, oid: %s\n",
+//				worker -> index,
+//				current -> host,
+//			    current -> objoid
+//			);
 
 			// making a snmp session ...
 
+			// struct session *_host_ss = stuepd you are, this is a ptr! sohuld be initialized 1st :- ;
+			struct session *_host_ss = calloc(1, sizeof(struct session));
+			// stuepd you are, this is a ptr! sohuld be initialized 1st :- ;
+			// struct host *hp;
+
+			/* startup all hosts */
+
+			// for (hs = sessions, hp = hosts; hp->name; hs++, hp++) {
+
+			struct snmp_pdu *req;
+
+			struct snmp_session sess;
+
+			snmp_sess_init(&sess);
+
+			/* initialize session */
+			sess.version = SNMP_VERSION_2c;
+			sess.peername = strdup(current -> host);
+			sess.community = strdup(current -> community);
+			sess.community_len = strlen(sess.community);
+
+			/* default callback */
+			sess.callback = asynch_response;
+			sess.callback_magic = _host_ss;
+
+			// if (!(_host_ss -> _sess = snmp_sess_open(&sess))) {
+			if (!(_host_ss -> _sess = snmp_open(&sess))) {
+
+				//, snmp_api_errstring(snmp_errno)
+				printf("[error] %s!!!\n", snmp_api_errstring(snmp_errno));
+				// snmp_perror(snmp_errno);
+				continue;
+
+			}
+
+			printf("[ info] thread [%d] &sess: %llu, _host_ss -> _sess: %llu\n", worker->index,
+			       &sess, _host_ss -> _sess);
+
+//			struct snmp_session *_ss_ptr = snmp_sess_session(_host_ss -> _sess);
+
+			_host_ss -> _oid_name = strdup(current -> objoid);
+			// also translate this in to snmp format;
+			_host_ss -> _oid_len = sizeof(_host_ss -> _oid) / sizeof(_host_ss -> _oid[0]);
+
+			if (!read_objid(_host_ss -> _oid_name, _host_ss -> _oid, &_host_ss -> _oid_len)) {
+				snmp_perror("read_objid");
+				exit(1);
+			}
+
+			req = snmp_pdu_create(SNMP_MSG_GET);	/* send the first GET */
+
+			snmp_add_null_var(req, _host_ss -> _oid, _host_ss -> _oid_len);
+
+
+//			//if (snmp_sess_send(_host_ss -> _sess, req)) {
+			if (snmp_send(_host_ss -> _sess, req)) {
+
+				crew -> _recv_work_count++;
+				_async_global_recv_work_count++;
+
+				// active_hosts++;
+				// have something to wait for;
+				;
+			} else {
+				snmp_perror("snmp_send");
+				snmp_free_pdu(req);
+			}
+
+			// but leaking ...
+			// snmp_sess_close(_host_ss -> _sess);
 
 			current = getNext();
+
+			PT_COND_BROAD(&crew->_go_recv);
+			// snmp_close(_host_ss -> _sess);
+
 		}
 
 		PT_MUTEX_UNLOCK(&crew->mutex);
@@ -101,12 +297,11 @@ void *async_poller(void *thread_args) {
 
 }
 
-
 void *async_reader(void *thread_args) {
 
 	// phoenix async poller;
-	worker_t *worker = (worker_t *) thread_args;
-	crew_t *crew = worker -> crew;
+	// worker_t *worker = (worker_t *) thread_args;
+	crew_t *crew = (crew_t *) thread_args;
 
 	// target_t *entry = NULL;
 
@@ -114,12 +309,69 @@ void *async_reader(void *thread_args) {
 
 		PT_MUTEX_LOCK(&crew->mutex);
 
-		while (crew -> _recv_work_count == 0) {
-			PT_COND_WAIT(&crew->go, &crew->mutex);
+		while (_async_global_recv_work_count == 0) {
+			// broadcast recv_done by main thread
+			printf("[ info] thread [async_reader()] boradcasting _recv_done !!!, _recv_work_count index: %d\n", _async_global_recv_work_count);
+			PT_COND_BROAD(&crew->_recv_done);
+			PT_COND_WAIT(&crew->_go_recv, &crew->mutex);
+		}
+		printf("[ info] thread [async_reader()] _recv_work_count index: %d\n", _async_global_recv_work_count);
+
+		int fds = 0, block = 1;
+		fd_set fdset;
+		struct timeval timeout;
+
+		FD_ZERO(&fdset);
+		snmp_select_info(&fds, &fdset, &timeout, &block);
+		// snmp_sess_select_info(&fds, &fdset, &timeout, &block);
+
+		fds = select(fds, &fdset, NULL, NULL, block ? NULL : &timeout);
+		if (fds < 0) {
+			perror("select failed");
+			exit(1);
+		}
+
+		/*
+		 * void snmp_read(fdset)
+		 *     fd_set  *fdset;
+		 *
+		 * Checks to see if any of the fd's set in the fdset belong to
+		 * snmp.  Each socket with it's fd set has a packet read from it
+		 * and snmp_parse is called on the packet received.  The resulting pdu
+		 * is passed to the callback routine for that session.  If the callback
+		 * routine returns successfully, the pdu and it's request are deleted.
+		 */
+
+		if (fds) {
+
+			snmp_read(&fdset);
+			// crew -> _recv_work_count--;
+
+		} else {
+
+			snmp_timeout();
+
 		}
 
 		PT_MUTEX_UNLOCK(&crew->mutex);
+
 	}
+
+
+//	struct session *hs;
+//	struct host *hp;
+//
+//	/* loop while any active hosts */
+//
+//	while (active_hosts) {
+//
+//	}
+//
+//	/* cleanup */
+//
+//	for (hp = hosts, hs = sessions; hp->name; hs++, hp++) {
+//		if (hs->sess) snmp_close(hs->sess);
+//	}
 
 }
 
@@ -435,7 +687,8 @@ void *poller2(void *thread_args) {
 
 	PT_MUTEX_UNLOCK(&crew->mutex);
 
-	}                /* while(1) */
+	}
+	/* while(1) */
 
 }
 
