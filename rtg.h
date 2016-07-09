@@ -43,7 +43,6 @@
 # define TRUE !FALSE
 #endif
 
-
 #define _DB_BACKEND_DISABLED 1
 
 /* global constants */
@@ -51,7 +50,6 @@
 #define _MAX_THREADS 960
 
 #define _BUFF_SIZE 512
-
 #define _BITS_IN_BYTE 8
 
 #define _THIRTY_TWO 4294967295ul
@@ -298,14 +296,18 @@ int add_hash_entry(target_t *);
 
 int hash_target_file(char *);
 
-/* Globals */
+/* global data structures */
+
 config_t set;
+hash_t hash;
+
+/* global variables */
 int lock;
 int waiting;
+
 /*
 char config_paths[CONFIG_PATHS][_BUFF_SIZE];
 */
 
-hash_t hash;
 
 #endif /* not _RTG_H_ */
