@@ -10,7 +10,7 @@ include_directories(/opt/local/include/net-snmp)
 link_directories(/opt/local/lib/mariadb-10.1/mysql/)
 link_directories(/opt/local/lib)
 
-set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c rtgsnmp.c ppoller.c)
+set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c psnmp.c ppoller.c)
 add_executable(ppoller ${SOURCE_FILES})
 
 target_link_libraries(ppoller pthread mysqlclient netsnmp)

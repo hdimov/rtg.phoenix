@@ -48,7 +48,7 @@
 
 /* global constants */
 
-#define _MAX_THREADS 2176
+#define _MAX_THREADS 960
 
 #define _BUFF_SIZE 512
 

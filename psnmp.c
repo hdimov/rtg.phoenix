@@ -1,35 +1,24 @@
+
 /****************************************************************************
-   Program:     $Id: rtgsnmp.c,v 1.24 2003/09/25 18:23:35 rbeverly Exp $
-   Author:      $Author: rbeverly $
-   Date:        $Date: 2003/09/25 18:23:35 $
-   Description: RTG SNMP Routines
+   Program:     psnmp.c, v0.7.4-r1
+   Author(s):   hdimov
+   Purpose:     RTG Phoenix SNMP infrastructure;
 ****************************************************************************/
 
-// #include "common.h"
+// Created by Hristo Hristov on 7/9/16.
 
-// #include "asn1.h"
-// #include "snmp_api.h"
-// #include "snmp_impl.h"
-// #include "snmp_client.h"
-// #include "mib.h"
-// #include "snmp.h"
+#include "psnmp.h"
 
-#include "rtg.h"
-
-// global pointer to our OID hash;
+// global pointer to our OID hash and single poll result counters;
 extern target_t *current;
-
 extern stats_t stats;
-extern MYSQL mysql;
 
-extern int _async_global_recv_work_count;
-
+// extern MYSQL mysql;
 
 /*
- *
  * 'll help me to ... poll all hosts in parallel ;)
- *
  */
+
 struct session {
 
 	/* SNMP session data */
@@ -43,9 +32,8 @@ struct session {
 
 };
 
-
 /*
- * simple printing of returned data
+ * simple structured printing of returned data;
  */
 
 int print_result(int status, struct snmp_session *sp, struct snmp_pdu *pdu)
@@ -91,7 +79,6 @@ int print_result(int status, struct snmp_session *sp, struct snmp_pdu *pdu)
 	return 0;
 }
 
-
 int print_result_sess(int status, struct snmp_pdu *response) {
 }
 
@@ -118,6 +105,7 @@ void *sync_poller(void *thread_args) {
 		if (_current_local == NULL && crew->_sent_work_count <= 0) {
 			PT_COND_BROAD(&crew->_sending_done);
 			PT_COND_WAIT(&crew->go, &crew->mutex);
+
 //		} else if (_current_local == NULL) {
 //			PT_COND_WAIT(&crew->go, &crew->mutex);
 //			// PT_MUTEX_UNLOCK(&crew -> mutex);
@@ -128,6 +116,7 @@ void *sync_poller(void *thread_args) {
 //			// PT_MUTEX_UNLOCK(&crew -> mutex);
 //			continue;
 //			// return 0;
+
 			PT_MUTEX_UNLOCK(&crew -> mutex);
 			continue;
 		}
@@ -157,12 +146,12 @@ void *sync_poller(void *thread_args) {
 		// we got what we need from current entry
 		// moving to next entry for other wating threads;
 
-			printf(
-				"[ info] thread [%d] processing -> host: %s, oid: %s\n",
-				worker -> index,
-				_current_local -> host,
-			    _current_local -> objoid
-			);
+		printf(
+			"[ info] thread [%d] processing -> host: %s, oid: %s\n",
+			worker -> index,
+			_current_local -> host,
+			_current_local -> objoid
+		);
 
 		// making a snmp session ...
 
@@ -238,7 +227,6 @@ void *sync_poller(void *thread_args) {
 		PT_MUTEX_UNLOCK(&stats.mutex);
 
 		// decreasing work counter;
-
 
 	} // for (;;)
 

@@ -222,6 +222,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	if (set.verbose >= HIGH)
 		printf("\nStarting threads.\n");
 
+	// current = NULL;
+
 	// worker threads...
 	for (i = 0; i < set.threads; i++) {
 		crew.member[i].index = i;

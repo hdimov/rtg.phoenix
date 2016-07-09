@@ -36,12 +36,15 @@ traffic for the period of time the poller was down.
     so every 2nd poll will be lost, not only for those 100 counters, but for all counters inside targets conf at all;
 
 
-(o) r1 - alloc snmp session and try to free them on async result - bad things happend (see the pic);
+(o) r1 - alloc snmp session and try to free them on async result - bad things happen (see the pic);
 
-(o) r2 - sync polling, with thousants of threads;
+(o) r2 - sync polling, with thousands of threads;
 
-wm:/home/lisp/work/perl/estat/conf# cat targets.cfg |egrep '^ar1.sof2' | wc
+- well actually 992 threads;
+
+wm:/home/lisp/work/perl/estat/conf# cat targets.cfg | egrep '^ar1.sof2' | wc
    3865   27055  684106
+
 wm:/home/lisp/work/perl/estat/conf# bc
 bc 1.06.94
 Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
@@ -51,4 +54,127 @@ For details type `warranty'.
 3968
 2048+128
 2176
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1327200
+
+[07/09 09:53:30 Poll round 1 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 0] [PollTime = 101.300s]
+[07/09 09:55:11 Poll round 2 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 1] [PollTime = 101.123s]
+[07/09 09:56:49 Poll round 3 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 2] [PollTime = 98.115s]
+[07/09 09:58:30 Poll round 4 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 3] [PollTime = 101.153s]
+[07/09 10:00:12 Poll round 5 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 4] [PollTime = 102.030s]
+[07/09 10:01:53 Poll round 6 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 5] [PollTime = 101.127s]
+[07/09 10:03:31 Poll round 7 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 6] [PollTime = 98.157s]
+[07/09 10:05:12 Poll round 8 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 7] [PollTime = 101.109s]
+[07/09 10:06:53 Poll round 9 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 8] [PollTime = 101.112s]
+[07/09 10:08:32 Poll round 10 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 9] [PollTime = 98.169s]
+[07/09 10:10:13 Poll round 11 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 10] [PollTime = 101.088s]
+[07/09 10:11:54 Poll round 12 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 11] [PollTime = 101.106s]
+[07/09 10:13:32 Poll round 13 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 12] [PollTime = 98.171s]
+[07/09 10:15:13 Poll round 14 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 13] [PollTime = 101.080s]
+[07/09 10:16:54 Poll round 15 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 14] [PollTime = 101.086s]
+[07/09 10:18:32 Poll round 16 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 15] [PollTime = 98.173s]
+[07/09 10:20:13 Poll round 17 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 16] [PollTime = 101.091s]
+[07/09 10:21:54 Poll round 18 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 17] [PollTime = 100.158s]
+[07/09 10:23:33 Poll round 19 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 18] [PollTime = 99.078s]
+[07/09 10:25:14 Poll round 20 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 19] [PollTime = 101.083s]
+[07/09 10:26:54 Poll round 21 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 20] [PollTime = 100.173s]
+[07/09 10:28:33 Poll round 22 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 21] [PollTime = 99.069s]
+[07/09 10:30:13 Poll round 23 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 22] [PollTime = 100.379s]
+[07/09 10:31:54 Poll round 24 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 23] [PollTime = 100.879s]
+[07/09 10:33:33 Poll round 25 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 24] [PollTime = 99.105s]
+[07/09 10:35:14 Poll round 26 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 25] [PollTime = 100.415s]
+[07/09 10:36:55 Poll round 27 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 26] [PollTime = 100.834s]
+[07/09 10:38:34 Poll round 28 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 27] [PollTime = 99.116s]
+[07/09 10:40:14 Poll round 29 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 28] [PollTime = 100.448s]
+[07/09 10:41:55 Poll round 30 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 29] [PollTime = 100.787s]
+[07/09 10:43:34 Poll round 31 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 30] [PollTime = 99.116s]
+[07/09 10:45:15 Poll round 32 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 31] [PollTime = 100.469s]
+[07/09 10:46:55 Poll round 33 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 32] [PollTime = 100.795s]
+
+### and with 992 threads we have
+
+root@t5600 /home/lisp/rtg.phoenix # cat  all-1k.log  | grep -i poll
+[07/09 11:53:47 Poll round 1 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 0] [PollTime = 89.229s]
+[07/09 11:55:11 Poll round 2 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 1] [PollTime = 84.115s]
+[07/09 11:56:35 Poll round 3 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 2] [PollTime = 84.104s]
+[07/09 11:58:00 Poll round 4 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 3] [PollTime = 84.106s]
+[07/09 11:59:24 Poll round 5 complete.]
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 4] [PollTime = 84.082s]
+
+
 
