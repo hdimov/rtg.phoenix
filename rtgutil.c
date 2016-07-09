@@ -170,7 +170,6 @@ void timestamp(char *str) {
 	return;
 }
 
-
 char *file_timestamp() {
 	static char str[_BUFF_SIZE];
 	struct timeval now;

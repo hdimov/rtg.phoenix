@@ -48,8 +48,10 @@ int print_result(int status, struct snmp_session *sp, struct snmp_pdu *pdu)
 
 	gettimeofday(&now, &tz);
 	tm = localtime(&now.tv_sec);
+
 	fprintf(stdout, "%.2d:%.2d:%.2d.%.6d, status: %d, ", tm->tm_hour, tm->tm_min, tm->tm_sec,
 	        now.tv_usec, status);
+
 	switch (status) {
 		case STAT_SUCCESS:
 			vp = pdu->variables;
@@ -81,7 +83,52 @@ int print_result(int status, struct snmp_session *sp, struct snmp_pdu *pdu)
 
 int print_result_sess(int status, struct snmp_pdu *response) {
 }
+/*
+int print_result_buff(int status, struct snmp_session *sp, struct snmp_pdu *pdu) {
 
+	char buf[_BUFF_SIZE];
+	char _log_str[_BUFF_SIZE];
+
+	struct variable_list *vp;
+	int ix;
+
+
+	fprintf(stdout, "%.2d:%.2d:%.2d.%.6d, status: %d, ", tm->tm_hour, tm->tm_min, tm->tm_sec,
+	        now.tv_usec, status);
+
+	switch (status) {
+		case STAT_SUCCESS:
+			vp = pdu -> variables;
+			if (pdu -> errstat == SNMP_ERR_NOERROR) {
+				while (vp) {
+					snprint_variable(buf, sizeof(buf), vp->name, vp->name_length, vp);
+					sprintf(_log_str, "[ info] host: %s, %s\n", sp->peername, buf);
+					ts2(_log_str);
+					vp = vp->next_variable;
+				}
+			} else {
+				for (ix = 1; vp && ix != pdu->errindex; vp = vp->next_variable, ix++)
+					;
+				if (vp) snprint_objid(buf, sizeof(buf), vp->name, vp->name_length);
+				else strcpy(buf, "(none)");
+//				fprintf(stdout, ":%s: %s: %s\n",
+//				        sp->peername, buf, snmp_errstring(pdu->errstat));
+			}
+			return 1;
+		case STAT_TIMEOUT:
+			sprintf(_log_str, "[ info] host: %s, status: %s, Timeout\n", sp->peername, STAT_TIMEOUT);
+			ts2(_log_str);
+			// fprintf(stdout, ":%s: Timeout\n", sp -> peername);
+			return 0;
+		case STAT_ERROR:
+			snmp_perror(sp->peername);
+			return 0;
+	}
+	return 0;
+
+
+}
+*/
 void *sync_poller(void *thread_args) {
 
 	// phoenix async poller;
@@ -90,6 +137,8 @@ void *sync_poller(void *thread_args) {
 	// target_t *entry = NULL;
 
 	target_t *_current_local = NULL;
+
+	char _log_str[_BUFF_SIZE];
 
 	PT_MUTEX_LOCK(&crew -> mutex);
 	PT_COND_WAIT(&crew->go, &crew->mutex);
@@ -100,9 +149,12 @@ void *sync_poller(void *thread_args) {
 		PT_MUTEX_LOCK(&crew -> mutex);
 
 		current = _current_local = getNext();
-		crew -> _sent_work_count--;
+		crew -> _send_work_count--;
 
-		if (_current_local == NULL && crew->_sent_work_count <= 0) {
+		if (_current_local == NULL && crew->_send_work_count <= 0) {
+
+			crew -> _send_worker_count--;
+
 			PT_COND_BROAD(&crew->_sending_done);
 			PT_COND_WAIT(&crew->go, &crew->mutex);
 
@@ -146,12 +198,13 @@ void *sync_poller(void *thread_args) {
 		// we got what we need from current entry
 		// moving to next entry for other wating threads;
 
-		printf(
-			"[ info] thread [%d] processing -> host: %s, oid: %s\n",
+		sprintf(_log_str,
+			"[ info] thread id: %d, processing host: %s, oid: %s",
 			worker -> index,
 			_current_local -> host,
 			_current_local -> objoid
 		);
+		ts2(_log_str);
 
 		// making a snmp session ...
 
@@ -209,8 +262,13 @@ void *sync_poller(void *thread_args) {
 
 		int _status = snmp_sess_synch_response(_host_ss -> _sess, pdu, &response);
 
+		/* Collect response and process stats */
+		// NOTE: and order a little our responce dumps;
+		PT_MUTEX_LOCK(&stats.mutex);
 		// int print_result (int status, struct snmp_session *sp, struct snmp_pdu *pdu)
 		print_result(_status, &_sess, response);
+		// when we have a snmp result, updating a starts counters;
+		PT_MUTEX_UNLOCK(&stats.mutex);
 
 		// analyzing the result;
 		// and making it look like correct one (limits and correctness check);
@@ -220,11 +278,6 @@ void *sync_poller(void *thread_args) {
 		// PT_MUTEX_UNLOCK(&stats.mutex);
 
 		snmp_sess_close(_host_ss -> _sess);
-
-		/* Collect response and process stats */
-		PT_MUTEX_LOCK(&stats.mutex);
-		// when we have a snmp result, updating a starts counters;
-		PT_MUTEX_UNLOCK(&stats.mutex);
 
 		// decreasing work counter;
 

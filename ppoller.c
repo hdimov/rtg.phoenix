@@ -17,10 +17,8 @@
 
 #include <syslog.h>
 
-
 /* Yes.  Globals. */
-stats_t stats =
-		{PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0, 0.0};
+stats_t stats = {PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0, 0.0};
 
 char *target_file = NULL;
 target_t *current = NULL;
@@ -194,7 +192,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	pthread_cond_init(&(crew.go), NULL);
 	// pthread_cond_init(&(crew._go_recv), NULL);
 
-	crew._sent_work_count = 0;
+	crew._send_work_count = 0;
 	// crew._recv_work_count = 0;
 
 	/* Initialize the SNMP session */
@@ -246,7 +244,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	// ?! wtf sleep(1);
 
 	if (set.verbose >= LOW)
-		printf("RTG Ready.\n");
+		ts2("RTG Ready.\n");
 
 	/* Loop Forever Polling Target List */
 	while (1) {
@@ -259,13 +257,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		init_hash_walk();
 		current = NULL;
 		// getNext();
-		crew._sent_work_count = entries;
+		crew._send_work_count = entries;
+		crew._send_worker_count = set.threads;
 		// crew._recv_work_count = 0;
-		_async_global_recv_work_count = 0;
+		// _async_global_recv_work_count = 0;
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		if (set.verbose >= LOW)
-			timestamp("Queue ready, broadcasting thread go condition.");
+			ts2("[ info] Queue ready, broadcasting thread GO condition.");
 
 		// http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html
 		PT_MUTEX_LOCK(&(crew.mutex));
@@ -274,10 +273,13 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 		// waiting fro all work units;
 		PT_MUTEX_LOCK(&(crew.mutex));
-		while (crew._sent_work_count > 0) {
+		while (crew._send_worker_count > 0) {
 			PT_COND_WAIT(&(crew._sending_done), &(crew.mutex));
 		}
 		PT_MUTEX_UNLOCK(&(crew.mutex));
+
+		if (set.verbose >= LOW)
+			ts2("[ info] All data received, broadcasting thread GO.LOG condition.");
 
 //		PT_MUTEX_LOCK(&(crew.mutex));
 //		// while (crew._recv_work_count > 0) {
@@ -298,12 +300,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 			entries = hash_target_file(target_file);
 			waiting = FALSE;
 		}
+
 		if (set.verbose >= LOW) {
-			snprintf(errstr, sizeof(errstr), "Poll round %d complete.", stats.round);
-			syslog(LOG_INFO, errstr);
-			timestamp(errstr);
+			snprintf(errstr, sizeof(errstr), "[ info] Poll round %d complete.", stats.round);
+			// syslog(LOG_INFO, errstr);
+			ts2(errstr);
 			print_stats(stats);
 		}
+
 		if (sleep_time <= 0)
 			stats.slow++;
 		else

@@ -47,7 +47,7 @@
 
 /* global constants */
 
-#define _MAX_THREADS 960
+#define _MAX_THREADS 992
 
 #define _BUFF_SIZE 512
 #define _BITS_IN_BYTE 8
@@ -152,7 +152,7 @@ typedef struct config_struct {
 	unsigned short multiple;
 	unsigned short snmp_ver;
 	unsigned short snmp_port;
-	unsigned short threads;
+	unsigned int threads;
 	float highskewslop;
 	float lowskewslop;
 
@@ -186,17 +186,16 @@ typedef struct target_struct {
 
 typedef struct crew_struct {
 
-	int _sent_work_count;
-	// int _recv_work_count;
-
 	worker_t member[_MAX_THREADS];
-
 	pthread_mutex_t mutex;
 
 	// sending done, a signal for our main control thread;
+	int _send_work_count;
+	int _send_worker_count;
 	pthread_cond_t _sending_done;
 
 	// receiving done, a signal for our main thread;
+	// int _recv_work_count;
 	// pthread_cond_t _recv_done;
 
 	// our receiving thread will also wait on go condition;
@@ -264,6 +263,7 @@ void print_stats(stats_t);
 void sleepy(float);
 
 void timestamp(char *);
+void ts2(char *);
 
 int checkPID(char *);
 

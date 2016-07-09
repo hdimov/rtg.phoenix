@@ -116,8 +116,10 @@ void *sync_poller(void *thread_args) {
 		crew -> _sent_work_count--;
 
 		if (_current_local == NULL && crew->_sent_work_count <= 0) {
-			PT_COND_BROAD(&crew->_sending_done);
-			PT_COND_WAIT(&crew->go, &crew->mutex);
+
+			crew -> _send_worker_count--;
+			PT_COND_BROAD(&crew -> _sending_done);
+			PT_COND_WAIT(&crew -> go, &crew -> mutex);
 //		} else if (_current_local == NULL) {
 //			PT_COND_WAIT(&crew->go, &crew->mutex);
 //			// PT_MUTEX_UNLOCK(&crew -> mutex);
