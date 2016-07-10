@@ -11,7 +11,9 @@ void ts2(char *str) {
 
 	gettimeofday(&now, NULL);
 	t = localtime(&now.tv_sec);
-	printf(
+
+	fprintf(
+		stdout,
 		"[%04d-%02d-%02d %02d:%02d:%02d.%06d] %s\n",
 		t->tm_year + 1900,
 		t->tm_mon + 1,
@@ -20,7 +22,15 @@ void ts2(char *str) {
 		t->tm_min,
 		t->tm_sec,
 		now.tv_usec,
-		str);
+		str
+	);
 
 	return;
+}
+
+void log2me(enum debugLevel verbose,  char *str) {
+
+	if (set.verbose >= verbose)
+		ts2(str);
+
 }

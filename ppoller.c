@@ -96,7 +96,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	config_defaults(&set);
 
 	/* Parse the command-line. */
-	while ((ch = getopt(argc, argv, "c:dhmt:vz")) != EOF)
+	while ((ch = getopt(argc, argv, "c:dhmt:vz")) != EOF) {
+
 		switch ((char) ch) {
 			case 'c':
 				conf_file = optarg;
@@ -120,6 +121,11 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 				set.withzeros = TRUE;
 				break;
 		}
+
+	}
+
+//	printf("%d, %d", set.verbose, OFF);
+//	exit(0);
 
 	if (set.verbose >= LOW) {
 		printf("[ info] %s version %s is starting...\n", RTG_NAME, RTG_VERSION);
@@ -185,15 +191,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	if (set.verbose >= LOW)
 		printf("Initializing threads (%d).\n", set.threads);
 
-	pthread_mutex_init(&(crew.mutex), NULL);
-	pthread_cond_init(&(crew._sending_done), NULL);
-	// pthread_cond_init(&(crew._recv_done), NULL);
+	// signal handling and stuff shtoud be moved here;
 
+	pthread_mutex_init(&(crew.mutex), NULL);
+
+	pthread_cond_init(&(crew._sending_done), NULL);
 	pthread_cond_init(&(crew.go), NULL);
-	// pthread_cond_init(&(crew._go_recv), NULL);
 
 	crew._send_work_count = 0;
-	// crew._recv_work_count = 0;
 
 	/* Initialize the SNMP session */
 	if (set.verbose >= LOW)
@@ -289,9 +294,11 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 		gettimeofday(&now, NULL);
 		lock = FALSE;
+
 		end_time = (double) now.tv_usec / 1000000 + now.tv_sec;
 		stats.poll_time = end_time - begin_time;
 		stats.round++;
+
 		sleep_time = set.interval - stats.poll_time;
 
 		if (waiting) {

@@ -117,9 +117,15 @@
 #define PT_COND_WAIT(x, y) if (pthread_cond_wait(x, y) != 0) printf(PCW_ERR);
 #define PT_COND_BROAD(x) if (pthread_cond_broadcast(x) != 0) printf(PCB_ERR);
 
-/* Verbosity levels LOW=info HIGH=info+SQL DEBUG=info+SQL+junk */
+/* Verbosity levels LOW=info HIGH=info+SQL DEBUG=info+SQL+junk, DEVELOP everything */
+
+// 0, 1, 2, 3, 4
 enum debugLevel {
-	OFF, LOW, HIGH, DEBUG, DEVELOP
+	OFF,
+	LOW,
+	HIGH,
+	DEBUG,
+	DEVELOP
 };
 
 /* Target state */
@@ -142,17 +148,22 @@ typedef struct config_struct {
 
 	unsigned int interval;
 	unsigned long long out_of_range;
+
 	char dbhost[80];
 	char dbdb[80];
 	char dbuser[80];
 	char dbpass[80];
+
 	enum debugLevel verbose;
+
 	unsigned short withzeros;
 	unsigned short dboff;
 	unsigned short multiple;
 	unsigned short snmp_ver;
 	unsigned short snmp_port;
+
 	unsigned int threads;
+
 	float highskewslop;
 	float lowskewslop;
 
@@ -163,6 +174,7 @@ typedef struct target_struct {
 	char host[64];
 	char objoid[128];
 
+	// if 0 bits are set, we interpret it as gauge values;
 	unsigned short bits;
 
 	char community[64];
@@ -170,15 +182,20 @@ typedef struct target_struct {
 
 	unsigned int iid;
 
+	char iface[64];
+
 // #ifdef HAVE_STRTOLL
 	long long maxspeed;
-
 //#else
 //    long maxspeed;
 //#endif
 
 	enum targetState init;
 	unsigned long long last_value;
+
+	// FIXME:
+	// also make necessary changes in order to log RTT time
+	// of last target poll;
 
 	struct target_struct *next;
 
@@ -264,6 +281,7 @@ void sleepy(float);
 
 void timestamp(char *);
 void ts2(char *);
+void log2me(enum debugLevel verbose,  char *str);
 
 int checkPID(char *);
 

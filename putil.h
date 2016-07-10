@@ -10,4 +10,6 @@
 
 #include <stdio.h>
 
+#include "rtg.h"
+
 #endif //RTG_PHOENIX_PUTIL_H

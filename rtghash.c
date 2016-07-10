@@ -33,7 +33,6 @@ void init_hash_walk() {
 	hash.target = hash.table[hash.bucket];
 }
 
-
 target_t *getNext() {
 	target_t *next = NULL;
 
@@ -248,22 +247,54 @@ int add_hash_entry(target_t *new) {
    but not in file, it removes said entries from hash.  */
 
 int hash_target_file(char *file) {
+
 	FILE *fp;
+
 	target_t *new = NULL;
+
 	char buffer[_BUFF_SIZE];
+	char _log_str[_BUFF_SIZE];
+
 	char maxspeed[30];
 	int entries = 0;
 	int removed = 0;
 
+	sprintf(
+		_log_str,
+		"[%8s] function BEGIN: %s",
+		"info",
+		__FUNCTION__
+	);
+	log2me(DEVELOP, _log_str);
+
 	/* Open the target file */
 	if ((fp = fopen(file, "r")) == NULL) {
-		fprintf(stderr, "\nCould not open file for reading '%s'.\n", file);
+
+		sprintf(
+			_log_str,
+			"[%8s] could not open target file for reading: %s",
+			"error",
+			file
+		);
+
+		log2me(LOW, _log_str);
 		return (-1);
+
 	}
-	if (set.verbose >= LOW)
-		printf("\nReading RTG target list [%s].\n", file);
+
+//	if (set.verbose >= LOW)
+//		printf("\nReading RTG target list [%s].\n", file);
+
+	sprintf(
+		_log_str,
+		"[%8s] reading RTG.phoenix target list from file: %s",
+		"info",
+		file
+	);
+	log2me(LOW, _log_str);
 
 	mark_targets(STALE);
+
 	/* Read each unique target into hash table */
 	while (!feof(fp)) {
 
@@ -278,36 +309,90 @@ int hash_target_file(char *file) {
 				exit(-1);
 			}
 
-			sscanf(buffer, "%64s %128s %hu %64s %64s %d %30s",
-			       new->host, new->objoid, &(new->bits),
-			       new->community, new->table,
-			       &(new->iid), maxspeed);
+			sscanf(
+				buffer,
+				"%64s %128s %hu %64s %64s %d %64s %30s",
+				new -> host,
+				new -> objoid,
+				&(new -> bits),
+				new -> community,
+				new -> table,
+				&(new -> iid),
+				new -> iface,
+				maxspeed
+			);
 
 			if (alldigits(maxspeed)) {
 //#ifdef HAVE_STRTOLL
-				new->maxspeed = strtoll(maxspeed, NULL, 0);
+				new -> maxspeed = strtoll(maxspeed, NULL, 0);
 //#else
 //				new->maxspeed = strtol(maxspeed, NULL, 0);
 //#endif
 			} else {
-				new->maxspeed = set.out_of_range;
+
+				new -> maxspeed = set.out_of_range;
+
 			}
-			if (set.verbose > DEBUG)
-				printf("Host[OID][OutOfRange]:%s[%s][%lld]\n",
-				       new->host, new->objoid, new->maxspeed);
+
+			sprintf(
+				_log_str,
+				"[%8s] host+oid: %s+%s, bits: %d, community: %s, table: %s, iid: %d, iface: %s, maxspeed: %lld",
+				"info",
+			    new -> host,
+			    new -> objoid,
+			    new -> bits,
+			    new -> community,
+			    new -> table,
+			    new -> iid,
+			    new -> iface,
+			    new -> maxspeed
+			);
+			log2me(DEVELOP, _log_str);
+
+//			if (set.verbose > DEBUG)
+//				printf("Host[OID][OutOfRange]:%s[%s][%lld]\n",
+//				       new->host, new->objoid, new->maxspeed);
+
 			new->init = NEW;
 			new->last_value = 0;
 			new->next = NULL;
 			entries += add_hash_entry(new);
+
 		}
+
 	}
 	fclose(fp);
 	removed = delete_targets(STALE);
-	if (set.verbose >= LOW) {
-		printf("Successfully hashed [%d] new targets, (%d bytes).\n",
-		       entries, entries * sizeof(target_t));
-		if (removed > 0)
-			printf("Removed [%d] stale targets from hash.\n", removed);
+
+	sprintf(
+		_log_str,
+		"[%8s] successfully hashed %d NEW targets, size taken: %d bytes.",
+		"info",
+		entries,
+		entries * sizeof(target_t)
+	);
+	log2me(LOW, _log_str);
+
+	if (removed > 0) {
+
+		sprintf(
+			_log_str,
+			"[%8s] also removed %d STALE targets from hash.",
+			"info",
+			removed
+		);
+		log2me(LOW, _log_str);
+
 	}
+
+	sprintf(
+		_log_str,
+		"[%8s] function END: %s",
+		"info",
+		__FUNCTION__
+	);
+	log2me(DEVELOP, _log_str);
+
 	return (entries);
+
 }
