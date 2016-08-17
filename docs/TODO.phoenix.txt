@@ -179,6 +179,9 @@ root@t5600 /home/lisp/rtg.phoenix # cat  all-1k.log  | grep -i poll
 
 (~) reasonable logging and thread management was started - psnmp.c, ppoller.c;
 
+(o) decided to go with sync polling
 
+(~) pqueue started;
+(-) rtgsnmp complete rewrite started; currently only logging is enabled;
 
 

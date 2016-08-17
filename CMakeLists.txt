@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(rtg.phoenix)
 
 ## set(RUNTIME_OUTPUT_DIRECTORY "/Users/lisp/ClionProjects/rtg.phoenix/bin")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
 
 include_directories(/opt/local/include/mariadb-10.1/mysql)
 include_directories(/opt/local/include/net-snmp)

@@ -15,7 +15,7 @@
 
 #include "rtg.h"
 
-#include <syslog.h>
+// #include <syslog.h>
 
 /* Yes.  Globals. */
 stats_t stats = {PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0, 0.0};
@@ -39,11 +39,51 @@ int _async_global_recv_work_count = 0;
  */
 
 int main(int argc, char *argv[]) {
+	
+	// queue_t testin;
+	
+	queue_t* _insert_q = _q_alloc();
+	
+	printf("q exists? %d\n", _q_exists(_insert_q));
+	printf("q is empty? %d\n", _q_is_empty(_insert_q));
+	
+//	char* msgs[] = {"", "b", "c"};
+//	_q_push(_insert_q, msgs[0], strlen(msgs[0]));
+//	_q_push(_insert_q, msgs[1], strlen(msgs[1]));
+//	_q_push(_insert_q, msgs[2], strlen(msgs[2]));
+	
+	int *pi1 = (int*) malloc(sizeof(int));
+	int *pi2 = (int*) malloc(sizeof(int));
+	int *pi3 = (int*) malloc(sizeof(int));
+	
+	*pi1 = 3;
+	*pi2 = 2;
+	*pi3 = 1;
 
+	_q_push(_insert_q, pi1, sizeof(int));
+	_q_push(_insert_q, pi2, sizeof(int));
+	_q_push(_insert_q, pi3, sizeof(int));
+	
+	printf("count: %d\n", _insert_q -> _elem_count );
+	printf("size: %d\n", _insert_q -> _size );
+
+	while (!_q_is_empty(_insert_q)) {
+		
+		int* _data = (int*) _q_pop(_insert_q);
+		
+		if (_data != NULL) {
+			printf("elem: %d\n", *( (int *) _data) );
+		}
+		
+	}
+	
+	exit(0);
+	
 	/*
 	 * syslog() aware we will be;
 	 *
 
+	 
 	// http://ludovicrousseau.blogspot.bg/2015/03/change-syslog-logging-level-on-yosemite.html
 	// http://man7.org/linux/man-pages/man3/syslog.3.html
 

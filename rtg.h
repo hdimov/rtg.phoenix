@@ -32,8 +32,10 @@
 #include <mysql.h>
 
 // init_snmp() must live here.
-#include "net-snmp-config.h"
-#include "net-snmp-includes.h"
+#include <net-snmp-config.h>
+#include <net-snmp-includes.h>
+
+#include "pqueue.h"
 
 /* global TRUE/FALSE definitions */
 #ifndef FALSE
@@ -193,9 +195,16 @@ typedef struct target_struct {
 	enum targetState init;
 	unsigned long long last_value;
 
-	// FIXME:
 	// also make necessary changes in order to log RTT time
 	// of last target poll;
+
+	// system time the request was sent;
+	long _ts1_tv_sec;
+	int _ts1_tv_usec;
+
+	// system time the answer was received;
+	long _ts2_tv_sec;
+	int _ts2_tv_usec;
 
 	struct target_struct *next;
 
@@ -249,6 +258,19 @@ typedef struct hash_struct {
 	target_t *target;
 
 } hash_t;
+
+// NOTE: probably its a good idea to have per device hash table;
+// only one problem appears; how to determine whether device is
+// there or not;
+// 'll continue with mysql insert queues;
+
+typedef struct _device_hash_struct {
+	
+	target_t *table[_HASH_SIZE];
+	int bucket;
+	target_t *target;
+	
+} device_hash_t;
 
 /* Precasts: rtgpoll.c */
 void *sig_handler(void *);

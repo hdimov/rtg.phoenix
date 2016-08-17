@@ -1,11 +1,10 @@
+
 /****************************************************************************
-   Program:     $Id: rtghash.c,v 1.9 2003/10/02 15:59:07 rbeverly Exp $
-   Author:      $Author: rbeverly $
-   Date:        $Date: 2003/10/02 15:59:07 $
-   Description: RTG target hash table routines
+   Program:     rtghash.c, v0.7.4-r1
+   Author(s):   rbeverly, hdimov
+   Purpose:     RTG target hash table routines
 ****************************************************************************/
 
-// #include "common.h"
 #include "rtg.h"
 
 /* Initialize hash table */
@@ -20,7 +19,7 @@ void init_hash() {
 
 		printf(
 			"[ info] initialize hash table pointers: %d bytes.\n",
-			(unsigned int) ( _HASH_SIZE * sizeof(target_t *) )
+			(unsigned int) (_HASH_SIZE * sizeof(target_t *))
 		);
 
 	}
@@ -239,12 +238,14 @@ int add_hash_entry(target_t *new) {
 }
 
 
-/* Read a target file into a target_t hash table.  Our hash algorithm
-   roughly randomizes targets, easing SNMP load on end devices during 
-   polling.  hash_target_file() can be called again to update the target
-   hash.  If hash_target_file() finds new target entries in the file, it
-   adds them to the hash.  If hash_target_file() finds entries in hash
-   but not in file, it removes said entries from hash.  */
+/*
+Read a target file into a target_t hash table.  Our hash algorithm
+roughly randomizes targets, easing SNMP load on end devices during
+polling.  hash_target_file() can be called again to update the target
+hash.  If hash_target_file() finds new target entries in the file, it
+adds them to the hash.  If hash_target_file() finds entries in hash
+but not in file, it removes said entries from hash.
+*/
 
 int hash_target_file(char *file) {
 
@@ -272,12 +273,12 @@ int hash_target_file(char *file) {
 
 		sprintf(
 			_log_str,
-			"[%8s] could not open target file for reading: %s",
+			"[%8s] could not open targets file for reading: %s",
 			"error",
 			file
 		);
-
 		log2me(LOW, _log_str);
+
 		return (-1);
 
 	}
@@ -312,25 +313,25 @@ int hash_target_file(char *file) {
 			sscanf(
 				buffer,
 				"%64s %128s %hu %64s %64s %d %64s %30s",
-				new -> host,
-				new -> objoid,
-				&(new -> bits),
-				new -> community,
-				new -> table,
-				&(new -> iid),
-				new -> iface,
+				new->host,
+				new->objoid,
+				&(new->bits),
+				new->community,
+				new->table,
+				&(new->iid),
+				new->iface,
 				maxspeed
 			);
 
 			if (alldigits(maxspeed)) {
 //#ifdef HAVE_STRTOLL
-				new -> maxspeed = strtoll(maxspeed, NULL, 0);
+				new->maxspeed = strtoll(maxspeed, NULL, 0);
 //#else
 //				new->maxspeed = strtol(maxspeed, NULL, 0);
 //#endif
 			} else {
 
-				new -> maxspeed = set.out_of_range;
+				new->maxspeed = set.out_of_range;
 
 			}
 
@@ -338,14 +339,14 @@ int hash_target_file(char *file) {
 				_log_str,
 				"[%8s] host+oid: %s+%s, bits: %d, community: %s, table: %s, iid: %d, iface: %s, maxspeed: %lld",
 				"info",
-			    new -> host,
-			    new -> objoid,
-			    new -> bits,
-			    new -> community,
-			    new -> table,
-			    new -> iid,
-			    new -> iface,
-			    new -> maxspeed
+				new->host,
+				new->objoid,
+				new->bits,
+				new->community,
+				new->table,
+				new->iid,
+				new->iface,
+				new->maxspeed
 			);
 			log2me(DEVELOP, _log_str);
 
