@@ -40,53 +40,53 @@ int _async_global_recv_work_count = 0;
 
 int main(int argc, char *argv[]) {
 	
-	printf("data structure sizes...\n");
-	
-	printf("target_t: %d\n", sizeof(target_t) );
-	printf("queue_node_t: %d\n", sizeof(queue_node_t) );
-	printf("queue_t: %d\n", sizeof(queue_t) );
-	
-	exit(0);
+//	printf("data structure sizes...\n");
+//
+//	printf("target_t: %d\n", sizeof(target_t) );
+//	printf("queue_node_t: %d\n", sizeof(queue_node_t) );
+//	printf("queue_t: %d\n", sizeof(queue_t) );
+//
+//	exit(0);
 	
 	// queue_t testin;
 	
-	queue_t* _insert_q = _q_alloc();
-	
-	printf("q exists? %d\n", _q_exists(_insert_q));
-	printf("q is empty? %d\n", _q_is_empty(_insert_q));
+//	queue_t* _insert_q = _q_alloc();
+//
+//	printf("q exists? %d\n", _q_exists(_insert_q));
+//	printf("q is empty? %d\n", _q_is_empty(_insert_q));
 	
 //	char* msgs[] = {"", "b", "c"};
 //	_q_push(_insert_q, msgs[0], strlen(msgs[0]));
 //	_q_push(_insert_q, msgs[1], strlen(msgs[1]));
 //	_q_push(_insert_q, msgs[2], strlen(msgs[2]));
 	
-	int *pi1 = (int*) malloc(sizeof(int));
-	int *pi2 = (int*) malloc(sizeof(int));
-	int *pi3 = (int*) malloc(sizeof(int));
-	
-	*pi1 = 3;
-	*pi2 = 2;
-	*pi3 = 1;
-
-	_q_push(_insert_q, pi1, sizeof(int));
-	_q_push(_insert_q, pi2, sizeof(int));
-	_q_push(_insert_q, pi3, sizeof(int));
-	
-	printf("count: %d\n", _insert_q -> _elem_count );
-	printf("size: %d\n", _insert_q -> _size );
-
-	while (!_q_is_empty(_insert_q)) {
-		
-		int* _data = (int*) _q_pop(_insert_q);
-		
-		if (_data != NULL) {
-			printf("elem: %d\n", *( (int *) _data) );
-		}
-		
-	}
-	
-	printf("target_t size: %d\n", sizeof(target_t) );
-	exit(0);
+//	int *pi1 = (int*) malloc(sizeof(int));
+//	int *pi2 = (int*) malloc(sizeof(int));
+//	int *pi3 = (int*) malloc(sizeof(int));
+//
+//	*pi1 = 3;
+//	*pi2 = 2;
+//	*pi3 = 1;
+//
+//	_q_push(_insert_q, pi1, sizeof(int));
+//	_q_push(_insert_q, pi2, sizeof(int));
+//	_q_push(_insert_q, pi3, sizeof(int));
+//
+//	printf("count: %d\n", _insert_q -> _elem_count );
+//	printf("size: %d\n", _insert_q -> _size );
+//
+//	while (!_q_is_empty(_insert_q)) {
+//
+//		int* _data = (int*) _q_pop(_insert_q);
+//
+//		if (_data != NULL) {
+//			printf("elem: %d\n", *( (int *) _data) );
+//		}
+//
+//	}
+//
+//	printf("target_t size: %d\n", sizeof(target_t) );
+//	exit(0);
 	
 	/*
 	 * syslog() aware we will be;

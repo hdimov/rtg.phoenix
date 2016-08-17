@@ -350,7 +350,14 @@ int add_hash_entry(target_t *);
 
 int hash_target_file(char *);
 
-/* global data structures */
+// mix(ed) queue subs;
+target_t* _target_dup(target_t* _src);
+
+/*
+ *
+ * global data structures
+ *
+ * */
 
 config_t set;
 hash_t hash;
@@ -360,7 +367,9 @@ int lock;
 int waiting;
 
 /*
-char config_paths[CONFIG_PATHS][_BUFF_SIZE];
-*/
+ *
+ * ?! char config_paths[CONFIG_PATHS][_BUFF_SIZE];
+ *
+ */
 
 #endif /* not _RTG_H_ */

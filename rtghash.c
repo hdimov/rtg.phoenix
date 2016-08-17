@@ -214,6 +214,7 @@ int del_hash_entry(target_t *new) {
 
 /* Add an entry to hash if it is unique, otherwise free() it */
 int add_hash_entry(target_t *new) {
+	
 	target_t *p = NULL;
 	unsigned int key;
 
@@ -305,6 +306,9 @@ int hash_target_file(char *file) {
 
 			new = (target_t *) malloc(sizeof(target_t));
 
+			// NOTE: default initialization;
+			// memset(new, 0, sizeof(target_t));
+			
 			if (!new) {
 				printf("Fatal target malloc error!\n");
 				exit(-1);
@@ -354,13 +358,24 @@ int hash_target_file(char *file) {
 //				printf("Host[OID][OutOfRange]:%s[%s][%lld]\n",
 //				       new->host, new->objoid, new->maxspeed);
 
-			new->init = NEW;
-			new->last_value = 0;
-			new->next = NULL;
+			new -> init = NEW;
 			
-			// NOTE: also init newly added fields;
+			new -> last_value = 0;
 			
-			// new -> last_status = SUCCE
+			// NOTE: initializing new fields;
+			
+			new -> last_status_sess = 0;
+			new -> last_status_snmp = 0;
+			
+			new -> prev_value = 0;
+			
+			new -> _ts1_tv_sec = 0;
+			new -> _ts1_tv_usec = 0;
+			
+			new -> _ts2_tv_sec = 0;
+			new -> _ts2_tv_usec = 0;
+			
+			new -> next = NULL;
 			
 			entries += add_hash_entry(new);
 

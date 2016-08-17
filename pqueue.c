@@ -100,13 +100,13 @@ void* _q_pop(queue_t* q) {
 	
 }
 
-target_t* target_dup(target_t* _src) {
+target_t* _target_dup(target_t* _src) {
 	
 	if (_src == NULL) return NULL;
 	
 	target_t* _node = malloc(sizeof(target_t));
 	
-	// NOTE: mean node initialization;
+	// NOTE: lean && mean node initialization;
 	memset(_node, 0, sizeof(target_t));
 	
 /*
@@ -150,9 +150,62 @@ target_t* target_dup(target_t* _src) {
  
  */
 
-	// host
+	// NOTE: real data copy;
+	
+	// char host[64];
 	memcpy(_node -> host, _src -> host, 64);
-	// objoid
-	memcpy(_node -> host, _src -> host, 64);
-	// bits
+	// char objoid[128];
+	memcpy(_node -> objoid, _src -> objoid, 128);
+	
+	// unsigned short bits;
+	_node -> bits = _src -> bits;
+	
+	// char community[64];
+	memcpy(_node -> community, _src -> community, 64);
+	// char table[64];
+	memcpy(_node -> table, _src -> table, 64);
+	
+	// unsigned int iid;
+	_node -> iid = _src -> iid;
+	
+	// char iface[64];
+	memcpy(_node -> iface, _src -> iface, 64);
+	
+	// long long maxspeed;
+	_node -> maxspeed = _src -> maxspeed;
+	
+	// enum targetState init;
+	_node -> init = _src -> init;
+	
+	// unsigned long long last_value;
+	_node -> last_value = _src -> last_value;
+	
+	// int last_status_sess;
+	_node -> last_status_sess = _src -> last_status_sess;
+	// int last_status_snmp;
+	_node -> last_status_snmp = _src -> last_status_snmp;
+	
+	// unsigned long long prev_value;
+	_node -> prev_value = _src -> prev_value;
+	
+	// system time the request was sent;
+	
+	// long _ts1_tv_sec;
+	_node -> _ts1_tv_sec = _src -> _ts1_tv_sec;
+	// int _ts1_tv_usec;
+	_node -> _ts1_tv_usec = _src -> _ts1_tv_usec;
+	
+	// system time the answer was received;
+	
+	// long _ts2_tv_sec;
+	_node -> _ts2_tv_sec = _src -> _ts2_tv_sec;
+	// int _ts2_tv_usec;
+	_node -> _ts2_tv_usec = _src -> _ts2_tv_usec;
+	
+	// struct target_struct *next;
+	// NOTE: or make real copy?!
+	_node -> next = NULL;
+	
+	return _node;
+
 }

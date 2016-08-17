@@ -184,4 +184,20 @@ root@t5600 /home/lisp/rtg.phoenix # cat  all-1k.log  | grep -i poll
 (~) pqueue started;
 (-) rtgsnmp complete rewrite started; currently only logging is enabled;
 
+~~~
+
+two sequential runs of _mdb script;
+
+wm:/home/lisp/work/perl/estat/conf/mdb.backend# time ../estat_runner_mdb.sh 1>estat_runner_mdb.stdout 2>estat_runner_mdb.stderr
+
+real    33m9.798s
+user    2m46.486s
+sys     0m42.299s
+wm:/home/lisp/work/perl/estat/conf/mdb.backend# time ../estat_runner_mdb.sh 1>estat_runner_mdb.stdout 2>estat_runner_mdb.stderr
+
+real    86m30.947s
+user    1m37.262s
+sys     0m48.991s
+
+~~~
 

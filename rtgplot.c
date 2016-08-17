@@ -46,6 +46,18 @@
   There are a bunch of subtleties beyond this that we try to comment.
 */
 
+/*
+
+NOTE(s):
+
+ http://www.infodrom.org/projects/cgilib/
+ https://libgd.github.io/manuals/2.2.3/files/gd-c.html
+ http://www.libpng.org/pub/png/libpng.html
+
+
+ */
+
+
 // #include "common.h"
 #include "rtg.h"
 #include "rtgplot.h"
