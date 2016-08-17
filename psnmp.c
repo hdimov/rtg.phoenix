@@ -213,11 +213,17 @@ void *sync_poller(void *thread_args) {
 			);
 			log2me(DEVELOP, _log_str);
 
-			// ts2(_log_str);
-			//, snmp_api_errstring(snmp_errno)
-			// printf("[error] %s!\n", snmp_api_errstring(snmp_errno));
-			// exit(-1);
-			// snmp_perror(snmp_errno);
+// ts2(_log_str);
+//, snmp_api_errstring(snmp_errno)
+// printf("[error] %s!\n", snmp_api_errstring(snmp_errno));
+// exit(-1);
+// snmp_perror(snmp_errno);
+
+			// FIXME: consider this code
+//		if (sessp != NULL)
+//			status = snmp_sess_synch_response(sessp, pdu, &response);
+//		else
+//			status = STAT_DESCRIP_ERROR;
 
 			continue;
 
@@ -256,7 +262,8 @@ void *sync_poller(void *thread_args) {
 		_current_local -> _ts1_tv_usec = _now.tv_usec;
 
 		int _status = snmp_sess_synch_response(_host_ss -> _sess, pdu, &response);
-
+		
+		
 		// Collect response and process stats
 		// NOTE: and order a little our responce dumps;
 		// when we have a snmp result, updating a starts counters;

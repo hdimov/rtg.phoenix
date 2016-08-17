@@ -357,6 +357,11 @@ int hash_target_file(char *file) {
 			new->init = NEW;
 			new->last_value = 0;
 			new->next = NULL;
+			
+			// NOTE: also init newly added fields;
+			
+			// new -> last_status = SUCCE
+			
 			entries += add_hash_entry(new);
 
 		}

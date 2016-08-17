@@ -176,7 +176,7 @@ typedef struct target_struct {
 	char host[64];
 	char objoid[128];
 
-	// if 0 bits are set, we interpret it as gauge values;
+	// NOTE: bits are set to 0, we interpret it as gauge values;
 	unsigned short bits;
 
 	char community[64];
@@ -185,18 +185,27 @@ typedef struct target_struct {
 	unsigned int iid;
 
 	char iface[64];
+	
+// NOTE: always demand for STRTOLL
 
 // #ifdef HAVE_STRTOLL
-	long long maxspeed;
 //#else
 //    long maxspeed;
 //#endif
 
+	// NOTE: why this is signed?
+	long long maxspeed;
+	
 	enum targetState init;
+	
 	unsigned long long last_value;
-
-	// also make necessary changes in order to log RTT time
-	// of last target poll;
+	int last_status_sess;
+	int last_status_snmp;
+	
+	// NOTE: adding this for future use;
+	unsigned long long prev_value;
+	
+	// also make necessary changes in order to log RTT time of last target(s) poll;
 
 	// system time the request was sent;
 	long _ts1_tv_sec;
@@ -272,7 +281,11 @@ typedef struct _device_hash_struct {
 	
 } device_hash_t;
 
-/* Precasts: rtgpoll.c */
+/*
+ *
+ * precasts: rtgpoll.c
+ *
+ * */
 void *sig_handler(void *);
 
 void usage(char *);
@@ -280,6 +293,7 @@ void usage(char *);
 /* Precasts: rtgpoll.c */
 void *poller(void *);
 void *poller2(void *);
+
 void *sync_poller(void *thread_args);
 // void *async_reader(void *thread_args);
 
@@ -348,6 +362,5 @@ int waiting;
 /*
 char config_paths[CONFIG_PATHS][_BUFF_SIZE];
 */
-
 
 #endif /* not _RTG_H_ */

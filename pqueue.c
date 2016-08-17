@@ -99,3 +99,60 @@ void* _q_pop(queue_t* q) {
 	return _data;
 	
 }
+
+target_t* target_dup(target_t* _src) {
+	
+	if (_src == NULL) return NULL;
+	
+	target_t* _node = malloc(sizeof(target_t));
+	
+	// NOTE: mean node initialization;
+	memset(_node, 0, sizeof(target_t));
+	
+/*
+
+	char host[64];
+	char objoid[128];
+
+	// NOTE: bits are set to 0, we interpret it as gauge values;
+	unsigned short bits;
+
+	char community[64];
+	char table[64];
+
+	unsigned int iid;
+
+	char iface[64];
+
+	// NOTE: why this is signed?
+	long long maxspeed;
+	
+	enum targetState init;
+	
+	unsigned long long last_value;
+	int last_status_sess;
+	int last_status_snmp;
+	
+	// NOTE: adding this for future use;
+	unsigned long long prev_value;
+	
+	// also make necessary changes in order to log RTT time of last target(s) poll;
+
+	// system time the request was sent;
+	long _ts1_tv_sec;
+	int _ts1_tv_usec;
+
+	// system time the answer was received;
+	long _ts2_tv_sec;
+	int _ts2_tv_usec;
+
+	struct target_struct *next;
+ 
+ */
+
+	// host
+	memcpy(_node -> host, _src -> host, 64);
+	// objoid
+	memcpy(_node -> host, _src -> host, 64);
+	// bits
+}

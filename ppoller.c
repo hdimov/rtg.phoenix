@@ -40,6 +40,14 @@ int _async_global_recv_work_count = 0;
 
 int main(int argc, char *argv[]) {
 	
+	printf("data structure sizes...\n");
+	
+	printf("target_t: %d\n", sizeof(target_t) );
+	printf("queue_node_t: %d\n", sizeof(queue_node_t) );
+	printf("queue_t: %d\n", sizeof(queue_t) );
+	
+	exit(0);
+	
 	// queue_t testin;
 	
 	queue_t* _insert_q = _q_alloc();
@@ -77,6 +85,7 @@ int main(int argc, char *argv[]) {
 		
 	}
 	
+	printf("target_t size: %d\n", sizeof(target_t) );
 	exit(0);
 	
 	/*
@@ -102,7 +111,6 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 //	int mask = LOG_MASK (LOG_INFO | LOG_ERR);
 //	int result = setlogmask(mask);
 
-	 *
 	 */
 
 	char *_ident = RTG_NAME_POLLER;
@@ -171,7 +179,11 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		printf("[ info] %s version %s is starting...\n", RTG_NAME, RTG_VERSION);
 	}
 
-	/* Initialize signal handler */
+	/*
+	 *
+	 * Initialize signal handler
+	 *
+	 */
 	sigemptyset(&signal_set);
 	sigaddset(&signal_set, SIGHUP);
 	sigaddset(&signal_set, SIGUSR1);
