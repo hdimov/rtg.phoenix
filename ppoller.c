@@ -297,13 +297,16 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 	log_step_message(LOW, "Setup and initialization ready.");
 	
+	lock = FALSE;
+	
 	for ( ; ; ) {
-
-		lock = TRUE;
+		
 		gettimeofday(&now, NULL);
 		begin_time = (double) now.tv_usec / 1000000 + now.tv_sec;
 
 		PT_MUTEX_LOCK(&(crew.mutex));
+		lock = TRUE;
+		
 		init_hash_walk();
 		current = NULL;
 		// getNext();
@@ -313,20 +316,25 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		// _async_global_recv_work_count = 0;
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 		
+		lock = FALSE;
 		log_step_message(LOW, "Queue ready, broadcasting thread GO condition.");
 
 		// http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html
 		PT_MUTEX_LOCK(&(crew.mutex));
+		lock = TRUE;
 		PT_COND_BROAD(&(crew.go));
 		PT_MUTEX_UNLOCK(&(crew.mutex));
-
+		lock = FALSE;
+		
 		// waiting fro all work units;
 		PT_MUTEX_LOCK(&(crew.mutex));
 		while (crew._send_worker_count > 0) {
+			// NOTE: about to be FALSE when next call happends;
+			lock = FALSE;
 			PT_COND_WAIT(&(crew._sending_done), &(crew.mutex));
 		}
 		PT_MUTEX_UNLOCK(&(crew.mutex));
-		
+		lock = FALSE;
 		
 		log_step_message(LOW, "All data received, broadcasting thread GO.LOG condition.");
 
@@ -337,7 +345,6 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 //		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		gettimeofday(&now, NULL);
-		lock = FALSE;
 
 		end_time = (double) now.tv_usec / 1000000 + now.tv_sec;
 		stats.poll_time = end_time - begin_time;
@@ -351,7 +358,6 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 //				printf("Processing pending SIGHUP.\n");
 			
 			log_step_message(LOW, "Processing pending SIGHUP.");
-			
 			entries = hash_target_file(target_file);
 			waiting = FALSE;
 		}
@@ -360,6 +366,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		log_step_message(LOW, errstr);
 		log_poll_stats(LOW, stats);
 
+		// FIXME: better logging here!
 		if (sleep_time <= 0)
 			stats.slow++;
 		else
