@@ -49,7 +49,7 @@ void log_poll_stats(enum debugLevel verbose, stats_t stats) {
 	
 	sprintf(
 		_log_str,
-		"[%8s] Poll summary [Polls = %lld] [Wraps = %d] [OutOfRange = %d] [No Resp = %d] [SNMP Errors = %d] [Slow = %d] [PollTime = %2.3f]",
+		"[%8s] Poll summary [Polls = %lld] [Wraps = %d] [Out Of Range = %d] [No Resp = %d] [SNMP Errors = %d] [Slow = %d] [Poll Time = %2.3f]",
 		"info",
 		stats.polls,
 		stats.wraps,

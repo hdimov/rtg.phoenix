@@ -297,7 +297,7 @@ void usage(char *);
 void *poller(void *);
 void *poller2(void *);
 
-void* sync_poller(void *thread_args);
+// void* sync_poller(void *thread_args);
 // void *async_reader(void *thread_args);
 void* sync_poller_v2(void *thread_args);
 
