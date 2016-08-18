@@ -201,3 +201,10 @@ sys     0m48.991s
 
 ~~~
 
+[Polls = 0] [DBInserts = 0] [Wraps = 0] [OutOfRange = 0]
+[No Resp = 0] [SNMP Errs = 0] [Slow = 0] [PollTime = 6.058s]
+Next Poll: 10...
+
+9...8...7...
+
+(?) what about timeout statistics ?

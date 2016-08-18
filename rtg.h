@@ -255,6 +255,8 @@ typedef struct poll_stats {
 	unsigned int out_of_range;
 	unsigned int errors;
 	unsigned int slow;
+	
+	// ?! unsigned int timeout;
 
 	double poll_time;
 
