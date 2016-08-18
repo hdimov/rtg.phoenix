@@ -28,13 +28,170 @@ struct session {
 
 };
 
-void _buffered_result_and_stats(
+void _anylyze_result_and_update_queue(
 	target_t *_current_local,
 	int thread_id,
 	struct session *_host_ss,
 	int status,
 	struct snmp_session *sp,
-	struct snmp_pdu *response
+	struct snmp_pdu *response,
+	struct variable_list* var
+) {
+	
+	unsigned long long result = 0;
+//	unsigned long long last_value = 0;
+	unsigned long long insert_val = 0;
+	
+	if (var == NULL) return;
+	
+	switch (var -> type) {
+		
+		 // Switch over vars->type and modify/assign result accordingly.
+		case ASN_COUNTER64:
+			// if (set.verbose >= DEBUG) printf("64-bit result: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (var -> val).counter64 -> high;
+			result = result << 32;
+			result = result + (var -> val).counter64 -> low;
+			break;
+			
+		case ASN_COUNTER:
+			// if (set.verbose >= DEBUG) printf("32-bit result: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (unsigned long) *(var -> val.integer);
+			break;
+			
+		case ASN_INTEGER:
+			// if (set.verbose >= DEBUG) printf("Integer result: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (unsigned long) *(var -> val.integer);
+			break;
+			
+		case ASN_GAUGE:
+			// if (set.verbose >= DEBUG) printf("32-bit gauge: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (unsigned long) *(var -> val.integer);
+			break;
+			
+		case ASN_TIMETICKS:
+			// if (set.verbose >= DEBUG) printf("Timeticks result: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (unsigned long) *((var -> val).integer);
+			break;
+			
+		case ASN_OPAQUE:
+			// if (set.verbose >= DEBUG) printf("Opaque result: (%s@%s) %s\n", session.peername, storedoid, result_string);
+			result = (unsigned long) *(var -> val.integer);
+			break;
+			
+		default:
+			;
+			// if (set.verbose >= DEBUG) printf("Unknown result type: (%s@%s) %s\n", session.peername, storedoid, result_string);
+	}
+	
+	/* Gauge Type */
+	if (_current_local -> bits == 0) {
+		
+//		if (result != last_value) {
+//			insert_val = result;
+//			if (set.verbose >= HIGH)
+//				printf("Thread [%d]: Gauge change from %lld to %lld\n", worker->index, last_value, insert_val);
+//		} else {
+//			if (set.withzeros)
+//				insert_val = result;
+//			if (set.verbose >= HIGH)
+//				printf("Thread [%d]: Gauge steady at %lld\n", worker->index, insert_val);
+//		}
+		/* Counter Wrap Condition */
+		
+	} else if (result < _current_local -> last_value) {
+		
+//		PT_MUTEX_LOCK(&stats.mutex);
+//		stats.wraps++;
+//		PT_MUTEX_UNLOCK(&stats.mutex);
+//		if (bits == 32) insert_val = (THIRTYTWO - last_value) + result;
+//		else if (bits == 64) insert_val = (SIXTYFOUR - last_value) + result;
+//		if (set.verbose >= LOW) {
+//			printf("*** Counter Wrap (%s@%s) [poll: %llu][last: %llu][insert: %llu]\n",
+//			       session.peername, storedoid, result, last_value, insert_val);
+//		}
+		
+		/* Not a counter wrap and this is not the first poll */
+		
+	} else if ( (_current_local -> last_value >= 0) && (_current_local -> init != NEW)) {
+		
+		// insert_val = result - last_value;
+		/* Print out SNMP result if verbose */
+//		if (set.verbose == DEBUG)
+//			printf("Thread [%d]: (%lld-%lld) = %llu\n", worker->index, result, last_value, insert_val);
+//		if (set.verbose == HIGH)
+//			printf("Thread [%d]: %llu\n", worker->index, insert_val);
+		/* last_value < 0, so this must be the first poll */
+	} else {
+		
+//		if (set.verbose >= HIGH) printf("Thread [%d]: First Poll, Normalizing\n", worker->index);
+		
+	}
+	
+	/* Check for bogus data, either negative or unrealistic */
+	
+	if (insert_val > _current_local -> maxspeed || result < 0) {
+		
+//		if (set.verbose >= LOW) printf("*** Out of Range (%s@%s) [insert_val: %llu] [oor: %lld]\n",
+//		                               session.peername, storedoid, insert_val, entry->maxspeed);
+//		insert_val = 0;
+//		PT_MUTEX_LOCK(&stats.mutex);
+//		stats.out_of_range++;
+//		PT_MUTEX_UNLOCK(&stats.mutex);
+	}
+	
+//	if (!(set.dboff)) {
+//		if ( (insert_val > 0) || (set.withzeros) ) {
+//			PT_MUTEX_LOCK(&crew->mutex);
+//			snprintf(query, sizeof(query), "INSERT INTO %s VALUES (%d, NOW(), %llu)",
+//			         entry->table, entry->iid, insert_val);
+//			if (set.verbose >= DEBUG) printf("SQL: %s\n", query);
+//			status = mysql_query(&mysql, query);
+//			if (status) printf("*** MySQL Error: %s\n", mysql_error(&mysql));
+//			PT_MUTEX_UNLOCK(&crew->mutex);
+//
+//			if (!status) {
+//				PT_MUTEX_LOCK(&stats.mutex);
+//				stats.db_inserts++;
+//				PT_MUTEX_UNLOCK(&stats.mutex);
+//			}
+//		}
+//		insert_val > 0 or withzeros
+//	}
+	
+
+//if (sessp != NULL) {
+//snmp_sess_close(sessp);
+//if (response != NULL) snmp_free_pdu(response);
+//}
+
+//if (set.verbose >= DEVELOP)
+//printf("Thread [%d] locking (update work_count)\n", worker->index);
+//PT_MUTEX_LOCK(&crew->mutex);
+//crew->work_count--;
+///* Only if we received a positive result back do we update the
+//   last_value object */
+//
+//if (status == STAT_SUCCESS) entry->last_value = result;
+//if (init == NEW) entry->init = LIVE;
+//if (crew->work_count <= 0) {
+//if (set.verbose >= HIGH) printf("Queue processed. Broadcasting thread done condition.\n");
+//PT_COND_BROAD(&crew->done);
+//}
+//if (set.verbose >= DEVELOP)
+//printf("Thread [%d] unlocking (update work_count)\n", worker->index);
+//
+//PT_MUTEX_UNLOCK(&crew->mutex);
+
+}
+
+void _log_result_and_update_stats(
+	target_t* _current_local,
+	int thread_id,
+	struct session* _host_ss,
+	int status,
+	struct snmp_session* sp,
+	struct snmp_pdu* response
 ) {
 	
 	// NOTE: update stats and see what's next...
@@ -56,6 +213,8 @@ void _buffered_result_and_stats(
 		// nothing to log. already logged.
 		stats.errors++;
 		
+		_anylyze_result_and_update_queue(_current_local, thread_id, _host_ss, status, sp, response, NULL);
+		
 	} else if (status == STAT_TIMEOUT) {
 		
 		// TIMEOUT this is...
@@ -72,6 +231,8 @@ void _buffered_result_and_stats(
 			"timeout"
 		);
 		log2me(DEBUG, _log_str);
+		
+		_anylyze_result_and_update_queue(_current_local, thread_id, _host_ss, status, sp, response, NULL);
 		
 	} else if (status != STAT_SUCCESS) {
 		
@@ -91,6 +252,8 @@ void _buffered_result_and_stats(
 		);
 		log2me(DEBUG, _log_str);
 		
+		_anylyze_result_and_update_queue(_current_local, thread_id, _host_ss, status, sp, response, NULL);
+		
 	} else if (status == STAT_SUCCESS && response -> errstat != SNMP_ERR_NOERROR) {
 		
 		// SNMP error this is...
@@ -108,6 +271,8 @@ void _buffered_result_and_stats(
 		);
 		log2me(DEBUG, _log_str);
 		
+		_anylyze_result_and_update_queue(_current_local, thread_id, _host_ss, status, sp, response, NULL);
+
 // FIXME:
 //
 //	} else {
@@ -138,9 +303,13 @@ void _buffered_result_and_stats(
 		while (vp) {
 			
 			snprint_variable(buf, sizeof(buf), vp -> name, vp -> name_length, vp);
+			
+			// sprint_value(result_string, anOID, anOID_len, vars);
+			// snprint_value(result_string, BUFSIZE, anOID, anOID_len, vars);
+			
 			sprintf(
 				_log_str,
-			    "[%8s] tid:%4d, status:%3d, millis: %u, host+oid: %s+%s, result: %s",
+			    "[%8s] tid:%4d, status:%3d, millis: %u, host+oid: %s+%s, text result: %s",
 			    "answer",
 				thread_id,
 				STAT_SUCCESS,
@@ -150,6 +319,9 @@ void _buffered_result_and_stats(
 				buf
 			);
 			log2me(DEVELOP, _log_str);
+			
+			_anylyze_result_and_update_queue(_current_local, thread_id, _host_ss, status, sp, response, vp);
+			
 			vp = vp -> next_variable;
 			
 		}
@@ -291,7 +463,7 @@ void* sync_poller_v2(void *thread_args) {
 		_current_local -> _ts2_tv_usec = _now.tv_usec;
 		
 		PT_MUTEX_LOCK(&stats.mutex);
-		_buffered_result_and_stats(_current_local, worker -> index, _host_ss, _status, &_sess, response);
+		_log_result_and_update_stats(_current_local, worker -> index, _host_ss, _status, &_sess, response);
 		PT_MUTEX_UNLOCK(&stats.mutex);
 		
 		// allways free...
