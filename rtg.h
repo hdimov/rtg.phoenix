@@ -226,6 +226,7 @@ typedef struct crew_struct {
 
 	// sending done, a signal for our main control thread;
 	int _send_work_count;
+	
 	int _send_worker_count;
 	pthread_cond_t _sending_done;
 
@@ -247,7 +248,7 @@ typedef struct poll_stats {
 	pthread_mutex_t mutex;
 
 	unsigned long long polls;
-	unsigned long long db_inserts;
+	// unsigned long long db_inserts;
 
 	unsigned int round;
 	unsigned int wraps;
@@ -296,8 +297,9 @@ void usage(char *);
 void *poller(void *);
 void *poller2(void *);
 
-void *sync_poller(void *thread_args);
+void* sync_poller(void *thread_args);
 // void *async_reader(void *thread_args);
+void* sync_poller_v2(void *thread_args);
 
 /* Precasts: rtgmysql.c */
 int _db_insert(char *, MYSQL *);
@@ -314,6 +316,10 @@ int write_rtg_config(char *, config_t *);
 void config_defaults(config_t *);
 
 void print_stats(stats_t);
+
+void log_poll_stats(enum debugLevel verbose, stats_t stats);
+void log_step_message(enum debugLevel verbose, char* msg);
+
 
 void sleepy(float);
 

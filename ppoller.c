@@ -18,7 +18,7 @@
 // #include <syslog.h>
 
 /* Yes.  Globals. */
-stats_t stats = {PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0, 0.0};
+stats_t stats = {PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0.0};
 
 char *target_file = NULL;
 target_t *current = NULL;
@@ -171,19 +171,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		}
 
 	}
-
-//	printf("%d, %d", set.verbose, OFF);
-//	exit(0);
-
-	if (set.verbose >= LOW) {
-		printf("[ info] %s version %s is starting...\n", RTG_NAME, RTG_VERSION);
-	}
+	
+	snprintf(errstr, sizeof(errstr), "%s version %s is starting! Setup and initialization steps follow.", RTG_NAME, RTG_VERSION);
+	log_step_message(LOW, errstr);
 
 	/*
-	 *
 	 * Initialize signal handler
-	 *
 	 */
+	
 	sigemptyset(&signal_set);
 	sigaddset(&signal_set, SIGHUP);
 	sigaddset(&signal_set, SIGUSR1);
@@ -285,7 +280,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	for (i = 0; i < set.threads; i++) {
 		crew.member[i].index = i;
 		crew.member[i].crew = &crew;
-		if (pthread_create(&(crew.member[i].thread), NULL, sync_poller, (void *) &(crew.member[i])) != 0)
+		if (pthread_create(&(crew.member[i].thread), NULL, sync_poller_v2, (void *) &(crew.member[i])) != 0)
 			printf("pthread_create error\n");
 	}
 
@@ -300,11 +295,9 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	/* give threads time to start up */
 	// ?! wtf sleep(1);
 
-	if (set.verbose >= LOW)
-		ts2("RTG Ready.\n");
-
-	/* Loop Forever Polling Target List */
-	while (1) {
+	log_step_message(LOW, "Setup and initialization ready.");
+	
+	for ( ; ; ) {
 
 		lock = TRUE;
 		gettimeofday(&now, NULL);
@@ -319,9 +312,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		// crew._recv_work_count = 0;
 		// _async_global_recv_work_count = 0;
 		PT_MUTEX_UNLOCK(&(crew.mutex));
-
-		if (set.verbose >= LOW)
-			ts2("[ info] Queue ready, broadcasting thread GO condition.");
+		
+		log_step_message(LOW, "Queue ready, broadcasting thread GO condition.");
 
 		// http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html
 		PT_MUTEX_LOCK(&(crew.mutex));
@@ -334,9 +326,9 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 			PT_COND_WAIT(&(crew._sending_done), &(crew.mutex));
 		}
 		PT_MUTEX_UNLOCK(&(crew.mutex));
-
-		if (set.verbose >= LOW)
-			ts2("[ info] All data received, broadcasting thread GO.LOG condition.");
+		
+		
+		log_step_message(LOW, "All data received, broadcasting thread GO.LOG condition.");
 
 //		PT_MUTEX_LOCK(&(crew.mutex));
 //		// while (crew._recv_work_count > 0) {
@@ -354,18 +346,19 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		sleep_time = set.interval - stats.poll_time;
 
 		if (waiting) {
-			if (set.verbose >= HIGH)
-				printf("Processing pending SIGHUP.\n");
+			
+//			if (set.verbose >= HIGH)
+//				printf("Processing pending SIGHUP.\n");
+			
+			log_step_message(LOW, "Processing pending SIGHUP.");
+			
 			entries = hash_target_file(target_file);
 			waiting = FALSE;
 		}
-
-		if (set.verbose >= LOW) {
-			snprintf(errstr, sizeof(errstr), "[ info] Poll round %d complete.", stats.round);
-			// syslog(LOG_INFO, errstr);
-			ts2(errstr);
-			print_stats(stats);
-		}
+		
+		snprintf(errstr, sizeof(errstr), "Poll round %d complete.", stats.round);
+		log_step_message(LOW, errstr);
+		log_poll_stats(LOW, stats);
 
 		if (sleep_time <= 0)
 			stats.slow++;

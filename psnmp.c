@@ -173,6 +173,50 @@ int _buffered_print_result(
 
 }
 
+int _buffered_result_and_stats(
+	target_t *_current_local,
+	int thread_id,
+	struct session *_host_ss,
+	int status,
+	struct snmp_session *sp,
+	struct snmp_pdu *response
+) {
+	
+	// NOTE: update stats and see what's next...
+	
+	if (status == STAT_DESCRIP_ERROR) {
+	
+		// SNMP error this is...
+		stats.errors++;
+//		printf("*** SNMP Error: (%s) Bad descriptor.\n", session.peername);
+		
+	} else if (status == STAT_TIMEOUT) {
+		
+		// TIMEOUT this is...
+		stats.no_resp++;
+//		printf("*** SNMP No response: (%s@%s).\n", session.peername, storedoid);
+		
+	} else if (status != STAT_SUCCESS) {
+		
+		// SNMP error this is...
+		stats.errors++;
+//		printf("*** SNMP Error: (%s@%s) Unsuccessuful (%d).\n", session.peername, storedoid, status);
+		
+	} else if (status == STAT_SUCCESS && response -> errstat != SNMP_ERR_NOERROR) {
+		
+		// SNMP error this is...
+		stats.errors++;
+//		printf("*** SNMP Error: (%s@%s) %s\n", session.peername, storedoid, snmp_errstring(response->errstat));
+		
+	} else if (status == STAT_SUCCESS && response -> errstat == SNMP_ERR_NOERROR) {
+		
+		// OK this is ...
+		stats.polls++;
+		
+	}
+	
+}
+
 // phoenix sync poller; thread overloaded (r1) version;
 void *sync_poller(void *thread_args) {
 
@@ -229,6 +273,8 @@ void *sync_poller(void *thread_args) {
 		snmp_sess_init(&_sess);
 
 		_sess.version = SNMP_VERSION_2c;
+		
+		// FIXME: be aware on free();
 		_sess.peername = strdup(_current_local-> host);
 		_sess.community = strdup(_current_local -> community);
 		_sess.community_len = strlen(_sess.community);
@@ -280,6 +326,8 @@ void *sync_poller(void *thread_args) {
 		}
 
 		// make our OID snmp lib friendly;
+		
+		// FIXME: be aware on free();
 		_host_ss -> _oid_name = strdup(_current_local -> objoid);
 		_host_ss -> _oid_len = sizeof(_host_ss -> _oid) / sizeof(_host_ss -> _oid[0]);
 
@@ -330,6 +378,168 @@ void *sync_poller(void *thread_args) {
 
 	} // for (;;)
 
+}
+
+//
+// better error handling and result understanding;
+//
+void* sync_poller_v2(void *thread_args) {
+
+	// who am I?
+	worker_t* worker = (worker_t *) thread_args;
+	// where are the others?
+	crew_t* crew = worker -> crew;
+	
+	// what is my current target?
+	target_t *_current_local = NULL;
+	
+	// ts based benchmarking;
+	struct timeval _now;
+	
+	// 'll put my log messages here;
+	char _log_str[_BUFF_SIZE];
+	
+	// 'll wait until all other threads are ready;
+	PT_MUTEX_LOCK(&crew -> mutex);
+	PT_COND_WAIT(&crew -> go, &crew -> mutex);
+	PT_MUTEX_UNLOCK(&crew -> mutex);
+	
+	for( ; ; ) {
+
+		// NOTE: critical section I
+		// get my next target;
+		// also check if there is more work to do;
+		
+		PT_MUTEX_LOCK(&crew -> mutex);
+		
+		current = _current_local = getNext();
+		crew -> _send_work_count--;
+		
+		if (_current_local == NULL && crew -> _send_work_count <= 0) {
+			
+			crew -> _send_worker_count--;
+			PT_COND_BROAD(&crew -> _sending_done);
+			
+			PT_COND_WAIT(&crew -> go, &crew -> mutex);
+			PT_MUTEX_UNLOCK(&crew -> mutex);
+			continue;
+		}
+		
+		PT_MUTEX_UNLOCK(&crew->mutex);
+		
+		// work received, lets start benchmarking;
+		
+		// have _current_local may init ts1/ts2 ...
+		gettimeofday(&_now, NULL);
+		_current_local -> _ts1_tv_sec = _now.tv_sec;
+		_current_local -> _ts1_tv_usec = _now.tv_usec;
+		
+		// let's make a SNMP session;
+		
+		// struct session *_host_ss = stuepd you are, this is a ptr! should be initialized 1st :- ;
+		struct session *_host_ss = calloc(1, sizeof(struct session));
+		
+		struct snmp_session _sess;
+		// memset(&_sess, 0, sizeof(struct snmp_session));
+		
+		// this will show us snmp_session status;
+		int _status;
+		
+		struct snmp_pdu *pdu = NULL;
+		struct snmp_pdu *response = NULL;
+		
+		// initialize snmp session struct;
+		snmp_sess_init(&_sess);
+		
+		_sess.version = SNMP_VERSION_2c;
+		
+		// NOTE: be aware on free();
+		_sess.peername = strdup(_current_local-> host);
+		_sess.community = strdup(_current_local -> community);
+		
+		_sess.community_len = strlen(_sess.community);
+		
+		_host_ss -> _sess = snmp_sess_open(&_sess);
+
+		if (_host_ss -> _sess == NULL) {
+			
+			_status = STAT_DESCRIP_ERROR;
+			
+			sprintf(
+				_log_str,
+				"[%8s] tid:%4d, status:%3d, host+oid: %s+%s, result: %s",
+				"info",
+				worker -> index,
+				STAT_DESCRIP_ERROR,
+				_current_local -> host,
+				_current_local -> objoid,
+				"snmp descriptor error"
+			);
+			log2me(DEVELOP, _log_str);
+			
+		} else {
+			
+			// NOTE: be aware on free();
+			_host_ss -> _oid_name = strdup(_current_local -> objoid);
+			_host_ss -> _oid_len = sizeof(_host_ss -> _oid) / sizeof(_host_ss -> _oid[0]);
+			
+			if (!read_objid(_host_ss -> _oid_name, _host_ss -> _oid, &_host_ss -> _oid_len)) {
+				
+				// FIXME: still to be handled nicely when happends...
+				snmp_perror("TERRIBLE error with read_objid() call...");
+				exit(-1);
+				
+			}
+			
+			// create snmp GET
+			pdu = snmp_pdu_create(SNMP_MSG_GET);
+			snmp_add_null_var(pdu, _host_ss -> _oid, _host_ss -> _oid_len);
+			
+			sprintf(
+				_log_str,
+				"[%8s] tid:%4d, status:%3d, host+oid: %s+%s, result: %s",
+				"info",
+				worker -> index,
+				STAT_SUCCESS,
+				_current_local -> host,
+				_current_local -> objoid,
+				"sending request"
+			);
+			log2me(DEVELOP, _log_str);
+			
+			_status = snmp_sess_synch_response(_host_ss -> _sess, pdu, &response);
+			
+		}
+		
+		gettimeofday(&_now, NULL);
+		_current_local -> _ts2_tv_sec = _now.tv_sec;
+		_current_local -> _ts2_tv_usec = _now.tv_usec;
+		
+		PT_MUTEX_LOCK(&stats.mutex);
+		_buffered_result_and_stats(_current_local, worker -> index, _host_ss, _status, &_sess, response);
+		PT_MUTEX_UNLOCK(&stats.mutex);
+		
+		// allways free...
+		// _sess.peername = strdup(_current_local-> host);
+		// _sess.community = strdup(_current_local -> community);
+		
+		free(_sess.peername);
+		free(_sess.community);
+		if (_status != STAT_DESCRIP_ERROR) {
+			
+			// _host_ss -> _oid_name = strdup(_current_local -> objoid);
+			free(_host_ss -> _oid_name);
+			
+			snmp_sess_close(_host_ss -> _sess);
+			snmp_free_pdu(response);
+			
+		}
+		
+		// allways free...
+		free(_host_ss);
+		
+	}
+	
 }
 
 /*

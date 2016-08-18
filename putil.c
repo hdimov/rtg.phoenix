@@ -42,3 +42,41 @@ void log2me(enum debugLevel verbose,  char *str) {
 		ts2(str);
 
 }
+
+void log_poll_stats(enum debugLevel verbose, stats_t stats) {
+	
+	char _log_str[_BUFF_SIZE];
+	
+	sprintf(
+		_log_str,
+		"[%8s] Poll summary [Polls = %lld] [Wraps = %d] [OutOfRange = %d] [No Resp = %d] [SNMP Errors = %d] [Slow = %d] [PollTime = %2.3f]",
+		"info",
+		stats.polls,
+		stats.wraps,
+		stats.out_of_range,
+		stats.no_resp,
+		stats.errors,
+		stats.slow,
+		stats.poll_time
+	);
+	
+	log2me(LOW, _log_str);
+	
+	return;
+	
+}
+
+void log_step_message(enum debugLevel verbose, char* msg) {
+	
+	char _log_str[_BUFF_SIZE];
+	
+	sprintf(
+		_log_str,
+		"[%8s] %s",
+		"info",
+	    msg
+	);
+	
+	log2me(verbose, _log_str);
+	
+}

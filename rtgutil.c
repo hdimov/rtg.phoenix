@@ -127,16 +127,17 @@ void config_defaults(config_t *set) {
 
 /* Print RTG stats */
 void print_stats(stats_t stats) {
-	printf("\n[Polls = %lld] [DBInserts = %lld] [Wraps = %d] [OutOfRange = %d]\n",
-	       stats.polls, stats.db_inserts, stats.wraps, stats.out_of_range);
-	printf("[No Resp = %d] [SNMP Errs = %d] [Slow = %d] [PollTime = %2.3f%c]\n",
-	       stats.no_resp, stats.errors, stats.slow, stats.poll_time, 's');
+//	printf("\n[Polls = %lld] [DBInserts = %lld] [Wraps = %d] [OutOfRange = %d]\n",
+//	       stats.polls, stats.db_inserts, stats.wraps, stats.out_of_range);
+//	printf("[No Resp = %d] [SNMP Errs = %d] [Slow = %d] [PollTime = %2.3f%c]\n",
+//	       stats.no_resp, stats.errors, stats.slow, stats.poll_time, 's');
 	return;
 }
 
 
 /* A fancy sleep routine */
 void sleepy(float sleep_time) {
+	
 	int chunks = 10;
 	int i;
 
@@ -155,6 +156,7 @@ void sleepy(float sleep_time) {
 		sleep_time *= 1000000;
 		usleep((unsigned int) sleep_time);
 	}
+	
 }
 
 
