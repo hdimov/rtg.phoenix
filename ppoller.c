@@ -360,6 +360,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 			log_step_message(LOW, "Processing pending SIGHUP.");
 			entries = hash_target_file(target_file);
 			waiting = FALSE;
+			
 		}
 		
 		snprintf(errstr, sizeof(errstr), "Poll round %d complete.", stats.round);

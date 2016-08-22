@@ -56,7 +56,6 @@
 
 #define _THIRTY_TWO 4294967295ul
 #define _SIXTY_FOUR 18446744073709551615ull
-
 /*
  *
  * Define CONFIG_PATHS places to search for the rtg.conf file.
@@ -204,6 +203,8 @@ typedef struct target_struct {
 	
 	// NOTE: adding this for future use;
 	unsigned long long prev_value;
+	
+	unsigned long long insert_value;
 	
 	// also make necessary changes in order to log RTT time of last target(s) poll;
 
