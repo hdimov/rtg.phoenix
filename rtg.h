@@ -130,6 +130,11 @@ enum debugLevel {
 	DEVELOP
 };
 
+enum dbType {
+	__MYSQL,
+	__PGSQL
+};
+
 /* Target state */
 enum targetState {
 
@@ -147,27 +152,32 @@ typedef struct worker_struct {
 } worker_t;
 
 typedef struct config_struct {
+	
+	enum dbType _db_type;
+	
+	char _db_host[64];
+	char _db_name[64];
+	char _db_user[64];
+	char _db_pass[64];
 
 	unsigned int interval;
 	unsigned long long out_of_range;
 
-	char dbhost[80];
-	char dbdb[80];
-	char dbuser[80];
-	char dbpass[80];
-
 	enum debugLevel verbose;
 
-	unsigned short withzeros;
-	unsigned short dboff;
+	unsigned short with_zeros;
+	
+	unsigned short db_off;
+	
 	unsigned short multiple;
+	
 	unsigned short snmp_ver;
 	unsigned short snmp_port;
 
 	unsigned int threads;
 
-	float highskewslop;
-	float lowskewslop;
+	float high_skew_slop;
+	float low_skew_slop;
 
 } config_t;
 

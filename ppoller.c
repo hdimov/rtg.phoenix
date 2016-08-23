@@ -151,7 +151,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 				conf_file = optarg;
 				break;
 			case 'd':
-				set.dboff = TRUE;
+				set.db_off = TRUE;
 				break;
 			case 'h':
 				usage(argv[0]);
@@ -166,7 +166,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 				set.verbose++;
 				break;
 			case 'z':
-				set.withzeros = TRUE;
+				set.with_zeros = TRUE;
 				break;
 		}
 
@@ -255,23 +255,6 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 	// snmp lib;
 	init_snmp(RTG_NAME_POLLER);
-
-	/* Attempt to connect to the MySQL Database */
-	#ifndef _DB_BACKEND_DISABLED
-	if (!(set.dboff)) {
-		if (_db_connect(set.dbdb, &mysql) < 0) {
-			fprintf(stderr, "** Database error - check configuration.\n");
-			exit(-1);
-		}
-		if (!mysql_ping(&mysql)) {
-			if (set.verbose >= LOW)
-				printf("connected.\n");
-		} else {
-			printf("server not responding.\n");
-			exit(-1);
-		}
-	}
-	#endif
 
 	if (set.verbose >= HIGH)
 		printf("\nStarting threads.\n");

@@ -455,6 +455,7 @@ int parse_group_data(char *str) {
 //
 
 int main(int argc, char **argv) {
+
 	MYSQL mysql;
 	gdImagePtr img;
 	
@@ -2654,6 +2655,7 @@ data_t *return_Nth(data_t *head, int datapoints, int n) {
 
 void parseCmdLine(int argc, char **argv, arguments_t *arguments, graph_t *graph) {
 	int ch;
+	// FIXME: getopt_long
 	
 	graph->units = malloc(sizeof(DEFAULT_UNITS));
 	strncpy(graph->units, DEFAULT_UNITS, sizeof(DEFAULT_UNITS));

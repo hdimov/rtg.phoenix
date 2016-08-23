@@ -22,6 +22,23 @@ void* prlogger(void *_thread_args) {
 	char _log_str[_BUFF_SIZE];
 	
 	// NOTE: connect to db, right here. Disconnect is not mandatory at the moment.
+	
+	/* Attempt to connect to the MySQL Database */
+	// #ifndef _DB_BACKEND_DISABLED
+	if (!(set.dboff)) {
+		if (_db_connect(set.dbdb, &mysql) < 0) {
+			fprintf(stderr, "** Database error - check configuration.\n");
+			exit(-1);
+		}
+		if (!mysql_ping(&mysql)) {
+			if (set.verbose >= LOW)
+				printf("connected.\n");
+		} else {
+			printf("server not responding.\n");
+			exit(-1);
+		}
+	}
+	// #endif
 
 	for ( ; ; ) {
 		
