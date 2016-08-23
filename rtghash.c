@@ -139,7 +139,7 @@ void walk_target_hash() {
 			p = p->next;
 		}
 	}
-	printf("Total of %u targets [%u bytes of memory].\n",
+	printf("Total of %u targets [%lu bytes of memory].\n",
 	       targets, targets * sizeof(target_t));
 }
 
@@ -387,7 +387,7 @@ int hash_target_file(char *file) {
 
 	sprintf(
 		_log_str,
-		"[%8s] successfully hashed %d NEW targets, size taken: %d bytes.",
+		"[%8s] successfully hashed %d NEW targets, size taken: %lu bytes.",
 		"info",
 		entries,
 		entries * sizeof(target_t)

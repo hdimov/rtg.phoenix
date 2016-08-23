@@ -628,6 +628,8 @@ void* sync_poller_v2(void *thread_args) {
 		
 		PT_MUTEX_LOCK(&stats.mutex);
 		_log_result_and_update_stats(_current_local, worker -> index, _host_ss, _status, &_sess, response);
+		// NOTE: got proper result for _current_result let's add it to queue;
+		_q_push(stats._q_result, _target_dup(_current_local), sizeof(target_t));
 		PT_MUTEX_UNLOCK(&stats.mutex);
 		
 		// allways free...

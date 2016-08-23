@@ -146,7 +146,7 @@ void sleepy(float sleep_time) {
 			printf("Next Poll: ");
 		for (i = chunks; i > 0; i--) {
 			if (set.verbose >= LOW) {
-				printf("%d...", i);
+				printf("%d...\n", i);
 				fflush(NULL);
 			}
 			usleep((unsigned int) (sleep_time * 1000000 / chunks));

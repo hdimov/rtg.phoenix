@@ -1,6 +1,6 @@
 
 /****************************************************************************
-   Program:     pqueue.c, v0.7.4-r1
+   Program:     pqueue.c, v0.7.4-r2
    Author(s):   hdimov
    Purpose:     RTG Phoenix Queue data structure tools;
 ****************************************************************************/
@@ -95,6 +95,7 @@ void* _q_pop(queue_t* q) {
 	q -> _elem_count -= 1;
 	q -> _size -= _node -> _size;
 	
+	// NOTE: but freeing _data entry itself is left to client-side call;
 	free(_node);
 	return _data;
 	
@@ -187,6 +188,9 @@ target_t* _target_dup(target_t* _src) {
 	
 	// unsigned long long prev_value;
 	_node -> prev_value = _src -> prev_value;
+	
+	// unsigned long long insert_value;
+	_node -> insert_value = _src -> insert_value;
 	
 	// system time the request was sent;
 	

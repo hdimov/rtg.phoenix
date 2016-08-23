@@ -2,6 +2,8 @@
 // Created by Hristo Hristov on 7/9/16.
 //
 
+#include "rtg.h"
+
 #ifndef RTG_PHOENIX_PUTIL_H
 #define RTG_PHOENIX_PUTIL_H
 
@@ -9,7 +11,5 @@
 #include <sys/time.h>
 
 #include <stdio.h>
-
-#include "rtg.h"
 
 #endif //RTG_PHOENIX_PUTIL_H

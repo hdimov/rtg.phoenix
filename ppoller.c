@@ -18,7 +18,7 @@
 // #include <syslog.h>
 
 /* Yes.  Globals. */
-stats_t stats = {PTHREAD_MUTEX_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0.0};
+stats_t stats = {PTHREAD_MUTEX_INITIALIZER, PTHREAD_COND_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0.0, NULL, NULL};
 
 char *target_file = NULL;
 target_t *current = NULL;
@@ -241,12 +241,14 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 	// signal handling and stuff shtoud be moved here;
 
 	pthread_mutex_init(&(crew.mutex), NULL);
-
 	pthread_cond_init(&(crew._sending_done), NULL);
 	pthread_cond_init(&(crew.go), NULL);
 
 	crew._send_work_count = 0;
-
+	
+	pthread_mutex_init(&(stats.mutex), NULL);
+	pthread_cond_init(&(stats.go), NULL);
+	
 	/* Initialize the SNMP session */
 	if (set.verbose >= LOW)
 		printf("Initializing SNMP (v%d, port %d).\n", set.snmp_ver, set.snmp_port);
@@ -283,6 +285,9 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		if (pthread_create(&(crew.member[i].thread), NULL, sync_poller_v2, (void *) &(crew.member[i])) != 0)
 			printf("pthread_create error\n");
 	}
+	
+	if (pthread_create( &(stats.logger_thread), NULL, prlogger, (void *) &(stats) ) != 0)
+		printf("pthread_create error\n");
 
 //	// signal handler thread...
 //	if (pthread_create(&_reader_thread, NULL, async_reader, (void *) &crew) != 0)
@@ -317,7 +322,13 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 		
 		lock = FALSE;
-		log_step_message(LOW, "Queue ready, broadcasting thread GO condition.");
+		// NOTE: may init our result queus inside stats;
+		if (stats._q_result == NULL) {
+			stats._q_result = _q_alloc();
+		} else if (!_q_is_empty(stats._q_result)){
+			log_step_message(LOW, "Result queue is not empty!!!");
+		}
+		log_step_message(LOW, "Data is ready, broadcasting thread GO condition.");
 
 		// http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html
 		PT_MUTEX_LOCK(&(crew.mutex));
@@ -336,7 +347,7 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 		PT_MUTEX_UNLOCK(&(crew.mutex));
 		lock = FALSE;
 		
-		log_step_message(LOW, "All data received, broadcasting thread GO.LOG condition.");
+		log_step_message(LOW, "All data received, checking for SIGHUP.");
 
 //		PT_MUTEX_LOCK(&(crew.mutex));
 //		// while (crew._recv_work_count > 0) {
@@ -345,8 +356,8 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 //		PT_MUTEX_UNLOCK(&(crew.mutex));
 
 		gettimeofday(&now, NULL);
-
 		end_time = (double) now.tv_usec / 1000000 + now.tv_sec;
+
 		stats.poll_time = end_time - begin_time;
 		stats.round++;
 
@@ -363,16 +374,28 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 			
 		}
 		
+		log_step_message(LOW, "All data received, broadcasting GO.LOG condition.");
+		
+		PT_MUTEX_LOCK(&(stats.mutex));
+
+		snprintf(errstr, sizeof(errstr), "_q_result elements count: %d", stats._q_result ->_elem_count);
+		log_step_message(LOW, errstr);
+		// may start plogger thread;
+		
 		snprintf(errstr, sizeof(errstr), "Poll round %d complete.", stats.round);
 		log_step_message(LOW, errstr);
 		log_poll_stats(LOW, stats);
-
+		
+		PT_COND_BROAD(&(stats.go));
+		PT_MUTEX_UNLOCK(&(stats.mutex));
+		
 		// FIXME: better logging here!
 		if (sleep_time <= 0)
 			stats.slow++;
 		else
 			sleepy(sleep_time);
-
+		
+		
 	}
 
 	/* while */

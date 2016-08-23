@@ -36,6 +36,7 @@
 #include <net-snmp-includes.h>
 
 #include "pqueue.h"
+//#include "prlogger.h"
 
 /* global TRUE/FALSE definitions */
 #ifndef FALSE
@@ -247,6 +248,8 @@ typedef struct crew_struct {
 typedef struct poll_stats {
 
 	pthread_mutex_t mutex;
+	// prlogger will wait on that;
+	pthread_cond_t go;
 
 	unsigned long long polls;
 	// unsigned long long db_inserts;
@@ -258,9 +261,13 @@ typedef struct poll_stats {
 	unsigned int errors;
 	unsigned int slow;
 	
+	// db/log errors?
 	// ?! unsigned int timeout;
 
 	double poll_time;
+	
+	pthread_t logger_thread;
+	queue_t* _q_result;
 
 } stats_t;
 
@@ -361,6 +368,8 @@ int hash_target_file(char *);
 
 // mix(ed) queue subs;
 target_t* _target_dup(target_t* _src);
+
+void* prlogger(void *_thread_args);
 
 /*
  *
