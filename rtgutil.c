@@ -7,7 +7,7 @@
 
 #include "rtg.h"
 
-extern FILE *_fp_debug;
+// extern FILE *_fp_debug;
 
 /* read configuration file to establish local environment */
 int read_rtg_config(char *file, config_t *set) {
@@ -22,7 +22,7 @@ int read_rtg_config(char *file, config_t *set) {
 		return (-1);
 	} else {
 		if (set->verbose >= LOW)
-			fprintf(_fp_debug, "Using RTG config file [%s].", file);
+			; // fprintf(_fp_debug, "Using RTG config file [%s].", file);
 		while (!feof(fp)) {
 			fgets(buff, _BUFF_SIZE, fp);
 			if (!feof(fp) && *buff != '#' && *buff != ' ' && *buff != '\n') {
@@ -47,20 +47,20 @@ int read_rtg_config(char *file, config_t *set) {
 #endif
 
 				else {
-					fprintf(_fp_debug, "*** Unrecongized directive: %s=%s in %s\n",
-					        p1, p2, file);
+					// fprintf(_fp_debug, "*** Unrecongized directive: %s=%s in %s\n",
+					//         p1, p2, file);
 					exit(-1);
 				}
 			}
 		}
 
 		if (set->snmp_ver != 1 && set->snmp_ver != 2) {
-			fprintf(_fp_debug, "*** Unsupported SNMP version: %d.\n", set->snmp_ver);
+			// fprintf(_fp_debug, "*** Unsupported SNMP version: %d.\n", set->snmp_ver);
 			exit(-1);
 		}
 		if (set->threads < 1 || set->threads > _MAX_THREADS) {
-			fprintf(_fp_debug, "*** Invalid Number of Threads: %d (max=%d).\n",
-			        set->threads, _MAX_THREADS);
+			// fprintf(_fp_debug, "*** Invalid Number of Threads: %d (max=%d).\n",
+			//         set->threads, _MAX_THREADS);
 			exit(-1);
 		}
 		return (0);
@@ -72,9 +72,9 @@ int write_rtg_config(char *file, config_t *set) {
 	FILE *fp;
 
 	if (set->verbose >= LOW)
-		fprintf(_fp_debug, "Writing default config file [%s].", file);
+		; // fprintf(_fp_debug, "Writing default config file [%s].", file);
 	if ((fp = fopen(file, "w")) == NULL) {
-		fprintf(_fp_debug, "\nCould not open '%s' for writing\n", file);
+		// fprintf(_fp_debug, "\nCould not open '%s' for writing\n", file);
 		return (-1);
 	} else {
 		fprintf(fp, "#\n# RTG v%s Master Config\n#\n", RTG_VERSION);

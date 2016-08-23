@@ -9,9 +9,12 @@
 #ifndef _RTGPLOT_H_
 #define _RTGPLOT_H_ 1
 
+#include <math.h>
+#include <strings.h>
+#include <cgi.h>
+
 #include <gd.h>
 #include <gdfonts.h>
-#include <strings.h>
 
 #define XPLOT_AREA 500
 #define YPLOT_AREA 150

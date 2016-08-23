@@ -208,3 +208,23 @@ Next Poll: 10...
 9...8...7...
 
 (?) what about timeout statistics ?
+
+(o) added rtgplot(.cgi) in CMakeLists; build ok, but for furst run we have:
+
+lisp@lisa ~/ClionProjects/rtg.phoenix/bin/Debug $ ./rtgplot
+(offline mode: enter name=value pairs on standard input)
+a - b
+c
+d
+e
+Segmentation fault: 11
+
+So, quite notably, will start from argument parsing;
+
+NOTE: libgd under mac os ports is:
+
+# libgd under Mac OS (ports)
+#Eroot@lisa ~ # port install gd2
+#--->  Computing dependencies for gd2
+#--->  Dependencies to be installed: fontconfig freetype jpeg tiff xpm xorg-libXext xorg-libX11 xorg-kbproto xorg-libXau xorg-xproto xorg-libXdmcp xorg-libxcb xorg-libpthread-stubs xorg-xcb-proto xorg-xextproto xorg-libXt xorg-libsm xorg-libice
+#--->  Fetching archive for freetype

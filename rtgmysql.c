@@ -7,7 +7,7 @@
 // #include "common.h"
 #include "rtg.h"
 
-extern FILE *_fp_debug;
+// extern FILE *_fp_debug;
 
 int _db_insert(char *_query, MYSQL *_mysql) {
 	if (set.verbose >= HIGH)
@@ -29,15 +29,15 @@ int _db_insert(char *_query, MYSQL *_mysql) {
 
 int _db_connect(char *_database, MYSQL *_mysql) {
 
-	if (set.verbose >= LOW)
-		fprintf(_fp_debug, "[ info] connecting to MySQL/MariaDB _database '%s' on '%s'...", _database, set.dbhost);
+	if (set.verbose >= LOW);
+		// fprintf(_fp_debug, "[ info] connecting to MySQL/MariaDB _database '%s' on '%s'...", _database, set.dbhost);
 
 	mysql_init(_mysql);
 
 	if (
 			!mysql_real_connect(_mysql, set.dbhost, set.dbuser, set.dbpass, _database, 0, NULL, 0)
 			) {
-		fprintf(_fp_debug, "[  err] failed to connect: %s\n", mysql_error(_mysql));
+		// fprintf(_fp_debug, "[  err] failed to connect: %s\n", mysql_error(_mysql));
 		return (-1);
 	}
 

@@ -67,7 +67,7 @@
 
 // 1z0, temp re-definitions
 #define RTG_HOME "/Users/lisp/ClionProjects/rtg.phoenix"
-#define RTG_VERSION "0.7.4.phoenix"
+#define RTG_VERSION "0.7.4.phoenix-r3"
 
 #define RTG_NAME "rtg.phoenix"
 #define RTG_NAME_POLLER "rtg.phoenix.poller"

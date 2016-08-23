@@ -61,19 +61,16 @@ NOTE(s):
 // #include "common.h"
 #include "rtg.h"
 #include "rtgplot.h"
-#include "cgi.h"
-
-#include "math.h"
 
 /* dfp is a debug file pointer.  Points to stderr unless debug=level is set */
 FILE *dfp = NULL;
 
 void dump_graph_range(graph_t *graph) {
-
+	
 	if (set.verbose >= LOW) {
 		
 		fprintf(dfp, "graph\n");
-
+		
 		fprintf(dfp, "xmax: %d\n", graph->xmax);
 		fprintf(dfp, "ymax: %f\n", graph->ymax);
 		fprintf(dfp, "xoffset: %lu\n", graph->xoffset);
@@ -95,15 +92,15 @@ void dump_graph_range(graph_t *graph) {
 }
 
 void dump_data(data_t *head) {
-
+	
 	data_t *entry = NULL;
 	int i = 0;
-
+	
 	fprintf(dfp, "BEGIN %s.\n", __FUNCTION__);
 	entry = head;
-
+	
 	while (entry != NULL) {
-
+		
 		fprintf(dfp,
 		        "  [%d] Count: %lld TS: %ld Rate: %2.3f X: %d Y: %d\n",
 		        ++i,
@@ -112,12 +109,12 @@ void dump_data(data_t *head) {
 		        entry->rate,
 		        entry->x,
 		        entry->y);
-
+		
 		entry = entry->next;
 	}
-
+	
 	fprintf(dfp, "END %s.\n", __FUNCTION__);
-
+	
 }
 
 int dp_counter = 1;
@@ -147,10 +144,10 @@ void zerolate(data_t **data, graph_t *graph) {
 // http://wm.nat.bg/cgi/rtgplot.cgi?gi=gn:In;ntt_In_633:9175;romtelecom_In_640:9230,9260,15066;spnet_In_646:9300;telia_In_645:9295,14761;gn:Out;ntt_Out_633:9176;romtelecom_Out_640:9231,9261,15067;spnet_Out_646:9301;telia_Out_645:9296,14762;&factor=8&begin=1261475100&end=1261561500&units=bits/s&xplot=500&yplot=320&borderb=100&gn=INTERNATIONAL-AGGREGATE-IN/OUT&dm=4&aggr=2
 //
 	unsigned long ts = (graph->range).dataBegin;
-
+	
 	data_t *new = NULL;
 	data_t *crnt = NULL;
-
+	
 	if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 		fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 		exit(1);
@@ -159,37 +156,37 @@ void zerolate(data_t **data, graph_t *graph) {
 	new->counter = 0;
 	new->timestamp = ts;
 	new->next = NULL;
-
+	
 	*data = crnt = new;
 	
 	ts += 300;
-
+	
 	while (ts < (graph->range).end) {
-
+		
 		if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 			fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 			exit(1);
 		}
-
+		
 		new->counter = 0;
 		new->timestamp = ts;
 		new->next = NULL;
-
+		
 		crnt->next = new;
 		crnt = new;
 		ts += 300;
-
+		
 	}
-
+	
 }
 
 void src_zerolate(data_t **data, data_t *src, graph_t *graph) {
-
+	
 	if (src != NULL) {
-
+		
 		data_t *new = NULL;
 		data_t *crnt = NULL;
-
+		
 		if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 			fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 			exit(1);
@@ -198,34 +195,34 @@ void src_zerolate(data_t **data, data_t *src, graph_t *graph) {
 		new->counter = 0;
 		new->timestamp = src->timestamp;
 		new->next = NULL;
-
+		
 		*data = crnt = new;
 		src = src->next;
 		
 		while (src != NULL) {
-
+			
 			if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 				fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 				exit(1);
 			}
-
+			
 			new->counter = 0;
 			new->timestamp = src->timestamp;
 			new->next = NULL;
-
+			
 			crnt->next = new;
 			crnt = new;
 			
 			src = src->next;
-
+			
 		}
-
+		
 	}
 	
 }
 
 void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) {
-
+	
 	if (dest_rate != NULL && src_rate != NULL) {
 
 // 		typedef struct rate_struct {
@@ -234,7 +231,7 @@ void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) 
 // 			float avg;
 // 			float cur;
 // 		} rate_t;
-
+		
 		bzero(dest_rate, sizeof(rate_t));
 		
 		dest_rate->total = src_rate->total;
@@ -256,10 +253,10 @@ void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) 
 			struct data_struct *next;	// next sample
 		} data_t;
 */
-
+		
 		data_t *new = NULL;
 		data_t *crnt = NULL;
-
+		
 		if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 			fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 			exit(1);
@@ -271,18 +268,18 @@ void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) 
 		new->x = src->x;
 		new->y = src->y;
 		new->next = NULL;
-
+		
 		*dest = crnt = new;
 		
 		src = src->next;
 		
 		while (src != NULL) {
-
+			
 			if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 				fprintf(dfp, "FATAL malloc error in %s.\n", __FUNCTION__);
 				exit(1);
 			}
-
+			
 			new->counter = src->counter;
 			new->timestamp = src->timestamp;
 			new->rate = src->rate;
@@ -297,7 +294,7 @@ void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) 
 		}
 		
 	}
-
+	
 }
 
 //
@@ -314,24 +311,24 @@ void copy_data(data_t **dest, data_t *src, rate_t *dest_rate, rate_t *src_rate) 
 #define MAX_TABLE_IDS 256
 
 typedef struct table_struct {
-
+	
 	char name[MAX_TABLE_NAME];
-
+	
 	unsigned int ids[MAX_TABLE_IDS];
 	unsigned int ids_count;
-
+	
 	data_t *data[MAX_TABLE_IDS];
 	rate_t rate[MAX_TABLE_IDS];
-
+	
 } table_t;
 
 typedef struct group_struct {
-
+	
 	char name[MAX_GROUP_NAME];
-
+	
 	table_t tables[MAX_TABLES];
 	unsigned int tables_count;
-
+	
 	data_t *aggr_data[MAX_TABLE_IDS];
 	rate_t aggr_rate[MAX_TABLE_IDS];
 	unsigned int aggr_count;
@@ -340,14 +337,14 @@ typedef struct group_struct {
 	unsigned int aggr_rate_idx[MAX_TABLE_IDS];
 	
 	data_t *max_points_table;
-
+	
 } group_t;
 
 group_t groups[MAX_GROUPS];
 unsigned int groups_count = 0;
 
 int parse_group_data(char *str) {
-
+	
 	char *semi_col = NULL;
 	char *p = str;
 	
@@ -362,7 +359,7 @@ int parse_group_data(char *str) {
 		strncpy(chunk, p, semi_col - p);
 		
 		if (strstr(chunk, "gn:") == chunk) { // we got a group name;
-
+			
 			group_id++;
 			
 			if (group_id > 0) groups[group_id - 1].tables_count = table_id;
@@ -385,15 +382,15 @@ int parse_group_data(char *str) {
 			
 */
 		} else { // got a table name  + ids;
-
+			
 			unsigned int id_id = 0;
-
+			
 			char *colon = strchr(chunk, ':');
 			
 			char *tname = (char *) calloc(colon - chunk, sizeof(char));
-
+			
 			strncpy(groups[group_id].tables[table_id].name, chunk, colon - chunk);
-
+			
 			//strncpy(tname, chunk, colon - chunk);
 			//printf("tn:%s\n", tname);
 			
@@ -401,16 +398,16 @@ int parse_group_data(char *str) {
 			char *id = (char *) calloc(16, sizeof(char));
 			
 			if (comma == NULL) { // only one id;
-
+				
 				strcpy(id, colon + 1);
 				(group->tables[table_id]).ids[id_id] = atoi(id);
 				id_id++;
 				//printf("\tid:%s\n", id);
 				
 			} else {
-
+				
 				do {
-
+					
 					memset(id, 0, 16);
 					strncpy(id, colon + 1, comma - (colon + 1));
 					
@@ -424,7 +421,7 @@ int parse_group_data(char *str) {
 				
 				memset(id, 0, 16);
 				strcpy(id, colon + 1);
-
+				
 				(group->tables[table_id]).ids[id_id] = atoi(id);
 				id_id++;
 				
@@ -438,13 +435,13 @@ int parse_group_data(char *str) {
 			
 			free(tname);
 			free(id);
-
+			
 		}
-
+		
 		p = semi_col + 1;
 		
 		free(chunk);
-
+		
 	}
 	
 	groups[group_id].tables_count = table_id;
@@ -469,20 +466,20 @@ int main(int argc, char **argv) {
 	graph_t graph;
 	color_t *colors = NULL;
 	arguments_t arguments;
-
-	char query[BUFSIZE];
-	char intname[BUFSIZE];
+	
+	char query[_BUFF_SIZE];
+	char intname[_BUFF_SIZE];
 	int i, j;
 	char *web = NULL;
 	int offset = 0;
-
+	
 	/* Check to see if we're being called as a CGI */
 	web = getenv("SERVER_NAME");
 	dfp = stderr;
-
+	
 	/* Check argument count */
 	if (argc > 1 && argc < 5 && (!web)) usage(argv[0]);
-
+	
 	bzero(&arguments, sizeof(arguments_t));
 	bzero(&graph, sizeof(graph_t));
 	config_defaults(&set);
@@ -490,14 +487,14 @@ int main(int argc, char **argv) {
 	set.verbose = OFF;
 	
 	sizeDefaults(&graph);
-
+	
 	if (argc > 1 && (!web))
 		/* Called from the command line with arguments */
 		parseCmdLine(argc, argv, &arguments, &graph);
 	else
 		/* Called via a CGI */
 		parseWeb(&arguments, &graph);
-
+	
 	sizeImage(&graph);
 
 //  graph.range.dataBegin = graph.range.end;
@@ -507,7 +504,7 @@ int main(int argc, char **argv) {
 //  long long counter_max;	// Largest counter in range
 //  int scalex;			// Scale X values to match actual datapoints
 //  long datapoints;		// Number of datapoints in range
-
+	
 	/* Read configuration file to establish local environment */
 	if (arguments.conf_file) {
 		if ((read_rtg_config(arguments.conf_file, &set)) < 0) {
@@ -515,14 +512,14 @@ int main(int argc, char **argv) {
 			exit(-1);
 		}
 	} else {
-		arguments.conf_file = malloc(BUFSIZE);
+		arguments.conf_file = malloc(_BUFF_SIZE);
 		for (i = 0; i < CONFIG_PATHS; i++) {
-			snprintf(arguments.conf_file, BUFSIZE, "%s%s", config_paths[i], DEFAULT_CONF_FILE);
+			// snprintf(arguments.conf_file, _BUFF_SIZE, "%s%s", config_paths[i], DEFAULT_CONF_FILE)_BUFF_SIZE;
 			if (read_rtg_config(arguments.conf_file, &set) >= 0) {
 				break;
 			}
 			if (i == CONFIG_PATHS - 1) {
-				snprintf(arguments.conf_file, BUFSIZE, "%s%s", config_paths[0], DEFAULT_CONF_FILE);
+				// snprintf(arguments.conf_file, _BUFF_SIZE, "%s%s", config_paths[0], DEFAULT_CONF_FILE)_BUFF_SIZE;
 				if ((write_rtg_config(arguments.conf_file, &set)) < 0) {
 					fprintf(dfp, "Couldn't write config file.\n");
 					exit(-1);
@@ -530,39 +527,39 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-
+	
 	/* Initialize array of pointers */
 	for (i = 0; i < MAXTABLES; i++) {
 		for (j = 0; j < MAXIIDS; j++) {
 			data[i][j] = NULL;
 		}
 	}
-
+	
 	/* Attempt to connect to the MySQL Database */
-	if (rtg_dbconnect(set.dbdb, &mysql) < 0) {
+	if (_db_connect(set.dbdb, &mysql) < 0) {
 		fprintf(dfp, "** Database error - check configuration.\n");
 		exit(-1);
 	}
-
+	
 	/* Initialize the graph */
 	create_graph(&img, &graph);
 	init_colors(&img, &colors);
 	draw_grid(&img, &graph);
-
+	
 	// so?! have any color selector ?!
 	if (arguments.cs > 0) {
-
+		
 		unsigned int clr = arguments.cs;
 		while (clr > 0) {
 			clr--;
 			colors = colors->next;
 		}
-
+		
 	}
-
+	
 	/* set xoffset to something random, but suitably large */
 	graph.xoffset = 2000000000;
-
+	
 	/* If we're y-scaling the plot to max interface speed */
 	if (graph.scaley) {
 #ifdef HAVE_STRTOLL
@@ -571,10 +568,10 @@ int main(int argc, char **argv) {
 		graph.ymax = (float) intSpeed(&mysql, arguments.iid[0]);
 #endif
 	}
-
-
+	
+	
 	if (arguments.diff_mode == 4) { // NEW STYLE; use RTG-PARSER data structure;
-
+		
 		parse_group_data(arguments.group_info);
 		
 		int i, j, k;
@@ -593,29 +590,29 @@ int main(int argc, char **argv) {
 				for (k = 0; k < groups[i].tables[j].ids_count; k++) {
 					fprintf(dfp, "    id: %d\n", groups[i].tables[j].ids[k]);
 					snprintf(
-							query,
-							sizeof(query),
-							"SELECT counter, UNIX_TIMESTAMP(dtime) FROM %s WHERE dtime>FROM_UNIXTIME(%ld) AND dtime<=FROM_UNIXTIME(%ld) AND id=%d ORDER BY dtime",
-							groups[i].tables[j].name,
-							graph.range.begin,
-							graph.range.end,
-							groups[i].tables[j].ids[k]);
-
-
+						query,
+						sizeof(query),
+						"SELECT counter, UNIX_TIMESTAMP(dtime) FROM %s WHERE dtime>FROM_UNIXTIME(%ld) AND dtime<=FROM_UNIXTIME(%ld) AND id=%d ORDER BY dtime",
+						groups[i].tables[j].name,
+						graph.range.begin,
+						graph.range.end,
+						groups[i].tables[j].ids[k]);
+					
+					
 					// fprintf(dfp, "  query: %s\n", query);
 					if ((dpc = populate(query, &mysql, &groups[i].tables[j].data[k], &graph)) <
 					    0) { // populate sets max x value;
-
+						
 						if (set.verbose >= HIGH)
 							fprintf(dfp,
 							        "NO DATA for table: %s and id: %d!. continue...\n", groups[i].tables[j].name,
 							        groups[i].tables[j].ids[k]);
 						continue;
-
+						
 					} else {
-
+						
 						if (dpc > max_dpc) {
-
+							
 							max_dpc = dpc;
 							groups[i].max_points_table = groups[i].tables[j].data[k];
 							
@@ -624,23 +621,23 @@ int main(int argc, char **argv) {
 						if (graph.range.end - graph.range.dataBegin > graph.xmax)
 							graph.xmax = graph.range.end - graph.range.dataBegin;
 						if (graph.range.dataBegin < graph.xoffset) graph.xoffset = graph.range.dataBegin;
-
+						
 						calculate_rate(&groups[i].tables[j].data[k], &groups[i].tables[j].rate[k], arguments.factor);
 						/* maximum Y value is largest of all line rates */
 						if (groups[i].tables[j].rate[k].max > graph.ymax)
 							graph.ymax = groups[i].tables[j].rate[k].max; // this one is responcible for max y value;
 						
 					}
-
+					
 				}
 			}
-
+			
 		}
-
+		
 		// fprintf(dfp, "dump_graph_range(): begin\n");
 		dump_graph_range(&graph);
 		// fprintf(dfp, "dump_graph_range(): end\n");
-
+		
 		//
 		// doing actual calculations;
 		//
@@ -655,19 +652,19 @@ int main(int argc, char **argv) {
 					normalize(groups[i].tables[j].data[k], &graph);
 				}
 			}
-
+			
 			// zerolate(&groups[i].aggr_data[0], &graph);
 			src_zerolate(&groups[i].aggr_data[0], groups[i].max_points_table, &graph);
 			
 			calculate_rate(&groups[i].aggr_data[0], &groups[i].aggr_rate[0], arguments.factor);
 			normalize(groups[i].aggr_data[0], &graph);
-
+			
 			groups[i].aggr_count = 1;
 			// dump_data(groups[i].aggr_data[0]);
-
+			
 		}
 //		fprintf(dfp, "doing actual calculations(): end\n");
-
+		
 		if (arguments.aggregate) {
 
 //				fprintf(dfp, "aggregate step 1: begin\n");
@@ -688,20 +685,20 @@ int main(int argc, char **argv) {
 //							fprintf(dfp, "  data_Aggr2(): begin\n");
 //							set.verbose = DEBUG;
 						dataAggr2(
-								groups[i].aggr_data[groups[i].aggr_count],
-								groups[i].tables[j].data[k],
-								&groups[i].aggr_rate[groups[i].aggr_count],
-								&groups[i].tables[j].rate[k],
-								&graph);
+							groups[i].aggr_data[groups[i].aggr_count],
+							groups[i].tables[j].data[k],
+							&groups[i].aggr_rate[groups[i].aggr_count],
+							&groups[i].tables[j].rate[k],
+							&graph);
 //							set.verbose = OFF;
 //							fprintf(dfp, "  data_Aggr2(): end\n");
-
+						
 						if (groups[i].aggr_rate[groups[i].aggr_count].max > graph.ymax)
 							graph.ymax = groups[i].aggr_rate[groups[i].aggr_count].max;
-
+						
 						groups[i].aggr_table_idx[groups[i].aggr_count] = j;
 						groups[i].aggr_rate_idx[groups[i].aggr_count] = k;
-
+						
 						groups[i].aggr_count++;
 
 /*
@@ -719,63 +716,63 @@ int main(int argc, char **argv) {
 				}
 			}
 //				fprintf(dfp, "aggregate step 1: end\n");
-
+			
 			if (arguments.aggregate == 1) {
-
+				
 				for (i = 0; i < groups_count; i++) {
-
+					
 					for (j = 1; j < groups[i].aggr_count; j++) {
-
+						
 						normalize(groups[i].aggr_data[j], &graph);
-
+						
 						if (j < groups[i].aggr_count - 1) {
-
+							
 							if (groups[i].tables[groups[i].aggr_table_idx[j]].rate[groups[i].aggr_rate_idx[j]].cur >
 							    2048.00)
 								plot_line2(groups[i].aggr_data[j], &img, &graph, colors->shade, FALSE, 0);
-
+							
 						} else {
-
+							
 							plot_line2(groups[i].aggr_data[j], &img, &graph, colors->shade, FALSE, 1);
-
+							
 						}
-
+						
 						// plot_legend(&img, groups[i].aggr_rate[j], &graph, colors->shade, groups[i].name, offset);
-
+						
 						//
 						// use iface naming from mysql database in this case;
 						//
 						char counter_name[512];
-
+						
 						bzero(counter_name, 512);
 						getCounterDescription(&mysql,
 						                      counter_name,
 						                      groups[i].name,
 						                      groups[i].tables[groups[i].aggr_table_idx[j]].ids[groups[i].aggr_rate_idx[j]]);
-
+						
 						plot_legend2(&img,
 						             groups[i].tables[groups[i].aggr_table_idx[j]].rate[groups[i].aggr_rate_idx[j]],
 						             &graph, colors->shade, counter_name, &offset);
 						colors = colors->next;
 						offset++;
-
+						
 					}
-
+					
 					// 					normalize(groups[i].aggr_data[0], &graph);
 					// 					plot_line2(groups[i].aggr_data[0], &img, &graph, colors->shade, FALSE);
 					// 					plot_legend(&img, groups[i].aggr_rate[0], &graph, colors->shade, groups[i].name, offset);
-
+					
 				}
-
+				
 			} else if (arguments.aggregate == 2) {
 
 //					fprintf(dfp, "aggregate == 2: begin\n");
 				for (i = 0; i < groups_count; i++) {
-
+					
 					normalize(groups[i].aggr_data[groups[i].aggr_count - 1], &graph);
-
+					
 					plot_line2(groups[i].aggr_data[groups[i].aggr_count - 1], &img, &graph, colors->shade, FALSE, 0);
-
+					
 					// plot_legend(&img, groups[i].aggr_rate[j], &graph, colors->shade, groups[i].name, offset);
 					plot_legend2(&img, groups[i].aggr_rate[groups[i].aggr_count - 1], &graph, colors->shade,
 					             groups[i].name, &offset);
@@ -784,7 +781,7 @@ int main(int argc, char **argv) {
 					
 				}
 //					fprintf(dfp, "aggregate == 2: end\n");
-
+				
 			}
 
 // 				for (i = 0; i < groups_count; i++) {
@@ -802,34 +799,34 @@ int main(int argc, char **argv) {
 // 					offset++;
 // 		
 // 				}
-
+			
 		} else {
-
+			
 			char line[256];
-
+			
 			for (i = 0; i < groups_count; i++) {
 				// 			fprintf(dfp, "group: %s\n", groups[i].name);
 				for (j = 0; j < groups[i].tables_count; j++) {
 					// 				fprintf(dfp, "  table: %s\n", groups[i].tables[j].name);
 					for (k = 0; k < groups[i].tables[j].ids_count; k++) {
 						// 					fprintf(dfp, "    id: %d\n", groups[i].tables[j].ids[k]);
-
+						
 						normalize(groups[i].tables[j].data[k], &graph);
 						plot_line2(groups[i].tables[j].data[k], &img, &graph, colors->shade, FALSE, 0);
 						bzero(line, 256);
 						sprintf(line, "%d %d %d", i, j, k);
 						plot_legend(&img, groups[i].tables[j].rate[k], &graph, colors->shade, line, offset);
-
+						
 						colors = colors->next;
 						offset++;
-
+						
 					}
 				}
-
+				
 			}
-
+			
 		}
-
+		
 		/* this one is WORKING
 
 		for (i = 0; i < groups_count; i++) {
@@ -869,18 +866,18 @@ int main(int argc, char **argv) {
 		}
 
 		*/
-
+		
 	} else { // diff_mode != 4
 		/*
 		Populate the data linked lists and get graph stats 
 		populating data here.
 		*/
 		for (i = 0; i < arguments.tables_to_plot; i++) {
-
+			
 			for (j = 0; j < arguments.iids_to_plot; j++) {
-
+				
 				if (i > 0 && j > 0 && arguments.diff_mode == 3) dp_counter = 0;
-
+				
 				snprintf(query,
 				         sizeof(query),
 				         "SELECT counter, UNIX_TIMESTAMP(dtime) FROM %s WHERE dtime>FROM_UNIXTIME(%ld) AND dtime<=FROM_UNIXTIME(%ld) AND id=%d ORDER BY dtime",
@@ -888,11 +885,11 @@ int main(int argc, char **argv) {
 				         graph.range.begin,
 				         graph.range.end,
 				         arguments.iid[j]);
-
+				
 				if (set.verbose >= DEBUG) fprintf(dfp, "populating table i: %d argument j: %d\n", i, j);
-
+				
 				if (populate(query, &mysql, &data[i][j], &graph) < 0) { // populate sets max x value;
-
+					
 					if (set.verbose >= HIGH) fprintf(dfp, "NO DATA for table: %d and id: %d. continue...\n", i, j);
 					continue;
 					
@@ -912,7 +909,7 @@ int main(int argc, char **argv) {
 				}
 				
 				// dump_graph_range(&graph);
-
+				
 				//
 				// CALCULATING xmax && ymax here.\
 				// rest of functions (with exception of calculate_rate doesn't change this values;
@@ -923,7 +920,7 @@ int main(int argc, char **argv) {
 				if (graph.range.end - graph.range.dataBegin > graph.xmax)
 					graph.xmax = graph.range.end - graph.range.dataBegin;
 				if (graph.range.dataBegin < graph.xoffset) graph.xoffset = graph.range.dataBegin;
-
+				
 				// dump_graph_range(&graph);
 				
 				/* we're plotting impulses or gauge */
@@ -940,29 +937,29 @@ int main(int argc, char **argv) {
 				}
 			}
 		}
-
-
+		
+		
 		if (arguments.diff_mode == 1) {
 			//
 			// try to populate 3rd iid with traffic differences;
 			//
-
+			
 			//
 			// !!!NOTE!!! when there is no data for particular iid there is no table entry in data[][] array.
 			//
-
+			
 			graph.ymax = 0;
 			diff_populate(&data[0][2], data[0][0], data[0][1], &graph);
 			calculate_rate(&data[0][2], &rate[0][2], arguments.factor);
 			if (!graph.scaley && (rate[0][2].max > graph.ymax)) graph.ymax = rate[0][2].max;
-
+			
 			normalize(data[0][2], &graph);
 			plot_line(data[0][2], &img, &graph, colors->shade, FALSE);
-
+			
 			plot_legend(&img, rate[0][2], &graph, colors->shade, arguments.in_name, offset);
-
+			
 		} else if (arguments.diff_mode == 2) {
-
+			
 			//
 			// in difference graph goes calculated here;
 			//
@@ -982,14 +979,14 @@ int main(int argc, char **argv) {
 			normalize(data[0][0], &graph); // renormalize this;
 			plot_line(data[0][0], &img, &graph, colors->shade, FALSE);
 			plot_legend2(&img, rate[0][0], &graph, colors->shade, arguments.in_name, &offset);
-
+			
 			colors = colors->next;
 			offset++;
-
+			
 			normalize(data[1][2], &graph);
 			plot_line(data[1][2], &img, &graph, colors->shade, FALSE);
 			plot_legend2(&img, rate[1][2], &graph, colors->shade, arguments.out_name, &offset);
-
+			
 			//
 			// 		previous diff implementation;
 			//
@@ -1008,14 +1005,14 @@ int main(int argc, char **argv) {
 			// 		normalize(data[1][2], &graph);
 			// 		plot_line(data[1][2], &img, &graph, colors->shade, FALSE);
 			// 		plot_legend(&img, rate[1][2], &graph, colors->shade, arguments.out_name, offset);
-
+			
 		} else if (arguments.diff_mode == 3) {
-
+			
 			normalize(data[0][0], &graph);
 			for (i = 1; i < arguments.tables_to_plot; i++) {
-
+				
 				if (arguments.aggregate) {
-
+					
 					for (j = 1; j < arguments.iids_to_plot; j++) {
 						if (data[i][j] && data[i][j]->next) {
 							if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> normalize\n", i, j);
@@ -1025,7 +1022,7 @@ int main(int argc, char **argv) {
 							if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> no data\n", i, j);
 						}
 					}
-
+					
 					for (j = 1; j < arguments.iids_to_plot; j++) {
 						if (data[i][j] && data[i][j]->next) {
 							if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> dataAggr\n", i, j);
@@ -1037,7 +1034,7 @@ int main(int argc, char **argv) {
 							if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> no data\n", i, j);
 						}
 					}
-
+					
 					//
 					// 				normalize(data[i][0], &graph);
 					// 				if (arguments.filled)
@@ -1047,18 +1044,18 @@ int main(int argc, char **argv) {
 					//
 					// 				/* YYY */
 					// 				/* snprintf(intname, sizeof(intname), "%sAVG", arguments.table[i]); */
-					// 				bzero(intname, BUFSIZE);
+					// 				bzero(intname, _BUFF_SIZE);
 					// 				sprintf(intname, "%d", arguments.iid[i]);
 					//
 					// 				plot_legend(&img, rate[i][0], &graph, colors->shade, intname, offset);
 					// 				offset++;
 					// 				colors = colors->next;
 					//
-
+					
 				}
-
+				
 			}
-
+			
 			// normalize(data[0][0], &graph);
 			if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> normalize sum\n", 0, 0);
 			normalize(data[0][0], &graph);
@@ -1066,19 +1063,19 @@ int main(int argc, char **argv) {
 				plot_line2(data[0][0], &img, &graph, colors->shade, TRUE, 0);
 			else
 				plot_line2(data[0][0], &img, &graph, colors->shade, FALSE, 0);
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> plotting sum\n", 0, 0);
 			plot_legend(&img, rate[0][0], &graph, colors->shade, arguments.in_name, offset);
 			if (set.verbose >= DEBUG) fprintf(dfp, "table i: %d argument j: %d -> plotting legend\n", 0, 0);
-
+			
 		} else {
 			/* 
 				Plot each line and legend
 			*/
 			for (i = 0; i < arguments.tables_to_plot; i++) {
-
+				
 				if (arguments.aggregate) {
-
+					
 					for (j = 0; j < arguments.iids_to_plot; j++) {
 						if (data[i][j] && data[i][j]->next)
 							normalize(data[i][j], &graph);
@@ -1094,28 +1091,28 @@ int main(int argc, char **argv) {
 					
 					/* YYY */
 					/* snprintf(intname, sizeof(intname), "%sAVG", arguments.table[i]); */
-					bzero(intname, BUFSIZE);
+					bzero(intname, _BUFF_SIZE);
 					sprintf(intname, "%d", arguments.iid[i]);
 					
 					plot_legend(&img, rate[i][0], &graph, colors->shade, intname, offset);
 					offset++;
 					colors = colors->next;
-
+					
 				} else {
-
+					
 					for (j = 0; j < arguments.iids_to_plot; j++) {
-
+						
 						//				 Need at least two data points to make a line
 						//	XXX			if (data[i][j] && data[i][j]->next) {
-
+						
 						if (data[i][j]) {
-
+							
 							normalize(data[i][j], &graph);
-
+							
 							if (set.verbose >= DEBUG) { dump_data(data[i][j]); }
-
+							
 							//					 go with filled grpah only for first IID on first table
-
+							
 							// MUST BE CONSIDERED case to SORT evert one by rate[i][j].maxy
 							if ((i == 0) && (j == 0) && arguments.filled)
 								plot_line(data[i][j], &img, &graph, colors->shade, TRUE);
@@ -1123,28 +1120,28 @@ int main(int argc, char **argv) {
 							else
 								plot_line(data[i][j], &img, &graph, colors->shade, FALSE);
 							//plot_line2(data[i][j], &img, &graph, colors->shade, FALSE, 0);
-
+							
 							// 					 YYY
 							// 					snprintf(intname, sizeof(intname), "%s%d", arguments.table[i], arguments.iid[j]);
 							// 					sprintf(intname, "%d", arguments.iid[i]);
-
-							bzero(intname, BUFSIZE);
+							
+							bzero(intname, _BUFF_SIZE);
 							get_intName(&mysql, intname, arguments.iid[j]);
-
+							
 							plot_legend2(&img, rate[i][j], &graph, colors->shade, intname, &offset);
 							offset++;
 							
 							colors = colors->next;
-
+							
 						}
-
+						
 					}
-
+					
 				}
 			}
-
+			
 		}
-
+		
 		/* Plot percentile lines if necessary (only for the first interface!) */
 		if (arguments.percentile) {
 			//
@@ -1161,50 +1158,50 @@ int main(int argc, char **argv) {
 				plot_Nth(&img, &graph, dataPtr);
 			}
 		}
-
+		
 	}
-
-
+	
+	
 	/* Put finishing touches on graph and write it out */
 	draw_border(&img, &graph);
 	draw_arrow(&img, &graph);
 	plot_scale(&img, &graph);
 	plot_labels(&img, &graph, &arguments);
 	write_graph(&img, arguments.output_file);
-
+	
 	/* Disconnect from the MySQL Database, exit. */
-	rtg_dbdisconnect(&mysql);
+	_db_disconnect(&mysql);
 	if (dfp != stderr) fclose(dfp);
 	
 	exit(0);
 }
 
 int diff_populate(data_t **res, data_t *total, data_t *part, graph_t *graph) {
-
+	
 	data_t *t_node = total;
 	data_t *p_node = part;
-
+	
 	data_t *new = NULL;
 	data_t *last = NULL;
-
+	
 	while (t_node != NULL && p_node != NULL) {
-
+		
 		if ((new = (data_t *) malloc(sizeof(data_t))) == NULL) {
 			fprintf(dfp, "Fatal malloc error in diff_populate.\n");
 			exit(1);
 		}
-
+		
 		new->counter = (t_node->counter) - (p_node->counter);
 		new->timestamp = t_node->timestamp;
 		new->next = NULL;
-
+		
 		if (*res != NULL) {
-
+			
 			last->next = new;
 			last = new;
-
+			
 		} else {
-
+			
 			/*
 			if (range->scalex) {
 				if ((new->timestamp > range->begin) &&
@@ -1215,7 +1212,7 @@ int diff_populate(data_t **res, data_t *total, data_t *part, graph_t *graph) {
 				range->dataBegin = range->begin;
 			}
 			*/
-
+			
 			*res = new;
 			last = new;
 		}
@@ -1240,14 +1237,14 @@ int populate(char *query, MYSQL *mysql, data_t **data, graph_t *graph) {
 	range_t *range;
 	
 	unsigned int current_datapoints = 0;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Populating (%s).\n", __FUNCTION__);
-
+	
 	range = &(graph->range);
 	if (set.verbose >= DEBUG)
 		fprintf(dfp, "  Query String: %s\n", query);
-
+	
 	if (mysql_query(mysql, query)) {
 		fprintf(dfp, "  Query error (%s).\n", query);
 		return (-1);
@@ -1258,7 +1255,7 @@ int populate(char *query, MYSQL *mysql, data_t **data, graph_t *graph) {
 	} else if (set.verbose >= LOW) {
 		fprintf(dfp, "  Retrieved %llu rows.\n", mysql_num_rows(result));
 	}
-
+	
 	while ((row = mysql_fetch_row(result))) {
 		if ((new = (data_t *) malloc(sizeof(data_t))) == NULL)
 			fprintf(dfp, "  Fatal malloc error in populate.\n");
@@ -1271,7 +1268,7 @@ int populate(char *query, MYSQL *mysql, data_t **data, graph_t *graph) {
 #endif
 		new->timestamp = atoi(row[1]);
 		new->next = NULL;
-
+		
 		if (dp_counter) (range->datapoints)++; // dp fix by 1z0;
 		
 		current_datapoints++;
@@ -1297,13 +1294,13 @@ int populate(char *query, MYSQL *mysql, data_t **data, graph_t *graph) {
 				//
 				range->dataBegin = range->begin;
 				
-
+				
 			}
 			*data = new;
 			last = new;
 		}
 	}
-
+	
 	/* no data, go home */
 	if (*data == NULL) {
 		if (set.verbose >= DEBUG)
@@ -1313,7 +1310,7 @@ int populate(char *query, MYSQL *mysql, data_t **data, graph_t *graph) {
 		/* realign the end time to be consistent with what's in the DB */
 		if (range->scalex)
 			range->end = new->timestamp;
-
+		
 		if (set.verbose >= DEBUG)
 			fprintf(dfp, "  %ld Data Points in %ld Seconds.\n", range->datapoints, range->end - range->dataBegin);
 	}
@@ -1327,7 +1324,7 @@ void calculate_total(data_t **data, rate_t *rate, int factor) {
 	data_t *entry = NULL;
 	int num_samples = 0;
 	float ratetmp;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Calc total (%s).\n", __FUNCTION__);
 	entry = *data;
@@ -1350,7 +1347,7 @@ void calculate_total(data_t **data, rate_t *rate, int factor) {
 
 
 void calculate_rate(data_t **data, rate_t *rate_stats, int factor) {
-
+	
 	data_t *entry = NULL;
 	float rate = 0.0;
 	float last_rate = 0.0;
@@ -1358,26 +1355,26 @@ void calculate_rate(data_t **data, rate_t *rate_stats, int factor) {
 	int last_sample_secs = 0; // start from Zero!
 	int num_rate_samples = 0;
 	int i;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Calc rate (%s).\n", __FUNCTION__);
-
+	
 	// for (i = 0; i < MAXTABLES; i++) 
 	// only ZERO current rate stats not all;
 	bzero(rate_stats, sizeof(*rate_stats));
-
+	
 	entry = *data;
 	if (entry == NULL) return;
-
+	
 	while (entry != NULL) {
-
+		
 		// 1z0, 2012-06-13, added * factor;
 		rate_stats->total += (entry->counter * factor);
 		
 		sample_secs = entry->timestamp;
 		
 		if (last_sample_secs != 0) {
-
+			
 			num_rate_samples++;
 			rate = (float) entry->counter * factor / (sample_secs - last_sample_secs);
 			/*
@@ -1408,7 +1405,7 @@ void calculate_rate(data_t **data, rate_t *rate_stats, int factor) {
 				        sample_secs,
 				        sample_secs - last_sample_secs,
 				        rate);
-
+			
 			if (rate < 0 && set.verbose >= LOW) fprintf(dfp, "  ***Err: Negative rate!\n");
 			
 			rate_stats->avg += rate;
@@ -1425,7 +1422,7 @@ void calculate_rate(data_t **data, rate_t *rate_stats, int factor) {
 	}
 	rate_stats->cur = rate;
 	rate_stats->avg = rate_stats->avg / num_rate_samples;
-
+	
 	/*
 	 * A rate is calcuated as a function of time which requires at least
 	 * two data points.  Because of this our first data point will always
@@ -1452,17 +1449,17 @@ void calculate_rate(data_t **data, rate_t *rate_stats, int factor) {
  don't write it down.
 */
 void dataAggr(data_t *aggr, data_t *head, rate_t *aggr_rate, rate_t *rate, graph_t *graph) {
-
+	
 	float last_rate;
-
+	
 	// set.verbose = DEBUG;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Aggregate (%s).\n", __FUNCTION__);
-
+	
 	last_rate = aggr->rate;
 	while (head && aggr) {
-
+		
 		if (head->x < aggr->x) {
 			if (set.verbose >= DEBUG) fprintf(dfp, ".h");
 			head = head->next;
@@ -1491,7 +1488,7 @@ void dataAggr(data_t *aggr, data_t *head, rate_t *aggr_rate, rate_t *rate, graph
 	}
 	(aggr_rate->avg) += rate->avg;
 	(aggr_rate->total) += rate->total;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Aggregate (%s) done.\n", __FUNCTION__);
 	
@@ -1499,7 +1496,7 @@ void dataAggr(data_t *aggr, data_t *head, rate_t *aggr_rate, rate_t *rate, graph
 }
 
 void dataAggr2(data_t *aggr, data_t *src, rate_t *aggr_rate_stats, rate_t *src_rate_stats, graph_t *graph) {
-
+	
 	//float last_rate;
 	//set.verbose = DEBUG;
 	//last_rate = aggr->rate;
@@ -1507,15 +1504,15 @@ void dataAggr2(data_t *aggr, data_t *src, rate_t *aggr_rate_stats, rate_t *src_r
 	aggr_rate_stats->max = 0.0;
 	aggr_rate_stats->avg = 0.0;
 	aggr_rate_stats->cur = 0.0;
-
+	
 	int number_of_rates = 1;
 	
 	if (set.verbose >= HIGH) fprintf(dfp, "Aggregate (%s).\n", __FUNCTION__);
 	
 	while (src && aggr) {
-
+		
 		if (src->x == aggr->x || abs(aggr->x - src->x) < 2) {
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".+");
 			
 			aggr->rate = aggr->rate + src->rate;
@@ -1538,9 +1535,9 @@ void dataAggr2(data_t *aggr, data_t *src, rate_t *aggr_rate_stats, rate_t *src_r
 			continue;
 			
 		}
-
+		
 		if (aggr->x > src->x) { // STILL HAS TO BE CONSIDERED THIS CASE!
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".h");
 			src = src->next;
 			
@@ -1550,7 +1547,7 @@ void dataAggr2(data_t *aggr, data_t *src, rate_t *aggr_rate_stats, rate_t *src_r
 		}
 		
 		if (aggr->x < src->x) {
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".a");
 			
 			if (aggr->rate > graph->ymax) {
@@ -1573,10 +1570,10 @@ void dataAggr2(data_t *aggr, data_t *src, rate_t *aggr_rate_stats, rate_t *src_r
 		}
 		
 	}
-
+	
 	(aggr_rate_stats->avg) = (aggr_rate_stats->avg) / number_of_rates;
 	(aggr_rate_stats->total) += src_rate_stats->total;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "\nAggregate (%s) done.\n", __FUNCTION__);
 	
@@ -1602,13 +1599,13 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 	if (set.verbose >= HIGH) fprintf(dfp, "Subtract (%s).\n", __FUNCTION__);
 
 // 	last_rate = dest -> rate;
-
+	
 	int number_of_rates = 1;
 	
 	while (src && dest) {
-
+		
 		if (dest->x == src->x || abs(dest->x - src->x) < 2) {
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".-");
 			
 			dest->rate = fabsf((dest->rate) - (src->rate));
@@ -1632,9 +1629,9 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 			continue;
 			
 		}
-
+		
 		if (dest->x > src->x) { // STILL HAS TO BE CONSIDERED THIS CASE!
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".s");
 			
 			src = src->next;
@@ -1645,11 +1642,11 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 		}
 		
 		if (dest->x < src->x) {
-
+			
 			if (set.verbose >= DEBUG) fprintf(dfp, ".d");
 
 // 		    last_rate = dest -> rate;
-
+			
 			if (dest->rate > graph->ymax) {
 				graph->ymax = dest->rate;
 			}
@@ -1661,7 +1658,7 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 			dest_rate_stats->cur = dest->rate;
 			dest_rate_stats->avg += dest->rate;
 			number_of_rates++;
-
+			
 			dest = dest->next;
 			
 			// if this one is skipped, please continue to next; if no down shit can BREAK!
@@ -1677,7 +1674,7 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 	
 	dest_rate_stats->avg = (dest_rate_stats->avg) / number_of_rates;
 	(dest_rate_stats->total) -= src_rate_stats->total;
-
+	
 	if (set.verbose >= HIGH) fprintf(dfp, "\nSubtract (%s) done.\n", __FUNCTION__);
 	
 	return;
@@ -1685,7 +1682,7 @@ void dataSubtract(data_t *dest, data_t *src, rate_t *dest_rate_stats, rate_t *sr
 }
 
 void normalize(data_t *head, graph_t *graph) {
-
+	
 	//
 	// so graph -> ymax && graph -> xmax are extremely IMPORTANT for synchronisation
 	//
@@ -1696,15 +1693,15 @@ void normalize(data_t *head, graph_t *graph) {
 	int last_x_pixel = 0;
 	int x_pixel = 0;
 	int y_pixel = 0;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Normalize (%s).\n", __FUNCTION__);
-
+	
 	if (graph->ymax > 0)
 		pixels_per_bit = (float) graph->image.yplot_area / graph->ymax;
 	if (graph->xmax > 0)
 		pixels_per_sec = (float) graph->image.xplot_area / graph->xmax;
-
+	
 	if (graph->xmax > 0 && graph->xmax <= HOUR)
 		graph->xunits = HOUR;
 	else if (graph->xmax > HOUR && graph->xmax <= HOUR * DAY)
@@ -1713,7 +1710,7 @@ void normalize(data_t *head, graph_t *graph) {
 		graph->xunits = WEEK;
 	else if (graph->xmax > HOUR * DAY * WEEK)
 		graph->xunits = MONTH;
-
+	
 	if (graph->ymax > 0 && graph->ymax <= KILO)
 		graph->yunits = 1;
 	else if (graph->ymax > KILO && graph->ymax <= MEGA)
@@ -1724,7 +1721,7 @@ void normalize(data_t *head, graph_t *graph) {
 		graph->yunits = GIGA;
 	else
 		graph->yunits = -1;
-
+	
 	entry = head;
 	time_offset = graph->range.dataBegin;
 	if (set.verbose >= DEBUG) {
@@ -1749,7 +1746,7 @@ void normalize(data_t *head, graph_t *graph) {
 		last_x_pixel = x_pixel;
 		entry = entry->next;
 	}
-
+	
 	return;
 }
 
@@ -1783,42 +1780,42 @@ void dump_rate_stats(rate_t *rate) {
 
 
 char *units(float val, char *string) {
-	if (val > TERA)
-		snprintf(string, BUFSIZE, "%.3f T", val / TERA);
-	else if (val > GIGA)
-		snprintf(string, BUFSIZE, "%.3f G", val / GIGA);
-	else if (val > MEGA)
-		snprintf(string, BUFSIZE, "%.3f M", val / MEGA);
-	else if (val > KILO)
-		snprintf(string, BUFSIZE, "%.3f K", val / KILO);
-	else
-		snprintf(string, BUFSIZE, "%.3f ", val);
-	return (string);
+//	if (val > TERA)
+//		snprintf(string, _BUFF_SIZE, "%.3f T", val / TERA)_BUFF_SIZE;
+//	else if (val > GIGA)
+//		snprintf(string, _BUFF_SIZE, "%.3f G", val / GIGA)_BUFF_SIZE;
+//	else if (val > MEGA)
+//		snprintf(string, _BUFF_SIZE, "%.3f M", val / MEGA)_BUFF_SIZE;
+//	else if (val > KILO)
+//		snprintf(string, _BUFF_SIZE, "%.3f K", val / KILO)_BUFF_SIZE;
+//	else
+//		snprintf(string, _BUFF_SIZE, "%.3f ", val)_BUFF_SIZE;
+//	return (string);
 }
 
 
 void plot_legend(gdImagePtr *img, rate_t rate, graph_t *graph, int color, char *interface, int offset) {
-	char total[BUFSIZE];
-	char max[BUFSIZE];
-	char avg[BUFSIZE];
-	char cur[BUFSIZE];
-	char string[BUFSIZE];
+	char total[_BUFF_SIZE];
+	char max[_BUFF_SIZE];
+	char avg[_BUFF_SIZE];
+	char cur[_BUFF_SIZE];
+	char string[_BUFF_SIZE];
 	int i;
-
+	
 	if (set.verbose >= HIGH) fprintf(dfp, "Plotting legend (%s).\n", __FUNCTION__);
-
+	
 	gdImageFilledRectangle(*img,
 	                       BORDER_L,
 	                       BORDER_T + graph->image.yplot_area + 37 + 10 * offset,
 	                       BORDER_L + 7,
 	                       BORDER_T + graph->image.yplot_area + 44 + 10 * offset, color);
-
+	
 	gdImageRectangle(*img,
 	                 BORDER_L,
 	                 BORDER_T + graph->image.yplot_area + 37 + 10 * offset,
 	                 BORDER_L + 7, BORDER_T + graph->image.yplot_area + 44 + 10 * offset,
 	                 std_colors[black]);
-
+	
 	/* XXX
 	if (strlen(interface) > 17) { interface[17] = '\0'; }
 	snprintf(string, sizeof(string), "%s", interface);
@@ -1833,12 +1830,10 @@ void plot_legend(gdImagePtr *img, rate_t rate, graph_t *graph, int color, char *
 		         units((float) rate.max, max), graph->units,
 		         units((float) rate.avg, avg), graph->units,
 		         units((float) rate.cur, cur), graph->units);
-	}
-	else if (graph->impulses) {
+	} else if (graph->impulses) {
 		snprintf(string, sizeof(string), "%s Total: %lld Max: %02.1f",
 		         interface, rate.total, (float) rate.max);
-	}
-	else {
+	} else {
 		snprintf(string, sizeof(string), "%s Max: %7s%s Avg: %7s%s Cur: %7s%s [%7s]",
 		         interface,
 		         units(rate.max, max), graph->units,
@@ -1854,30 +1849,30 @@ void plot_legend(gdImagePtr *img, rate_t rate, graph_t *graph, int color, char *
 }
 
 void plot_legend2(gdImagePtr *img, rate_t rate, graph_t *graph, int color, char *interface, int *off) {
-
-	char total[BUFSIZE];
-	char max[BUFSIZE];
-	char avg[BUFSIZE];
-	char cur[BUFSIZE];
-	char string[BUFSIZE];
+	
+	char total[_BUFF_SIZE];
+	char max[_BUFF_SIZE];
+	char avg[_BUFF_SIZE];
+	char cur[_BUFF_SIZE];
+	char string[_BUFF_SIZE];
 	int i;
 	
 	int offset = *off;
-
+	
 	if (set.verbose >= HIGH) fprintf(dfp, "Plotting legend (%s).\n", __FUNCTION__);
-
+	
 	gdImageFilledRectangle(*img,
 	                       BORDER_L,
 	                       BORDER_T + graph->image.yplot_area + 37 + 10 * offset,
 	                       BORDER_L + 7,
 	                       BORDER_T + graph->image.yplot_area + 44 + 10 * offset, color);
-
+	
 	gdImageRectangle(*img,
 	                 BORDER_L,
 	                 BORDER_T + graph->image.yplot_area + 37 + 10 * offset,
 	                 BORDER_L + 7, BORDER_T + graph->image.yplot_area + 44 + 10 * offset,
 	                 std_colors[black]);
-
+	
 	/* XXX
 	if (strlen(interface) > 17) { interface[17] = '\0'; }
 	snprintf(string, sizeof(string), "%s", interface);
@@ -1885,39 +1880,39 @@ void plot_legend2(gdImagePtr *img, rate_t rate, graph_t *graph, int color, char 
 		snprintf(string, sizeof(string), "%s ", string);
 	}
 	*/
-
-	bzero(string, BUFSIZE);
+	
+	bzero(string, _BUFF_SIZE);
 	sprintf(string, "%s", interface);
 	gdImageString(*img, gdFontSmall, BORDER_L + 10,
 	              BORDER_T + graph->image.yplot_area + 33 + (10 * offset), string, std_colors[black]);
-
-
+	
+	
 	// if (set.verbose >= HIGH) fprintf(dfp, "legend string: %s\n", string);
 	offset++;
-	bzero(string, BUFSIZE);
+	bzero(string, _BUFF_SIZE);
 	sprintf(string, "Max: %7s%s Avg: %7s%s Cur: %7s%s [%7s]",
 	        units(rate.max, max), graph->units,
 	        units(rate.avg, avg), graph->units,
 	        units(rate.cur, cur), graph->units,
 	        units((float) rate.total, total));
-
+	
 	/*	snprintf(string, sizeof(string), "%s Max: %7s%s Avg: %7s%s Cur: %7s%s [%7s]",
 			interface,
 			units(rate.max, max), graph->units,
 			units(rate.avg, avg), graph->units,
 			units(rate.cur, cur), graph->units,
 			units((float)rate.total, total));*/
-
+	
 	
 	gdImageString(*img, gdFontSmall, BORDER_L + 10,
 	              BORDER_T + graph->image.yplot_area + 33 + (10 * offset), string, std_colors[black]);
-
+	
 	*off = offset;
 }
 
 
 void plot_line2(data_t *head, gdImagePtr *img, graph_t *graph, int color, int filled, int fat) {
-
+	
 	data_t *entry = NULL;
 	float pixels_per_sec = 0.0;
 	time_t now;
@@ -1928,14 +1923,14 @@ void plot_line2(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fi
 	int xplot_area = 0;
 	int now_pixel = 0;
 	gdPoint points[4];
-
+	
 	entry = head;
 	if (entry != NULL) {
-
+		
 		lastx = entry->x;
 		lasty = entry->y;
 		entry = entry->next;
-
+		
 	}
 	
 	datapoints = graph->range.datapoints;
@@ -1945,48 +1940,48 @@ void plot_line2(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fi
 	skip = (int) datapoints / xplot_area;
 	/* This nonsense is so that we don't have to depend on ceil/floor functions in math.h */
 	if (datapoints % xplot_area != 0) skip++;
-
+	
 	if (set.verbose >= HIGH) fprintf(dfp, "Plotting LINE. Skip = %d (%s).\n", skip, __FUNCTION__);
 	
 	while (entry != NULL) {
 		if (graph->impulses) {
-
+			
 			gdImageLine(
-					*img,
-					entry->x + BORDER_L,
-					graph->image.yimg_area - graph->image.border_b,
-					entry->x + BORDER_L,
-					graph->image.yimg_area - graph->image.border_b - entry->y,
-					color);
-
+				*img,
+				entry->x + BORDER_L,
+				graph->image.yimg_area - graph->image.border_b,
+				entry->x + BORDER_L,
+				graph->image.yimg_area - graph->image.border_b - entry->y,
+				color);
+			
 		} else {
-
+			
 			if (set.verbose >= DEBUG) {
-
+				
 				fprintf(
-						dfp,
-						"  Plotting from (%d,%d) to (%d,%d) ",
-						lastx + BORDER_L,
-						graph->image.yimg_area - graph->image.border_b - lasty,
-						entry->x + BORDER_L,
-						graph->image.yimg_area - graph->image.border_b - entry->y);
-
+					dfp,
+					"  Plotting from (%d,%d) to (%d,%d) ",
+					lastx + BORDER_L,
+					graph->image.yimg_area - graph->image.border_b - lasty,
+					entry->x + BORDER_L,
+					graph->image.yimg_area - graph->image.border_b - entry->y);
+				
 				fprintf(
-						dfp,
-						"[entry->x/y = %d/%d] [lastx/y = %d/%d]\n",
-						entry->x,
-						entry->y,
-						lastx,
-						lasty);
-
+					dfp,
+					"[entry->x/y = %d/%d] [lastx/y = %d/%d]\n",
+					entry->x,
+					entry->y,
+					lastx,
+					lasty);
+				
 			}
-
+			
 			/*
 				REB - broken, fix someday if (filled) gdImageFilledRectangle(*img)
 			*/
 			
 			if (filled) {
-
+				
 				points[0].x = lastx + BORDER_L;
 				points[0].y = graph->image.yimg_area - graph->image.border_b;
 				
@@ -2002,34 +1997,34 @@ void plot_line2(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fi
 				gdImageFilledPolygon(*img, points, 4, color);
 				
 			} else {
-
+				
 				gdImageLine(
-						*img,
-						lastx + BORDER_L,
-						graph->image.yimg_area - graph->image.border_b - lasty,
-						entry->x + BORDER_L,
-						graph->image.yimg_area - graph->image.border_b - entry->y,
-						color
+					*img,
+					lastx + BORDER_L,
+					graph->image.yimg_area - graph->image.border_b - lasty,
+					entry->x + BORDER_L,
+					graph->image.yimg_area - graph->image.border_b - entry->y,
+					color
 				);
 				if (fat) {
 					gdImageLine(
-							*img,
-							lastx + BORDER_L + 1,
-							graph->image.yimg_area - graph->image.border_b - lasty,
-							entry->x + BORDER_L + 1,
-							graph->image.yimg_area - graph->image.border_b - entry->y,
-							color
+						*img,
+						lastx + BORDER_L + 1,
+						graph->image.yimg_area - graph->image.border_b - lasty,
+						entry->x + BORDER_L + 1,
+						graph->image.yimg_area - graph->image.border_b - entry->y,
+						color
 					);
 					gdImageLine(
-							*img,
-							lastx + BORDER_L + 2,
-							graph->image.yimg_area - graph->image.border_b - lasty,
-							entry->x + BORDER_L + 2,
-							graph->image.yimg_area - graph->image.border_b - entry->y,
-							color
+						*img,
+						lastx + BORDER_L + 2,
+						graph->image.yimg_area - graph->image.border_b - lasty,
+						entry->x + BORDER_L + 2,
+						graph->image.yimg_area - graph->image.border_b - entry->y,
+						color
 					);
 				}
-
+				
 			}
 			
 		}
@@ -2039,7 +2034,7 @@ void plot_line2(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fi
 		entry = entry->next;
 		
 	}
-
+	
 	return;
 }
 
@@ -2054,7 +2049,7 @@ void plot_line(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fil
 	int xplot_area = 0;
 	int now_pixel = 0;
 	gdPoint points[4];
-
+	
 	entry = head;
 	lasty = entry->y;
 	datapoints = graph->range.datapoints;
@@ -2066,10 +2061,10 @@ void plot_line(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fil
 	/* This nonsense is so that we don't have to depend on ceil/floor functions in math.h */
 	if (datapoints % xplot_area != 0)
 		skip++;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Plotting line.  Skip = %d (%s).\n", skip, __FUNCTION__);
-
+	
 	while (entry != NULL) {
 		if (entry->x != (lastx + skip + 2)) {
 			if (entry->y != 0 || lasty != 0) {
@@ -2107,15 +2102,15 @@ void plot_line(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fil
 		}        /* if not skipping */
 		entry = entry->next;
 	}            /* while */
-
+	
 	/* If we're not aligning the time x-axis to the values in the
 			database, make sure we're current up to time(now) */
 	pixels_per_sec = (float) graph->image.xplot_area / graph->xmax;
-
+	
 	/* Find the x-pixel of the current time */
 	time(&now);
 	now_pixel = (int) ((now - graph->range.dataBegin) * pixels_per_sec + .5);
-
+	
 	/* Only extend plot if now is not in plot future */
 	if (now_pixel < BORDER_L + graph->image.xplot_area) {
 		if (set.verbose >= HIGH)
@@ -2130,12 +2125,12 @@ void plot_line(data_t *head, gdImagePtr *img, graph_t *graph, int color, int fil
 			graph->image.yimg_area - graph->image.border_b - lasty, color);
 
 */
-
+		
 	} else {
 		if (set.verbose >= HIGH)
 			fprintf(dfp, "Current time %ld (x-pixel %d) extends past plot end.\n", now, now_pixel);
 	}
-
+	
 	return;
 }
 
@@ -2145,11 +2140,11 @@ void plot_Nth(gdImagePtr *img, graph_t *graph, data_t *nth) {
 	int red;
 	int xplot_area;
 	int yplot_area;
-
+	
 	red = gdImageColorAllocate(*img, 255, 0, 0);
 	xplot_area = graph->image.xplot_area;
 	yplot_area = graph->image.yplot_area;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Plotting Nth Percentile (%s).\n", __FUNCTION__);
 	gdImageLine(*img, BORDER_L,
@@ -2165,7 +2160,7 @@ void plot_scale(gdImagePtr *img, graph_t *graph) {
 	struct tm *thetime;
 	float pixels_per_sec = 0.0;
 	float pixels_per_bit = 0.0;
-	char string[BUFSIZE];
+	char string[_BUFF_SIZE];
 	int i;
 	int last_day = 0;
 	int last_month = 0;
@@ -2174,7 +2169,7 @@ void plot_scale(gdImagePtr *img, graph_t *graph) {
 	float plot_rate = 0.0;
 	int days = 0;
 	int skip = 0;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Plotting scale (%s).\n", __FUNCTION__);
 	pixels_per_sec = (float) graph->image.xplot_area / graph->xmax;
@@ -2237,12 +2232,12 @@ void plot_scale(gdImagePtr *img, graph_t *graph) {
 
 
 void plot_labels(gdImagePtr *img, graph_t *graph, arguments_t *args) {
-	char string[BUFSIZE];
+	char string[_BUFF_SIZE];
 	float title_offset = 0.0;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Plotting labels (%s).\n", __FUNCTION__);
-
+	
 	if (graph->yunits == KILO)
 		snprintf(string, sizeof(string), "K%s", graph->units);
 	else if (graph->yunits == MEGA)
@@ -2251,20 +2246,22 @@ void plot_labels(gdImagePtr *img, graph_t *graph, arguments_t *args) {
 		snprintf(string, sizeof(string), "G%s", graph->units);
 	else
 		snprintf(string, sizeof(string), "%s", graph->units);
-
+	
 	gdImageStringUp(*img, gdFontSmall, BORDER_L - 45, BORDER_T + (graph->image.yplot_area * 2 / 3), string,
 	                std_colors[black]);
-
-	title_offset = 1 - (0.01 * (strlen(VERSION) + strlen(COPYRIGHT) + 2));
+	
+	title_offset = 1 - (0.01 * (strlen(RTG_VERSION) + strlen(COPYRIGHT) + 2));
 
 /*	snprintf(string, sizeof(string), "%s %s", COPYRIGHT, VERSION);
 	gdImageString(*img, gdFontSmall, BORDER_L + (graph->image.xplot_area * title_offset), BORDER_T - 15, string, std_colors[black]); 
 	gdImageString(*img, gdFontMediumBold, BORDER_L + (graph->image.xplot_area * title_offset), BORDER_T - 15, string, std_colors[black]); */
 /*	snprintf(string, sizeof(string), "%s %s/%s", "EvoRTG", VERSION, "graph name goes here..."); */
-
+	
 	snprintf(string, sizeof(string), "%s %s", "EvoLinkRTG", args->graph_name);
-	gdImageString(*img, gdFontMediumBold, BORDER_L, BORDER_T - 15, string, std_colors[black]);
-
+	
+	// FIXME: gdFontMediumBold
+	gdImageString(*img, gdFontSmall, BORDER_L, BORDER_T - 15, string, std_colors[black]);
+	
 }
 
 
@@ -2283,7 +2280,7 @@ void draw_arrow(gdImagePtr *img, graph_t *graph) {
 	int red;
 	gdPoint points[3];
 	int xoffset, yoffset, size;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Drawing directional arrow (%s).\n", __FUNCTION__);
 	red = gdImageColorAllocate(*img, 255, 0, 0);
@@ -2302,10 +2299,10 @@ void draw_arrow(gdImagePtr *img, graph_t *graph) {
 
 void draw_border(gdImagePtr *img, graph_t *graph) {
 	int xplot_area, yplot_area;
-
+	
 	xplot_area = graph->image.xplot_area;
 	yplot_area = graph->image.yplot_area;
-
+	
 	/* Draw Plot Border */
 	gdImageRectangle(*img, BORDER_L, BORDER_T, BORDER_L + xplot_area, BORDER_T + yplot_area, std_colors[black]);
 	return;
@@ -2319,21 +2316,21 @@ void draw_grid(gdImagePtr *img, graph_t *graph) {
 	int i;
 	int ximg_area, yimg_area;
 	int xplot_area, yplot_area;
-
+	
 	img_bg = gdImageColorAllocate(*img, 235, 235, 235);
 	plot_bg = gdImageColorAllocate(*img, 255, 255, 255);
 	ximg_area = graph->image.ximg_area;
 	yimg_area = graph->image.yimg_area;
 	xplot_area = graph->image.xplot_area;
 	yplot_area = graph->image.yplot_area;
-
-
+	
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Drawing image grid (%s).\n", __FUNCTION__);
-
+	
 	gdImageFilledRectangle(*img, 0, 0, ximg_area, yimg_area, img_bg);
 	gdImageFilledRectangle(*img, BORDER_L, BORDER_T, BORDER_L + xplot_area, BORDER_T + yplot_area, plot_bg);
-
+	
 	/* draw the image border */
 	gdImageLine(*img, 0, 0, ximg_area - 1, 0, std_colors[light]);
 	gdImageLine(*img, 1, 1, ximg_area - 2, 1, std_colors[light]);
@@ -2343,13 +2340,13 @@ void draw_grid(gdImagePtr *img, graph_t *graph) {
 	gdImageLine(*img, 0, yimg_area - 1, ximg_area - 1, yimg_area - 1, std_colors[black]);
 	gdImageLine(*img, ximg_area - 2, 1, ximg_area - 2, yimg_area - 2, std_colors[black]);
 	gdImageLine(*img, 1, yimg_area - 2, ximg_area - 2, yimg_area - 2, std_colors[black]);
-
+	
 	/* Define dotted style */
 	styleDotted[0] = std_colors[light];
 	styleDotted[1] = gdTransparent;
 	styleDotted[2] = gdTransparent;
 	gdImageSetStyle(*img, styleDotted, 3);
-
+	
 	/* Draw Image Grid Verticals */
 	for (i = 1; i <= xplot_area; i++) {
 		if (i % (xplot_area / XTICKS) == 0) {
@@ -2364,14 +2361,14 @@ void draw_grid(gdImagePtr *img, graph_t *graph) {
 			            i + BORDER_T, gdStyled);
 		}
 	}
-
+	
 	return;
 }
 
 
 void write_graph(gdImagePtr *img, char *output_file) {
 	FILE *pngout;
-
+	
 	if (output_file) {
 		pngout = fopen(output_file, "wb");
 		gdImagePng(*img, pngout);
@@ -2405,7 +2402,7 @@ void init_colors(gdImagePtr *img, color_t **colors) {
 /*	int		red[MAXLINES] =  {  0,   0, 255,   0, 255, 255, 255,   0, 132,   0, 132, 132, 132, 102,  0, 64};
 	int		green[MAXLINES] ={255,   0,   0, 255,   0, 255, 153,   0,   0, 132,   0, 132, 132,   0,  0,  0};
 	int		blue[MAXLINES] = {  0, 255,   0, 255, 255,   0,   0, 132,   0, 132, 132,   0, 132, 204, 64,  0}; */
-
+	
 	int red[MAXLINES] = {0, 0, 255, 0, 255, 255, 255, 51, 255, 51, 0, 173, 51, 184, 255, 102, 255, 204, 0, 245, 112,
 	                     56};
 	int green[MAXLINES] = {255, 0, 0, 255, 0, 255, 153, 204, 102, 102, 138, 153, 255, 46, 204, 51, 51, 51, 153, 61, 219,
@@ -2435,14 +2432,14 @@ void init_colors(gdImagePtr *img, color_t **colors) {
 // 255   255   0
 // 255   255   255   
 // 
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Initializing colors (%s).\n", __FUNCTION__);
 	/* Define some useful colors; first allocated is background color */
 	std_colors[white] = gdImageColorAllocate(*img, 255, 255, 255);
 	std_colors[black] = gdImageColorAllocate(*img, 0, 0, 0);
 	std_colors[light] = gdImageColorAllocate(*img, 194, 194, 194);
-
+	
 	/* Allocate colors for the data lines */
 	for (i = 0; i < MAXLINES; i++) {
 		if ((new = (color_t *) malloc(sizeof(color_t))) == NULL) {
@@ -2475,10 +2472,10 @@ long intSpeed(MYSQL *mysql, int iid) {
 	char query[256];
 	MYSQL_RES *result;
 	MYSQL_ROW row;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Fetching interface speed (%s).\n", __FUNCTION__);
-
+	
 	snprintf(query, sizeof(query), "SELECT speed FROM interface WHERE id=%d", iid);
 	if (set.verbose >= DEBUG)
 		fprintf(dfp, "Query String: %s\n", query);
@@ -2526,21 +2523,21 @@ float cmp(data_t *a, data_t *b) {
 data_t *sort_data(data_t *list, int is_circular, int is_double) {
 	data_t *p, *q, *e, *tail, *oldhead;
 	int insize, nmerges, psize, qsize, i;
-
+	
 	/* if `list' was passed in as NULL, return immediately */
 	if (!list)
 		return NULL;
-
+	
 	insize = 1;
-
+	
 	while (1) {
 		p = list;
 		oldhead = list; /* only used for circular linkage */
 		list = NULL;
 		tail = NULL;
-
+		
 		nmerges = 0;  /* count number of merges we do in this pass */
-
+		
 		while (p) {
 			nmerges++;  /* there exists a merge to be done */
 			/* step `insize' places along from p */
@@ -2554,13 +2551,13 @@ data_t *sort_data(data_t *list, int is_circular, int is_double) {
 					q = q->next;
 				if (!q) break;
 			}
-
+			
 			/* if q hasn't fallen off end, we have two lists to merge */
 			qsize = insize;
-
+			
 			/* now we have two lists; merge them */
 			while (psize > 0 || (qsize > 0 && q)) {
-
+				
 				/* decide whether next element of merge comes from p or q */
 				if (psize == 0) {
 					/* p is empty; e must come from q. */
@@ -2588,7 +2585,7 @@ data_t *sort_data(data_t *list, int is_circular, int is_double) {
 					qsize--;
 					if (is_circular && q == oldhead) q = NULL;
 				}
-
+				
 				/* add the next element to the merged list */
 				if (tail) {
 					tail->next = e;
@@ -2601,7 +2598,7 @@ data_t *sort_data(data_t *list, int is_circular, int is_double) {
 				}
 				tail = e;
 			}
-
+			
 			/* now p has stepped `insize' places along, and q has too */
 			p = q;
 		}
@@ -2613,11 +2610,11 @@ data_t *sort_data(data_t *list, int is_circular, int is_double) {
 			*/
 		} else
 			tail->next = NULL;
-
+		
 		/* If we have done only one merge, we're finished. */
 		if (nmerges <= 1)   /* allow for nmerges==0, the empty list case */
 			return list;
-
+		
 		/* Otherwise repeat, merging lists twice the size */
 		insize *= 2;
 	}
@@ -2629,7 +2626,7 @@ data_t *sort_data(data_t *list, int is_circular, int is_double) {
 unsigned int count_data(data_t *head) {
 	int count = 0;
 	data_t *ptr = NULL;
-
+	
 	ptr = head;
 	while (ptr) {
 		count++;
@@ -2644,10 +2641,10 @@ data_t *return_Nth(data_t *head, int datapoints, int n) {
 	int depth;
 	float percent = 0.0;
 	int i;
-
+	
 	percent = 1 - ((float) n / 100);
 	depth = datapoints * percent;
-
+	
 	for (i = 0; i < depth; i++) {
 		head = head->next;
 	}
@@ -2657,14 +2654,14 @@ data_t *return_Nth(data_t *head, int datapoints, int n) {
 
 void parseCmdLine(int argc, char **argv, arguments_t *arguments, graph_t *graph) {
 	int ch;
-
+	
 	graph->units = malloc(sizeof(DEFAULT_UNITS));
 	strncpy(graph->units, DEFAULT_UNITS, sizeof(DEFAULT_UNITS));
 	arguments->tables_to_plot = 0;
 	arguments->iids_to_plot = 0;
 	arguments->factor = 1;
 	arguments->output_file = NULL;
-
+	
 	while ((ch = getopt(argc, argv, "ab:c:d:e:f:ghi:j:k:lm:n:o:pq:r:t:u:vxy")) != EOF)
 		switch ((char) ch) {
 			case 'a':
@@ -2740,7 +2737,7 @@ void parseCmdLine(int argc, char **argv, arguments_t *arguments, graph_t *graph)
 				usage(argv[0]);
 				break;
 		}
-
+	
 	if (argv[optind + 1]) {
 		graph->range.begin = atol(argv[optind]);
 		graph->range.end = atol(argv[optind + 1]);
@@ -2748,7 +2745,7 @@ void parseCmdLine(int argc, char **argv, arguments_t *arguments, graph_t *graph)
 		usage(argv[0]);
 	}
 	if (set.verbose >= LOW) {
-		fprintf(dfp, "RTGplot version %s.\n", VERSION);
+		fprintf(dfp, "RTGplot version %s.\n", RTG_VERSION);
 		fprintf(dfp, "%d table(s), %d iid(s) to plot.\n", arguments->tables_to_plot,
 		        arguments->iids_to_plot);
 	}
@@ -2759,15 +2756,15 @@ void parseWeb(arguments_t *arguments, graph_t *graph) {
 	s_cgi **cgiArg;
 	char *temp = NULL;
 	char *token;
-	char var[BUFSIZE];
+	char var[_BUFF_SIZE];
 	int i;
-
+	
 	graph->units = malloc(sizeof(DEFAULT_UNITS));
 	strncpy(graph->units, DEFAULT_UNITS, sizeof(DEFAULT_UNITS));
 	arguments->tables_to_plot = 0;
 	arguments->iids_to_plot = 0;
 	arguments->factor = 1;
-
+	
 	cgiDebug(0, 0);
 	cgiArg = cgiInit();
 	if ((temp = cgiGetValue(cgiArg, "factor")))
@@ -2797,34 +2794,34 @@ void parseWeb(arguments_t *arguments, graph_t *graph) {
 		dfp = fopen(var, "w");
 		set.verbose = atoi(temp);
 	}
-
+	
 	/* 1z0's command line extensions to web */
-
+	
 	if ((temp = cgiGetValue(cgiArg, "gn"))) {
 		arguments->graph_name = temp;
 	}
-
+	
 	if ((temp = cgiGetValue(cgiArg, "dm"))) {
 		arguments->diff_mode = atoi(temp);
 	}
-
+	
 	if ((temp = cgiGetValue(cgiArg, "cs"))) {
 		arguments->cs = atoi(temp);
 	}
-
+	
 	if ((temp = cgiGetValue(cgiArg, "ip"))) {
 		arguments->in_name = temp;
 	}
-
+	
 	if ((temp = cgiGetValue(cgiArg, "op"))) {
 		arguments->out_name = temp;
 	}
-
+	
 	if ((temp = cgiGetValue(cgiArg, "gi"))) { // group info goes here
 		arguments->group_info = temp;
 	}
-
-
+	
+	
 	graph->range.begin = atol(cgiGetValue(cgiArg, "begin"));
 	graph->range.end = atol(cgiGetValue(cgiArg, "end"));
 	if ((temp = cgiGetValue(cgiArg, "iid"))) {
@@ -2835,89 +2832,89 @@ void parseWeb(arguments_t *arguments, graph_t *graph) {
 			token = strtok(NULL, "\n");
 		}
 	}
-
+	
 	/* XXX REB - Warning: Deprecated, tN argument will go away in RTG 0.8 XXX */
-
+	
 	for (i = 0; i < MAXTABLES; i++) {
 		snprintf(var, sizeof(var), "t%d", i + 1);
 		if ((arguments->table[i] = cgiGetValue(cgiArg, var)))
 			arguments->tables_to_plot++;
 	}
-
+	
 	if ((graph->units = cgiGetValue(cgiArg, "units")) == NULL) {
 		graph->units = malloc(sizeof(DEFAULT_UNITS));
 		strncpy(graph->units, DEFAULT_UNITS, sizeof(graph->units));
 	}
-
+	
 }
 
 /* 1z0's get my interface name fix */
 
 int get_intName(MYSQL *mysql, char *name, int iid) {
-
+	
 	char query[256];
 	MYSQL_RES *result;
 	MYSQL_ROW row;
-
+	
 	if (set.verbose >= HIGH)
 		fprintf(dfp, "Fetching interface speed (%s).\n", __FUNCTION__);
-
+	
 	snprintf(query, sizeof(query), "SELECT name FROM interface WHERE id=%d", iid);
-
+	
 	if (set.verbose >= DEBUG)
 		fprintf(dfp, "Query String: %s\n", query);
-
+	
 	if (mysql_query(mysql, query)) {
 		fprintf(dfp, "Query error.\n");
 		return (-1);
 	}
-
+	
 	if ((result = mysql_store_result(mysql)) == NULL) {
 		fprintf(dfp, "Retrieval error.\n");
 		return (-1);
 	}
 	row = mysql_fetch_row(result);
-
+	
 	strcpy(name, row[0]);
-
+	
 	return 1;
-
+	
 }
 
 int getCounterDescription(MYSQL *mysql, char *res, char *dir, int id) {
-
+	
 	char query[256];
 	
 	MYSQL_RES *result;
 	MYSQL_ROW row;
-
+	
 	if (set.verbose >= HIGH) fprintf(dfp, "Fetching interface speed (%s).\n", __FUNCTION__);
 	
 	bzero(query, 256);
 	snprintf(query, sizeof(query),
 	         "select t1.name, t2.cust_sh_name, t1.if_name, t2.if_alias, substring_index(t2.host, '.', 2) as host from interface as t1, service_map as t2 where t1.id = %d and t1.rid = t2.tbl_rid and t1.if_name = t2.if_name;",
 	         id);
-
+	
 	if (set.verbose >= DEBUG) fprintf(dfp, "Query String: %s\n", query);
-
+	
 	if (mysql_query(mysql, query)) {
-
+		
 		fprintf(dfp, "Query error.\n");
 		return (-1);
 		
 	}
-
+	
 	if ((result = mysql_store_result(mysql)) == NULL) {
-
+		
 		fprintf(dfp, "Retrieval error.\n");
 		return (-1);
 		
 	}
 	row = mysql_fetch_row(result);
-
+	
 	sprintf(res, "%s %s %s (%s)", dir, row[1], row[2], row[4]);
-
+	
 	return 1;
-
+	
 }
 
