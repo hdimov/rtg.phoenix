@@ -7,7 +7,7 @@
 
 #include "rtg.h"
 
-// extern FILE *_fp_debug;
+extern config_t set;
 
 /* read configuration file to establish local environment */
 int read_rtg_config(char *file, config_t *set) {
@@ -28,15 +28,15 @@ int read_rtg_config(char *file, config_t *set) {
 			if (!feof(fp) && *buff != '#' && *buff != ' ' && *buff != '\n') {
 				sscanf(buff, "%20s %20s", p1, p2);
 				if (!strcasecmp(p1, "Interval")) set->interval = atoi(p2);
-				else if (!strcasecmp(p1, "HighSkewSlop")) set->highskewslop = atof(p2);
-				else if (!strcasecmp(p1, "LowSkewSlop")) set->lowskewslop = atof(p2);
+				else if (!strcasecmp(p1, "HighSkewSlop")) set->high_skew_slop = atof(p2);
+				else if (!strcasecmp(p1, "LowSkewSlop")) set->low_skew_slop = atof(p2);
 				else if (!strcasecmp(p1, "SNMP_Ver")) set->snmp_ver = atoi(p2);
 				else if (!strcasecmp(p1, "SNMP_Port")) set->snmp_port = atoi(p2);
 				else if (!strcasecmp(p1, "Threads")) set->threads = atoi(p2);
-				else if (!strcasecmp(p1, "DB_Host")) strncpy(set->dbhost, p2, sizeof(set->dbhost));
-				else if (!strcasecmp(p1, "DB_Database")) strncpy(set->dbdb, p2, sizeof(set->dbdb));
-				else if (!strcasecmp(p1, "DB_User")) strncpy(set->dbuser, p2, sizeof(set->dbuser));
-				else if (!strcasecmp(p1, "DB_Pass")) strncpy(set->dbpass, p2, sizeof(set->dbpass));
+				else if (!strcasecmp(p1, "DB_Host")) strncpy(set -> _db_host, p2, sizeof(set -> _db_host));
+				else if (!strcasecmp(p1, "DB_Database")) strncpy(set -> _db_name, p2, sizeof(set -> _db_name));
+				else if (!strcasecmp(p1, "DB_User")) strncpy(set -> _db_user, p2, sizeof(set -> _db_user));
+				else if (!strcasecmp(p1, "DB_Pass")) strncpy(set -> _db_pass, p2, sizeof(set -> _db_pass));
 
 /* Long longs not ANSI C.  If OS doesn't support atoll() use default. */
 				else if (!strcasecmp(p1, "OutOfRange"))
@@ -79,15 +79,15 @@ int write_rtg_config(char *file, config_t *set) {
 	} else {
 		fprintf(fp, "#\n# RTG v%s Master Config\n#\n", RTG_VERSION);
 		fprintf(fp, "Interval\t%d\n", set->interval);
-		fprintf(fp, "HighSkewSlop\t%f\n", set->highskewslop);
-		fprintf(fp, "LowSkewSlop\t%f\n", set->lowskewslop);
+		fprintf(fp, "HighSkewSlop\t%f\n", set->high_skew_slop);
+		fprintf(fp, "LowSkewSlop\t%f\n", set->low_skew_slop);
 		fprintf(fp, "OutOfRange\t%lld\n", set->out_of_range);
 		fprintf(fp, "SNMP_Ver\t%d\n", set->snmp_ver);
 		fprintf(fp, "SNMP_Port\t%d\n", set->snmp_port);
-		fprintf(fp, "DB_Host\t%s\n", set->dbhost);
-		fprintf(fp, "DB_Database\t%s\n", set->dbdb);
-		fprintf(fp, "DB_User\t%s\n", set->dbuser);
-		fprintf(fp, "DB_Pass\t%s\n", set->dbpass);
+		fprintf(fp, "DB_Host\t%s\n", set->_db_host);
+		fprintf(fp, "DB_Database\t%s\n", set->_db_name);
+		fprintf(fp, "DB_User\t%s\n", set->_db_user);
+		fprintf(fp, "DB_Pass\t%s\n", set->_db_pass);
 		fprintf(fp, "Threads\t%d\n", set->threads);
 		fclose(fp);
 		return (0);
@@ -99,21 +99,21 @@ int write_rtg_config(char *file, config_t *set) {
 void config_defaults(config_t *set) {
 
 	set->interval = DEFAULT_INTERVAL;
-	set->highskewslop = DEFAULT_HIGH_SKEW_SLOP;
-	set->lowskewslop = DEFAULT_LOW_SKEW_SLOP;
+	set->high_skew_slop = DEFAULT_HIGH_SKEW_SLOP;
+	set->low_skew_slop = DEFAULT_LOW_SKEW_SLOP;
 	set->out_of_range = DEFAULT_OUT_OF_RANGE;
 
 	set->snmp_ver = DEFAULT_SNMP_VER;
 	set->snmp_port = DEFAULT_SNMP_PORT;
 
 	set->threads = DEFAULT_THREADS;
-	strncpy(set->dbhost, DEFAULT_DB_HOST, sizeof(set->dbhost));
-	strncpy(set->dbdb, DEFAULT_DB_DB, sizeof(set->dbhost));
-	strncpy(set->dbuser, DEFAULT_DB_USER, sizeof(set->dbhost));
-	strncpy(set->dbpass, DEFAULT_DB_PASS, sizeof(set->dbhost));
-	set->dboff = FALSE;
-	set->withzeros = FALSE;
-	set->verbose = OFF;
+	strncpy(set -> _db_host, DEFAULT_DB_HOST, sizeof(set -> _db_host));
+	strncpy(set -> _db_name, DEFAULT_DB_DB, sizeof(set -> _db_name));
+	strncpy(set -> _db_user, DEFAULT_DB_USER, sizeof(set-> _db_user));
+	strncpy(set -> _db_pass, DEFAULT_DB_PASS, sizeof(set-> _db_pass));
+	set -> db_off = FALSE;
+	set -> with_zeros = FALSE;
+	set -> verbose = OFF;
 /*
 	strncpy(config_paths[0], CONFIG_PATH_1, sizeof(config_paths[0]));
 	snprintf(config_paths[1], sizeof(config_paths[1]), "%s/etc/", RTG_HOME);

@@ -36,7 +36,6 @@
 #include <net-snmp-includes.h>
 
 #include "pqueue.h"
-//#include "prlogger.h"
 
 /* global TRUE/FALSE definitions */
 #ifndef FALSE
@@ -277,6 +276,7 @@ typedef struct poll_stats {
 	double poll_time;
 	
 	pthread_t logger_thread;
+	unsigned int logger_db_alive;
 	queue_t* _q_result;
 
 } stats_t;
@@ -380,19 +380,6 @@ int hash_target_file(char *);
 target_t* _target_dup(target_t* _src);
 
 void* prlogger(void *_thread_args);
-
-/*
- *
- * global data structures
- *
- * */
-
-config_t set;
-hash_t hash;
-
-/* global variables */
-int lock;
-int waiting;
 
 /*
  *

@@ -7,6 +7,11 @@
 #ifndef RTG_PHOENIX_PRLOGGER_H
 #define RTG_PHOENIX_PRLOGGER_H
 
+#include "psql.h"
+
+extern MYSQL _mysql;
+extern config_t set;
+
 void* prlogger(void *_thread_args);
 
 #endif //RTG_PHOENIX_PRLOGGER_H

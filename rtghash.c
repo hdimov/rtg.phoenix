@@ -7,6 +7,10 @@
 
 #include "rtg.h"
 
+extern config_t set;
+extern hash_t hash;
+
+
 /* Initialize hash table */
 void init_hash() {
 

@@ -204,6 +204,7 @@ void _anylyze_result_and_update_queue(
 		/* last_value < 0, so this must be the first poll */
 		
 		_current_local -> insert_value = insert_val;
+		// NOTE: _current_local -> insert_value = result;
 		
 		sprintf(
 			_log_str,
@@ -292,25 +293,6 @@ void _anylyze_result_and_update_queue(
 	}
 	
 	log2me(DEVELOP, _log_str);
-	
-//	if (!(set.dboff)) {
-//		if ( (insert_val > 0) || (set.withzeros) ) {
-//			PT_MUTEX_LOCK(&crew->mutex);
-//			snprintf(query, sizeof(query), "INSERT INTO %s VALUES (%d, NOW(), %llu)",
-//			         entry->table, entry->iid, insert_val);
-//			if (set.verbose >= DEBUG) printf("SQL: %s\n", query);
-//			status = mysql_query(&mysql, query);
-//			if (status) printf("*** MySQL Error: %s\n", mysql_error(&mysql));
-//			PT_MUTEX_UNLOCK(&crew->mutex);
-//
-//			if (!status) {
-//				PT_MUTEX_LOCK(&stats.mutex);
-//				stats.db_inserts++;
-//				PT_MUTEX_UNLOCK(&stats.mutex);
-//			}
-//		}
-//		insert_val > 0 or withzeros
-//	}
 
 //if (sessp != NULL) {
 //snmp_sess_close(sessp);

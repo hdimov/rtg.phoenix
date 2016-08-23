@@ -11,14 +11,13 @@ include_directories(/opt/local/include/net-snmp)
 link_directories(/opt/local/lib)
 link_directories(/opt/local/lib/mariadb-10.1/mysql/)
 
-set(SOURCE_FILES rtgutil.c rtghash.c rtgmysql.c putil.c pqueue.h pqueue.c  psnmp.h psnmp.c prlogger.h prlogger.c ppoller.c psql.c psql.h)
-add_executable(ppoller ${SOURCE_FILES} psql.c psql.h)
+set(SOURCE_FILES rtgutil.c rtghash.c putil.c pqueue.h pqueue.c  psnmp.h psnmp.c prlogger.h prlogger.c ppoller.c psql.c psql.h ppoller.h)
+add_executable(ppoller ${SOURCE_FILES})
 target_link_libraries(ppoller pthread mysqlclient netsnmp)
 
-set(SOURCE_FILES_2 rtgmysql.c rtgutil.c rtgplot.h rtgplot.c psql.c psql.h)
-add_executable(rtgplot ${SOURCE_FILES_2} psql.c psql.h)
+set(SOURCE_FILES_2 rtgutil.c rtgplot.h rtgplot.c psql.c psql.h)
+add_executable(rtgplot ${SOURCE_FILES_2})
 target_link_libraries(rtgplot mysqlclient gd cgi)
-
 
 #set(SOURCE_FILES_2 simple_snmp.c)
 #add_executable(simple_snmp ${SOURCE_FILES_2})

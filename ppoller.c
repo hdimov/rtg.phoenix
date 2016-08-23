@@ -9,15 +9,20 @@
    Description: RTG SNMP get dumps to MySQL database
 ****************************************************************************/
 
-#define _REENTRANT
+#include "ppoller.h"
 
-// #include "common.h"
+/*
+ *
+ * global data structures
+ *
+ * */
 
-#include "rtg.h"
+config_t set;
+hash_t hash;
 
-// #include <syslog.h>
+int lock;
+int waiting;
 
-/* Yes.  Globals. */
 stats_t stats = {PTHREAD_MUTEX_INITIALIZER, PTHREAD_COND_INITIALIZER, 0, 0, 0, 0, 0, 0, 0, 0.0, NULL, NULL};
 
 char *target_file = NULL;
@@ -25,18 +30,12 @@ target_t *current = NULL;
 
 int entries = 0;
 
-MYSQL mysql;
-
 /* dfp is a debug file pointer.  Points to stderr unless debug=level is set */
 FILE *_fp_debug = NULL;
 
 int _async_global_recv_work_count = 0;
 
-/*
- *
- * main rtg.phoenix.poller - namely ppoller event loop;
- *
- */
+
 
 int main(int argc, char *argv[]) {
 	
@@ -258,9 +257,17 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 
 	if (set.verbose >= HIGH)
 		printf("\nStarting threads.\n");
-
-	// current = NULL;
-
+	
+	// signal handler thread...
+	if (pthread_create(&sig_thread, NULL, sig_handler, (void *) &(signal_set)) != 0)
+		printf("pthread_create error\n");
+	
+	stats.logger_db_alive = FALSE;
+	if (pthread_create( &(stats.logger_thread), NULL, prlogger, (void *) &(stats) ) != 0)
+		printf("pthread_create error\n");
+	// FIXME: a kind of barrier;
+	while (stats.logger_db_alive == FALSE);
+	
 	// worker threads...
 	for (i = 0; i < set.threads; i++) {
 		crew.member[i].index = i;
@@ -269,17 +276,6 @@ root@lisa ~ # syslog -w -k Sender rtg.phoenix.poller
 			printf("pthread_create error\n");
 	}
 	
-	if (pthread_create( &(stats.logger_thread), NULL, prlogger, (void *) &(stats) ) != 0)
-		printf("pthread_create error\n");
-
-//	// signal handler thread...
-//	if (pthread_create(&_reader_thread, NULL, async_reader, (void *) &crew) != 0)
-//		printf("pthread_create error\n");
-
-	// signal handler thread...
-	if (pthread_create(&sig_thread, NULL, sig_handler, (void *) &(signal_set)) != 0)
-		printf("pthread_create error\n");
-
 	/* give threads time to start up */
 	// ?! wtf sleep(1);
 
@@ -433,7 +429,7 @@ void *sig_handler(void *arg) {
 			case SIGQUIT:
 				if (set.verbose >= LOW)
 					printf("Quiting: received signal %d.\n", sig_number);
-				_db_disconnect(&mysql);
+				_db_disconnect(&_mysql);
 				unlink(PID_FILE);
 				exit(1);
 				break;

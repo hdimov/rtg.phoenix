@@ -12,4 +12,6 @@
 
 #include <stdio.h>
 
+extern config_t set;
+
 #endif //RTG_PHOENIX_PUTIL_H
